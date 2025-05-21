@@ -1,3 +1,3 @@
-Duhai cintaku, sayangku, lepaskanlah --
+Duhai cintaku, sayangku, lepaskanlah
 
 Perasaanmu, rindumu, seluruh cintamu
