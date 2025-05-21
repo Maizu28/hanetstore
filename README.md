@@ -1,1 +1,2 @@
-Tambahan fitur web wuwa
+Duhai cintaku, sayangku, lepaskanlah
+Perasaanmu, rindumu, seluruh cintamu
