@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paket Rawat Akun Genshin Impact</title>
     <link rel="stylesheet" href="paketgi.css" />
+    <style>
+    .fade-slide {
+      animation: fadeSlideUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    </style>
   </head>
 
   <body>
@@ -65,17 +86,6 @@
             border="0"
             alt="Page 2"
         /></a>
-      </div>
-
-      <h1>Paket Joki Rawat Akun Genshin Impact</h1>
-
-      <div class="search-box">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Cari kategori..."
-          onkeyup="searchCategory()"
-        />
       </div>
 
       <div class="card">
@@ -210,5 +220,32 @@
     </div>
 
     <script src="paketgi.js"></script>
+
+    <script>
+      // Ambil query dari URL
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("query")?.toLowerCase();
+
+      const cards = document.querySelectorAll(".card");
+
+      let found = false;
+      cards.forEach(card => {
+        const title = card.dataset.title;
+
+        if (!query || title.includes(query)) {
+          card.style.display = "";
+          void card.offsetWidth; // reflow
+          card.classList.add("fade-slide");
+          found = true;
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // Jika query kosong atau tidak ada yang cocok, kembali ke index.html
+      if (!query || !found) {
+        window.location.href = "https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20Genshin.html";
+      }
+    </script>
   </body>
 </html>
