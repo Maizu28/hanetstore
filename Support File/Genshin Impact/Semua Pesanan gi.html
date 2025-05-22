@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paket Rawat Akun Genshin Impact</title>
     <link rel="stylesheet" href="paketgi.css" />
+    <style>
+      .fade-slide {
+        animation: fadeSlideUp 0.5s ease forwards;
+      }
+
+      @keyframes fadeSlideUp {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .card {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+    </style>
   </head>
 
   <body>
@@ -67,7 +88,7 @@
         /></a>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="daily, Harian">
         <h3>Daily</h3>
         <li>Daily comission</li>
         <li>Habiskan Resin</li>
@@ -79,7 +100,7 @@
         <button onclick="orderNow('Daily')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="Weekly, Mingguan">
         <h3>Weekly</h3>
         <li>Daily comission</li>
         <li>Habiskan Resin</li>
@@ -91,7 +112,7 @@
         <button onclick="orderNow('Weekly')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="Monthly, Bulanan">
         <h3>Monthly</h3>
         <li>Daily comission</li>
         <li>Habiskan Resin</li>
@@ -110,8 +131,8 @@
         <button onclick="orderNow('Monthly')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
-        <h3>Latenrt Rite</h3>
+      <div class="card" data-title="Event">
+        <h3>Event Latenrt Rite</h3>
         <li>Quest Event</li>
         <li>Undangan</li>
         <li>Tantangan</li>
@@ -122,8 +143,8 @@
         <button onclick="orderNow('Event Lantern Rite')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
-        <h3>Aniversay</h3>
+      <div class="card" data-title="Event">
+        <h3>Event Aniversay</h3>
         <li>Quest Event</li>
         <li>Undangan</li>
         <li>Tantangan</li>
@@ -134,7 +155,7 @@
         <button onclick="orderNow('Event Lantern Rite')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="Archon Quest">
         <h3>Archon Quest</h3>
         <li>Monstand</li>
         <li>Liyue</li>
@@ -147,7 +168,7 @@
         <button onclick="orderNow('Archon Quest')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="World Quest">
         <h3>World Quest</h3>
         <li>Monstand</li>
         <li>Liyue</li>
@@ -160,7 +181,7 @@
         <button onclick="orderNow('World Quest')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="Character Quest">
         <h3>Character Quest</h3>
         <li>Monstand Character</li>
         <li>Liyue Character</li>
@@ -173,7 +194,7 @@
         <button onclick="orderNow('Character Quest')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="Hangout Quest">
         <h3>Hangout Quest</h3>
         <li>Monstand Character</li>
         <li>Liyue Character</li>
@@ -186,7 +207,7 @@
         <button onclick="orderNow('Hangout Quest')">Pesan Sekarang</button>
       </div>
 
-      <div class="card">
+      <div class="card" data-title="All Quest">
         <h3>All Quest</h3>
         <p>Kita akan mengerjakan Semua Quest yang menumpuk di White List Quest anda</p>
         <p>tidak termasuk triger Quest</p>
