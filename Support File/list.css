@@ -192,8 +192,6 @@ footer p {
 
 .search-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   margin: 10px auto;
   max-width: 600px;
   border-radius: 12px;
