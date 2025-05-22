@@ -140,4 +140,93 @@ body {
   box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
 
- 
+/* Semua pesanan */
+
+.package-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.package-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.package-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.package-card h3 {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.package-card p,
+.package-card li {
+    font-size: 0.95em;
+    color: #555;
+    margin: 4px 0;
+}
+
+.package-card .price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 10px;
+}
+
+.package-card .price-discount {
+    font-size: 0.95em;
+    color: #dc3545;
+    margin-bottom: 4px;
+}
+
+.package-card .price-discount s {
+    color: #999;
+    margin-right: 6px;
+}
+
+.package-card button {
+    margin-top: 12px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.package-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Animasi */
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-slide {
+    animation: fadeSlide 0.4s ease-out;
+}
