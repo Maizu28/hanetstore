@@ -244,8 +244,13 @@
 
       // Jika query kosong atau tidak ada yang cocok, kembali ke index.html
       if (!query || !found) {
-        window.location.href = "https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20Genshin.html";
+         window.location.href = `Genshin Impact/Semua Pesanan gi.html?query=${encodeURIComponent(input)}`;
+      } else {
+        // tetap di halaman Loby (tidak melakukan apapun)
+          alert("Masukkan kata kunci pencarian.");
+         }
       }
+      
     </script>
   </body>
 </html>
