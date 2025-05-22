@@ -49,97 +49,6 @@ body {
     padding: 20px;
   }
 
-  .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    transition: 0.3s;
-  }
-
-  .card:hover {
-    transform: translateY(-5px);
-  }
-
-  .card h3 {
-    margin: 0 0 10px;
-    color: #333;
-  }
-
-  .card p {
-    margin: 0 0 15px;
-    color: #555;
-  }
-
-  .card .price {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #00a3ff;
-    color: #00a3ff;
-    font-size: 24px;
-  }
-
-  .card .price-discount {
-    color: #00a3ff;
-    font-size: 15px;
-  }
-
-  .card button {
-    margin: 15px;
-    background: #3498db;
-    color: #0a192f;
-    font-weight: bold;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  .card button:hover {
-    background: #2980b9;
-  }
-
-  /* Page List */
-.pagination {
-  overflow-x: auto;
-  white-space: nowrap;
-  gap: 10px;
-  padding: 10px;
-}
-
-.pagination a {
-  display: inline-block;
-}
-
-.pagination img {
-  width: 100px;
-  height: 56px;
-  object-fit: contain;
-  max-width: auto;
-  padding: 10px;
-  margin: 5px;
-  background-color: #00a3ff;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  transition: transform 0.3s;
-}
-
-.pagination img:hover {
-  transform: translateY(-2px);
-  border: 2px solid #3da7d8;
-  background-color: #3ab7ff;
-  box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
-}
-
-.pagination img.active {
-  transform: translateY(-1px);
-  border: 2px solid #3da7d8;
-  background-color: #3ab7ff;
-  box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
-}
-
 /* Semua pesanan */
 
 .package-list {
@@ -151,6 +60,7 @@ body {
 }
 
 .package-card {
+    position: relative;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 16px;
@@ -229,4 +139,79 @@ body {
 
 .fade-slide {
     animation: fadeSlide 0.4s ease-out;
+}
+
+/* Page List */
+.pagination {
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.pagination a {
+  display: inline-block;
+}
+
+.pagination img {
+  width: 100px;
+  height: 56px;
+  object-fit: contain;
+  max-width: auto;
+  padding: 10px;
+  margin: 5px;
+  background-color: #00a3ff;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.pagination img:hover {
+  transform: translateY(-2px);
+  border: 2px solid #3da7d8;
+  background-color: #3ab7ff;
+  box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
+}
+
+.pagination img.active {
+  transform: translateY(-1px);
+  border: 2px solid #3da7d8;
+  background-color: #3ab7ff;
+  box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
+}
+
+/*Badge promo*/
+
+.badge-discount {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #dc3545; /* merah terang */
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/*Diskon*/
+.price-discount {
+    font-size: 0.95em;
+    color: #dc3545; /* Warna merah untuk diskon */
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.price-discount s {
+    color: #888; /* Warna abu untuk coretan harga lama */
+    margin-right: 6px;
+    text-decoration: line-through;
+}
+
+.price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745; /* Warna hijau untuk harga final */
 }
