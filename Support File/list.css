@@ -192,7 +192,7 @@ footer p {
 
 .search-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   gap: 12px;
   margin: 30px auto;
