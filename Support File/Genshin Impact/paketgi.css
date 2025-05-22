@@ -216,3 +216,10 @@ body {
     font-weight: bold;
     color: #28a745; /* Warna hijau untuk harga final */
 }
+
+.price2 {
+    font-size: 1.0em;
+    text-align: right;
+    font-weight: normal;
+    color: #28a745; /* Warna hijau untuk harga final */
+}
