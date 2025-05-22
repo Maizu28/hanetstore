@@ -234,6 +234,8 @@
 
         if (!query || title.includes(query)) {
           card.style.display = "";
+          void card.offsetWidth; // reflow
+          card.classList.add("fade-slide");
           found = true;
         } else {
           card.style.display = "none";
