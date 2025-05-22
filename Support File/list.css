@@ -194,10 +194,8 @@ footer p {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin: 30px auto;
+  margin: 10px auto;
   max-width: 600px;
-  padding: 10px;
   border-radius: 12px;
   /* background: none; */ /* default */
   box-shadow: none; /* Hapus bayangan jika tak perlu */
