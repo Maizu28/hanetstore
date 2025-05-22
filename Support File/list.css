@@ -196,7 +196,7 @@ footer p {
   align-items: center;
   gap: 12px;
   max-width: 600px;
-  padding: 5px;
+  padding: 8px;
   border-radius: 12px;
   /* background: none; */ /* default */
   box-shadow: none; /* Hapus bayangan jika tak perlu */

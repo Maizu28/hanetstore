@@ -222,9 +222,8 @@ body {
   justify-content: left;
   align-items: center;
   gap: 12px;
-  margin: 30px auto;
   max-width: 600px;
-  padding: 10px;
+  padding: 8px;
   border-radius: 12px;
   /* background: none; */ /* default */
   box-shadow: none; /* Hapus bayangan jika tak perlu */
