@@ -130,10 +130,10 @@
         function handleSearch() {
             const input = document.getElementById("searchInput").value.trim();
             if (input) {
-                // Redirect ke halaman hasil search dengan query di URL
-                window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html?query=${encodeURIComponent(input)}`;
+                // Lokasi
+                window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html${encodeURIComponent(input)}`;
             } else {
-                // Jika input kosong, tetap di halaman Loby (tidak melakukan apapun)
+                // tetap di halaman Loby (tidak melakukan apapun)
                 alert("Masukkan kata kunci pencarian.");
             }
         }
