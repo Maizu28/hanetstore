@@ -222,35 +222,32 @@
     <script src="paketgi.js"></script>
 
     <script>
-      // Ambil query dari URL
-      const params = new URLSearchParams(window.location.search);
-      const query = params.get("query")?.toLowerCase();
+       document.addEventListener("DOMContentLoaded", function () {
+          const params = new URLSearchParams(window.location.search);
+          const query = params.get("query")?.toLowerCase() || "";
 
-      const cards = document.querySelectorAll(".card");
+          const cards = document.querySelectorAll(".package-card");
 
-      let found = false;
-      cards.forEach(card => {
-        const title = card.dataset.title;
+          if (query) {
+             let found = false;
+                  cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                  card.style.display = "";
+                  found = true;
+                } else {
+                  card.style.display = "none";
+                }
+             });
 
-        if (!query || title.includes(query)) {
-          card.style.display = "";
-          void card.offsetWidth; // reflow
-          card.classList.add("fade-slide");
-          found = true;
-        } else {
-          card.style.display = "none";
-        }
-      });
-
-      // Jika query kosong atau tidak ada yang cocok, kembali ke index.html
-      if (!query || !found) {
-         window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20Genshin.html?query=${encodeURIComponent(input)}`;
-      } else {
-        // tetap di halaman Loby (tidak melakukan apapun)
-          alert("Pesananmu tidak ditemukan silahkan tanyakan langsung pada admin.");
-         }
-      }
-      
-    </script>
+             if (!found) {
+                 const message = document.createElement("p");
+                 message.textContent = `Tidak ditemukan hasil untuk: "${query}"`;
+                 message.style.marginTop = "20px";
+                 document.querySelector(".package-list").appendChild(message);
+             }
+          }
+       });
+     </script>
   </body>
 </html>
