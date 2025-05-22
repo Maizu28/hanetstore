@@ -30,6 +30,11 @@
             <a href="Loby ZZZ.html"><img src="Img\Logo ZZZ.webp" alt="Logo-ZZZ" border="0" alt="Page 2"></a>
         </div>
 
+        <!-- Pencarian -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari kategori pesanan" />
+            <button class="btn" onclick="handleSearch()">Search</button>
+        </div>
 
         <!-- Tambahkan lebih banyak tombol sesuai kebutuhan -->
         <h2>Promo Paket Joki Wuthering Wave</h2>
@@ -108,6 +113,31 @@
             </div>
         </div>
     </div>
+
+<script>
+  function handleSearch() {
+    const input = document.getElementById("searchInput").value.trim();
+    if (input) {
+      window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html?query=${encodeURIComponent(input)}`;
+    } else {
+      alert("Masukkan kata kunci pencarian.");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("searchInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+    if (query) {
+      document.getElementById("searchInput").value = query;
+    }
+  });
+</script>
 
     <script src="list.js"></script>
 
