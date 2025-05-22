@@ -29,3 +29,29 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+
+// Fungsi untuk pencarian kategori
+
+  function handleSearch() {
+    const input = document.getElementById("searchInput").value.trim();
+    if (input) {
+      window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html?query=${encodeURIComponent(input)}`;
+    } else {
+      alert("Masukan kata kunci pencarian.");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("searchInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+    if (query) {
+      document.getElementById("searchInput").value = query;
+    }
+  });
