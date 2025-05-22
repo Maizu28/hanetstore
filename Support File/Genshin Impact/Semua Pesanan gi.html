@@ -5,27 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paket Rawat Akun Genshin Impact</title>
     <link rel="stylesheet" href="paketgi.css" />
-    <style>
-      .fade-slide {
-        animation: fadeSlideUp 0.5s ease forwards;
-      }
-
-      @keyframes fadeSlideUp {
-        0% {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .card {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-    </style>
   </head>
 
   <body>
@@ -234,8 +213,6 @@
 
         if (!query || title.includes(query)) {
           card.style.display = "";
-          void card.offsetWidth; // reflow
-          card.classList.add("fade-slide");
           found = true;
         } else {
           card.style.display = "none";
@@ -243,9 +220,10 @@
       });
 
       // Jika query kosong atau tidak ada yang cocok, kembali ke index.html
-      if (!query || !found) {
-        window.location.href = "https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20Genshin.html";
+      if (!found) {
+        document.getElementById("cardContainer").innerHTML = `<p>Tidak ada hasil ditemukan untuk "<strong>${query}</strong>".</p>`;
       }
+
     </script>
   </body>
 </html>
