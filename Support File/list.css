@@ -109,15 +109,24 @@ nav a:hover {
     box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
 
-.price {
-    color: #00a3ff;
-    font-size: 24px;
-
+/*Diskon*/
+.price-discount {
+    font-size: 0.95em;
+    color: #dc3545; /* Warna merah untuk diskon */
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
-.price-discount {
-    color: #00a3ff;
-    font-size: 15px;
+.price-discount s {
+    color: #888; /* Warna abu untuk coretan harga lama */
+    margin-right: 6px;
+    text-decoration: line-through;
+}
+
+.price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745; /* Warna hijau untuk harga final */
 }
 
 .btn {
@@ -198,4 +207,20 @@ footer p {
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
+}
+
+/*Badge promo*/
+
+.badge-discount {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #dc3545; /* merah terang */
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
 }
