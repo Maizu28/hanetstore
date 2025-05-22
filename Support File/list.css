@@ -198,8 +198,9 @@ footer p {
   margin: 30px auto;
   max-width: 600px;
   padding: 10px;
-  background: #f9f9f9;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  /* background: none; */ /* default */
+  box-shadow: none; /* Hapus bayangan jika tak perlu */
 }
 
 .search-container input {
@@ -208,6 +209,8 @@ footer p {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: transparent;
+  color: #333;
   transition: border 0.3s, box-shadow 0.3s;
 }
 
@@ -231,6 +234,7 @@ footer p {
 .search-container button:hover {
   background-color: #0056b3;
 }
+
 
 
 /*Badge promo*/
