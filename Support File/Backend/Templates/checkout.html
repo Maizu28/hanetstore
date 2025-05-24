@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      background: #f8f9fa;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    form {
+      margin-top: 1rem;
+    }
+    input[type="text"] {
+      padding: 0.5rem;
+      width: 70%;
+      margin-right: 0.5rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+    }
+    .success { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Checkout</h2>
+
+    <!-- List Produk -->
+    <div class="item"><span>Produk A</span><span>Rp 50.000</span></div>
+    <div class="item"><span>Produk B</span><span>Rp 30.000</span></div>
+
+    <div class="total">
+      Subtotal: Rp 80.000
+    </div>
+
+    <!-- Form Voucher -->
+    <form method="POST" action="/apply-voucher">
+      <label for="voucher_code">Kode Voucher:</label><br/>
+      <input type="text" name="voucher_code" placeholder="Masukkan kode voucher" required />
+      <button type="submit">Gunakan</button>
+    </form>
+
+    {% if discount %}
+      <p class="success">Voucher berhasil digunakan: -Rp {{ discount }}</p>
+      <p class="total">Total Akhir: Rp {{ total_after_discount }}</p>
+    {% elif error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/bayar">
+      <input type="hidden" name="total" value="{{ total_after_discount or 80000 }}">
+      <button type="submit">Bayar Sekarang</button>
+    </form>
+  </div>
+</body>
+</html>
