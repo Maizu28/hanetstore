@@ -1,61 +1,115 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Keranjang Saya - PIMONJOKI.ID</title>
-  <link rel="stylesheet" href="list.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keranjang Belanja - PIMONJOKI.ID</title>
+  <link rel="stylesheet" href="keranjang.css">
   <style>
     .cart-container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 15px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+      align-items: center;
     }
 
-    table th, table td {
-      padding: 12px;
-      border: 1px solid #ddd;
-      text-align: left;
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
     }
 
-    table th {
-      background-color: #f2f2f2;
+    .cart-info {
+      flex-grow: 1;
+    }
+
+    .cart-title {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .cart-price {
+      color: #008CBA;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-control button {
+      padding: 4px 10px;
+      border: 1px solid #aaa;
+      background-color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .cart-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .remove-btn {
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .checkout {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .checkout-total {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .checkout-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background-color: #218838;
     }
 
     .empty-message {
       text-align: center;
       font-style: italic;
-      margin-top: 40px;
-      color: #666;
-    }
-
-    .btn-clear {
-      background-color: #d9534f;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      float: right;
-    }
-
-    .btn-clear:hover {
-      background-color: #c9302c;
+      margin: 40px 0;
+      color: #555;
     }
   </style>
 </head>
-
 <body>
+
   <header>
-    <h1>Keranjang Saya</h1>
-    <p>Daftar pesanan yang telah Anda pilih</p>
+    <h1>Keranjang Belanja</h1>
+    <p>Pesanan Anda siap diproses</p>
   </header>
 
   <nav>
@@ -65,23 +119,13 @@
     <a href="keranjang.html" class="cart-button">🛒 Keranjang</a>
   </nav>
 
-  <div class="cart-container">
-    <table id="cartTable">
-      <thead>
-        <tr>
-          <th>Nama Paket</th>
-          <th>Harga</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Isi keranjang akan muncul di sini -->
-      </tbody>
-    </table>
-
+  <div class="cart-container" id="cartContainer">
     <p class="empty-message" id="emptyMessage">Keranjang Anda masih kosong.</p>
+  </div>
 
-    <button class="btn-clear" id="clearCartBtn" style="display:none;">Bersihkan Keranjang</button>
+  <div class="checkout" id="checkoutSection" style="display:none;">
+    <div class="checkout-total" id="totalPrice">Total: Rp 0</div>
+    <button class="checkout-btn">Checkout Sekarang</button>
   </div>
 
   <footer>
@@ -89,74 +133,69 @@
   </footer>
 
   <script>
-    // Contoh sederhana data keranjang di localStorage dengan struktur:
-    // [{ name: "RAWAT AKUN", price: "Rp 85.500" }, ...]
-
     function loadCart() {
-      const cart = JSON.parse(localStorage.getItem('pimonjoki_cart')) || [];
-      const tbody = document.querySelector('#cartTable tbody');
-      const emptyMsg = document.getElementById('emptyMessage');
-      const clearBtn = document.getElementById('clearCartBtn');
+      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart")) || [];
+      const container = document.getElementById("cartContainer");
+      const emptyMsg = document.getElementById("emptyMessage");
+      const checkoutSection = document.getElementById("checkoutSection");
+      const totalPriceEl = document.getElementById("totalPrice");
 
-      tbody.innerHTML = '';
+      container.innerHTML = '';
+      let total = 0;
 
       if (cart.length === 0) {
-        emptyMsg.style.display = 'block';
-        clearBtn.style.display = 'none';
+        emptyMsg.style.display = "block";
+        checkoutSection.style.display = "none";
         return;
       }
 
-      emptyMsg.style.display = 'none';
-      clearBtn.style.display = 'inline-block';
+      emptyMsg.style.display = "none";
+      checkoutSection.style.display = "block";
 
       cart.forEach((item, index) => {
-        const tr = document.createElement('tr');
+        const itemEl = document.createElement("div");
+        itemEl.className = "cart-item";
 
-        const tdName = document.createElement('td');
-        tdName.textContent = item.name;
-        tr.appendChild(tdName);
+        itemEl.innerHTML = `
+          <img src="${item.image || 'Img/placeholder.jpg'}" alt="${item.name}">
+          <div class="cart-info">
+            <div class="cart-title">${item.name}</div>
+            <div class="cart-price">${item.price}</div>
+            <div class="qty-control">
+              <button onclick="changeQty(${index}, -1)">−</button>
+              <span>${item.qty}</span>
+              <button onclick="changeQty(${index}, 1)">+</button>
+            </div>
+          </div>
+          <div class="cart-actions">
+            <button class="remove-btn" onclick="removeItem(${index})">Hapus</button>
+          </div>
+        `;
 
-        const tdPrice = document.createElement('td');
-        tdPrice.textContent = item.price;
-        tr.appendChild(tdPrice);
+        const price = parseInt(item.price.replace(/\D/g, '')) || 0;
+        total += price * item.qty;
 
-        const tdAction = document.createElement('td');
-        const delBtn = document.createElement('button');
-        delBtn.textContent = 'Hapus';
-        delBtn.style.backgroundColor = '#d9534f';
-        delBtn.style.color = 'white';
-        delBtn.style.border = 'none';
-        delBtn.style.padding = '5px 10px';
-        delBtn.style.borderRadius = '4px';
-        delBtn.style.cursor = 'pointer';
-
-        delBtn.addEventListener('click', () => {
-          removeItem(index);
-        });
-
-        tdAction.appendChild(delBtn);
-        tr.appendChild(tdAction);
-
-        tbody.appendChild(tr);
+        container.appendChild(itemEl);
       });
+
+      totalPriceEl.textContent = `Total: Rp ${total.toLocaleString('id-ID')}`;
     }
 
     function removeItem(index) {
-      let cart = JSON.parse(localStorage.getItem('pimonjoki_cart')) || [];
+      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart")) || [];
       cart.splice(index, 1);
-      localStorage.setItem('pimonjoki_cart', JSON.stringify(cart));
+      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
       loadCart();
     }
 
-    function clearCart() {
-      localStorage.removeItem('pimonjoki_cart');
+    function changeQty(index, delta) {
+      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart")) || [];
+      cart[index].qty = Math.max(1, cart[index].qty + delta);
+      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
       loadCart();
     }
-
-    document.getElementById('clearCartBtn').addEventListener('click', clearCart);
 
     window.onload = loadCart;
   </script>
 </body>
-
 </html>
