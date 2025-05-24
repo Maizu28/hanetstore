@@ -252,15 +252,9 @@ footer p {
 }
 
 /* Keranjang */
-.search-container {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
 .cart-btn {
-  background-color: #008CBA;
+  background-color: #007bff;
   color: white;
   padding: 8px 12px;
   text-decoration: none;
@@ -269,5 +263,5 @@ footer p {
 }
 
 .cart-btn:hover {
-  background-color: #005f75;
+  background-color: #0056b3;
 }
