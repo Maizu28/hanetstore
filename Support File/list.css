@@ -255,6 +255,8 @@ footer p {
 
 .cart-btn {
   background-color: #007bff;
+  width: 10px;
+  height: 10px;
   color: white;
   padding: 8px 8px;
   text-decoration: none;
