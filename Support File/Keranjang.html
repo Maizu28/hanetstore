@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keranjang Saya - PIMONJOKI.ID</title>
+  <link rel="stylesheet" href="list.css" />
+  <style>
+    .cart-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f2f2f2;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-style: italic;
+      margin-top: 40px;
+      color: #666;
+    }
+
+    .btn-clear {
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .btn-clear:hover {
+      background-color: #c9302c;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Keranjang Saya</h1>
+    <p>Daftar pesanan yang telah Anda pilih</p>
+  </header>
+
+  <nav>
+    <a href="Tentang Kami.html">Tentang Kami</a>
+    <a href="PimonJoki.html">Produk</a>
+    <a href="Kontak.html">Kontak</a>
+    <a href="keranjang.html" class="cart-button">🛒 Keranjang</a>
+  </nav>
+
+  <div class="cart-container">
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Nama Paket</th>
+          <th>Harga</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Isi keranjang akan muncul di sini -->
+      </tbody>
+    </table>
+
+    <p class="empty-message" id="emptyMessage">Keranjang Anda masih kosong.</p>
+
+    <button class="btn-clear" id="clearCartBtn" style="display:none;">Bersihkan Keranjang</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 PIMONJOKI.ID. Tempat Joki Teraman dan Terpercaya.</p>
+  </footer>
+
+  <script>
+    // Contoh sederhana data keranjang di localStorage dengan struktur:
+    // [{ name: "RAWAT AKUN", price: "Rp 85.500" }, ...]
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('pimonjoki_cart')) || [];
+      const tbody = document.querySelector('#cartTable tbody');
+      const emptyMsg = document.getElementById('emptyMessage');
+      const clearBtn = document.getElementById('clearCartBtn');
+
+      tbody.innerHTML = '';
+
+      if (cart.length === 0) {
+        emptyMsg.style.display = 'block';
+        clearBtn.style.display = 'none';
+        return;
+      }
+
+      emptyMsg.style.display = 'none';
+      clearBtn.style.display = 'inline-block';
+
+      cart.forEach((item, index) => {
+        const tr = document.createElement('tr');
+
+        const tdName = document.createElement('td');
+        tdName.textContent = item.name;
+        tr.appendChild(tdName);
+
+        const tdPrice = document.createElement('td');
+        tdPrice.textContent = item.price;
+        tr.appendChild(tdPrice);
+
+        const tdAction = document.createElement('td');
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Hapus';
+        delBtn.style.backgroundColor = '#d9534f';
+        delBtn.style.color = 'white';
+        delBtn.style.border = 'none';
+        delBtn.style.padding = '5px 10px';
+        delBtn.style.borderRadius = '4px';
+        delBtn.style.cursor = 'pointer';
+
+        delBtn.addEventListener('click', () => {
+          removeItem(index);
+        });
+
+        tdAction.appendChild(delBtn);
+        tr.appendChild(tdAction);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem('pimonjoki_cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('pimonjoki_cart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('pimonjoki_cart');
+      loadCart();
+    }
+
+    document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+
+    window.onload = loadCart;
+  </script>
+</body>
+
+</html>
