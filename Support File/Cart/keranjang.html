@@ -8,12 +8,9 @@
   <style>
     
     .cart-container {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+      padding: 1rem;
     }
 
     h1 {
@@ -21,64 +18,82 @@
       margin-bottom: 1rem;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .cart-item {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    th, td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 1px solid #eee;
+    .cart-item h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
     }
 
-    th {
-      background-color: #f2f2f2;
+    .cart-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .price, .subtotal {
+      color: #333;
+      font-weight: bold;
+      margin-top: 0.5rem;
     }
 
     .qty-control {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      margin-top: 0.5rem;
     }
 
     .qty-control button {
       width: 28px;
       height: 28px;
       border: none;
-      background: #eee;
+      background: #ddd;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
+      border-radius: 4px;
     }
 
     .remove-btn {
-      background: #0088cc;
+      margin-top: 0.5rem;
+      background: #e74c3c;
       color: #fff;
       border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
+      padding: 6px 10px;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 0.9rem;
     }
 
-    .checkout {
-      margin-top: 1.5rem;
+    .total-box {
       text-align: right;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #ccc;
     }
 
     .checkout-btn {
-      background-color: #00a3ff;
+      display: block;
+      width: 100%;
+      background-color: #ff5722;
       color: #fff;
-      padding: 10px 20px;
+      padding: 12px;
+      margin-top: 1rem;
       font-weight: bold;
+      font-size: 1rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-    }
-
-    .total {
-      font-size: 1.1rem;
-      font-weight: bold;
     }
 
     .empty-message {
