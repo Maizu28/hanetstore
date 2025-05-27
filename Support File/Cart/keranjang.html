@@ -213,20 +213,16 @@
         total: total
       })
     })
+    .then(res => res.json())
     .then(data => {
       alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
       localStorage.removeItem("pimonjoki_cart");
-
-      // Kirim WhatsApp ke admin
-      const adminPhone = "6285150893694"; // Ganti dengan nomor admin
-      const message = `Kode Pesanan: ${data.kodePesanan}%0ANama: ${nama}`;
-      const waUrl = `https://wa.me/${adminPhone}?text=${message}`;
-
-      window.open(waUrl, "_blank"); // Buka WhatsApp di tab baru
-
       location.reload();
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Gagal mengirim pesanan.");
     });
-
   }
 
   document.addEventListener("DOMContentLoaded", renderCart);
