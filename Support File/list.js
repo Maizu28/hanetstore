@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         price: btn.dataset.price,
       };
       addToCart(item);
-      window.location.href = "Cart/keranjang.html";
     });
   });
 });
