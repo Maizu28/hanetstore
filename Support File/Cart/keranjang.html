@@ -7,100 +7,97 @@
   <link rel="stylesheet" href="keranjang.css" />
   <style>
     
-    .cart-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 1rem;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .cart-item {
-      background: #fff;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .cart-item h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1rem;
-    }
-
-    .cart-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .price, .subtotal {
-      color: #333;
-      font-weight: bold;
-      margin-top: 0.5rem;
-    }
-
-    .qty-control {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 0.5rem;
-    }
-
-    .qty-control button {
-      width: 28px;
-      height: 28px;
-      border: none;
-      background: #ddd;
-      font-weight: bold;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .remove-btn {
-      margin-top: 0.5rem;
-      background: #e74c3c;
-      color: #fff;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    .total-box {
-      text-align: right;
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #ccc;
-    }
-
-    .checkout-btn {
-      display: block;
-      width: 100%;
-      background-color: #ff5722;
-      color: #fff;
-      padding: 12px;
-      margin-top: 1rem;
-      font-weight: bold;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .empty-message {
-      text-align: center;
-      margin-top: 2rem;
-      font-size: 1.2rem;
-    }
+    * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background-color: #f9f9f9;
+      }
+      .cart-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 16px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .cart-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      }
+      .cart-card h3 {
+        margin: 0 0 10px;
+        font-size: 1rem;
+      }
+      .cart-info {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .price, .subtotal {
+        font-weight: bold;
+        margin-top: 8px;
+      }
+      .qty-controls {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .qty-controls button {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #eee;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .qty-controls span {
+        margin: 0 12px;
+        font-size: 16px;
+      }
+      .remove-btn {
+        margin-top: 10px;
+        background: #e74c3c;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .total-section {
+        text-align: right;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px solid #ddd;
+      }
+      .checkout-btn {
+        display: block;
+        width: 100%;
+        background-color: #ff5722;
+        color: #fff;
+        padding: 12px;
+        margin-top: 16px;
+        font-weight: bold;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .empty-cart {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-top: 40px;
+      }
   </style>
 </head>
 <body>
