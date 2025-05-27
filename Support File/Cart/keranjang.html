@@ -215,14 +215,19 @@
     })
     .then(res => res.json())
     .then(data => {
-      alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
-      localStorage.removeItem("pimonjoki_cart");
-      location.reload();
+      if (data.status === "sukses") {
+        alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
+        localStorage.removeItem("pimonjoki_cart");
+        location.reload();
+      } else {
+        alert("Gagal mengirim pesanan: " + (data.error || "Tidak diketahui"));
+      }
     })
     .catch(err => {
       console.error(err);
-      alert("Gagal mengirim pesanan.");
+      alert("Gagal mengirim pesanan (jaringan atau format salah).");
     });
+
   }
 
   document.addEventListener("DOMContentLoaded", renderCart);
