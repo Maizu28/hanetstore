@@ -1,107 +1,59 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Keranjang Belanja - PIMONJOKI.ID</title>
-  <link rel="stylesheet" href="keranjang.css">
+  <link rel="stylesheet" href="list.css" />
   <style>
     .cart-container {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 0 15px;
+      max-width: 800px;
+      margin: auto;
+      padding: 1rem;
     }
 
-    .cart-item {
-      display: flex;
-      gap: 15px;
-      padding: 15px 0;
-      border-bottom: 1px solid #ddd;
-      align-items: center;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
     }
 
-    .cart-item img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 10px;
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
     }
 
-    .cart-info {
-      flex-grow: 1;
+    th {
+      background-color: #f5f5f5;
     }
 
-    .cart-title {
-      font-size: 1.2em;
+    .total-row td {
       font-weight: bold;
     }
 
-    .cart-price {
-      color: #008CBA;
-      font-weight: bold;
-      margin: 5px 0;
-    }
-
-    .qty-control {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .qty-control button {
-      padding: 4px 10px;
-      border: 1px solid #aaa;
-      background-color: white;
+    .btn {
+      padding: 8px 16px;
+      margin: 4px;
       cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .cart-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-
-    .remove-btn {
-      background-color: #d9534f;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .checkout {
-      margin-top: 30px;
-      text-align: right;
-    }
-
-    .checkout-total {
-      font-size: 1.4em;
-      font-weight: bold;
-      margin-bottom: 10px;
     }
 
     .checkout-btn {
-      background-color: #28a745;
+      background-color: #2ecc71;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      cursor: pointer;
     }
 
-    .checkout-btn:hover {
-      background-color: #218838;
+    .remove-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
     }
 
-    .empty-message {
+    .empty-cart {
       text-align: center;
-      font-style: italic;
-      margin: 40px 0;
-      color: #555;
+      font-size: 1.2rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
@@ -109,92 +61,119 @@
 
   <header>
     <h1>Keranjang Belanja</h1>
-    <p>Pesanan Anda siap diproses</p>
+    <p>Periksa kembali pesanan Anda sebelum checkout</p>
   </header>
 
-  <nav>
-    <a href="Tentang Kami.html">Tentang Kami</a>
-    <a href="PimonJoki.html">Produk</a>
-    <a href="Kontak.html">Kontak</a>
-  </nav>
-
-  <div class="cart-container" id="cartContainer">
-    <p class="empty-message" id="emptyMessage">Keranjang Anda masih kosong.</p>
+  <div class="cart-container">
+    <div id="cart-content"></div>
   </div>
-
-  <div class="checkout" id="checkoutSection" style="display:none;">
-    <div class="checkout-total" id="totalPrice">Total: Rp 0</div>
-    <button class="checkout-btn">Checkout Sekarang</button>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 PIMONJOKI.ID. Tempat Joki Teraman dan Terpercaya.</p>
-  </footer>
 
   <script>
-    function loadCart() {
-      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart")) || [];
-      const container = document.getElementById("cartContainer");
-      const emptyMsg = document.getElementById("emptyMessage");
-      const checkoutSection = document.getElementById("checkoutSection");
-      const totalPriceEl = document.getElementById("totalPrice");
+    const cart = JSON.parse(localStorage.getItem("pimonjoki_cart") || "[]");
 
-      container.innerHTML = '';
-      let total = 0;
+    function formatRupiah(angka) {
+      return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(angka);
+    }
+
+    function renderCart() {
+      const container = document.getElementById("cart-content");
 
       if (cart.length === 0) {
-        emptyMsg.style.display = "block";
-        checkoutSection.style.display = "none";
+        container.innerHTML = `<p class="empty-cart">Keranjang Anda kosong.</p>`;
         return;
       }
 
-      emptyMsg.style.display = "none";
-      checkoutSection.style.display = "block";
+      let total = 0;
+      let tableHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Pesanan</th>
+              <th>Harga</th>
+              <th>Jumlah</th>
+              <th>Subtotal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>`;
 
       cart.forEach((item, index) => {
-        const itemEl = document.createElement("div");
-        itemEl.className = "cart-item";
+        const price = parseInt(item.price.replace(/\D/g, "")) || 0;
+        const subtotal = price * item.qty;
+        total += subtotal;
 
-        itemEl.innerHTML = `
-          <img src="${item.image || 'Img/placeholder.jpg'}" alt="${item.name}">
-          <div class="cart-info">
-            <div class="cart-title">${item.name}</div>
-            <div class="cart-price">${item.price}</div>
-            <div class="qty-control">
-              <button onclick="changeQty(${index}, -1)">−</button>
-              <span>${item.qty}</span>
-              <button onclick="changeQty(${index}, 1)">+</button>
-            </div>
-          </div>
-          <div class="cart-actions">
-            <button class="remove-btn" onclick="removeItem(${index})">Hapus</button>
-          </div>
-        `;
-
-        const price = parseInt(item.price.replace(/\D/g, '')) || 0;
-        total += price * item.qty;
-
-        container.appendChild(itemEl);
+        tableHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.name}</td>
+            <td>${formatRupiah(price)}</td>
+            <td>${item.qty}</td>
+            <td>${formatRupiah(subtotal)}</td>
+            <td><button class="btn remove-btn" onclick="removeItem('${item.id}')">Hapus</button></td>
+          </tr>`;
       });
 
-      totalPriceEl.textContent = `Total: Rp ${total.toLocaleString('id-ID')}`;
+      tableHTML += `
+        <tr class="total-row">
+          <td colspan="4">Total</td>
+          <td colspan="2">${formatRupiah(total)}</td>
+        </tr>
+        </tbody>
+      </table>
+      <button class="btn checkout-btn" onclick="checkout()">Checkout</button>`;
+
+      container.innerHTML = tableHTML;
     }
 
-    function removeItem(index) {
-      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart")) || [];
-      cart.splice(index, 1);
-      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
-      loadCart();
+    function removeItem(id) {
+      const index = cart.findIndex(item => item.id === id);
+      if (index > -1) {
+        cart.splice(index, 1);
+        localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+        renderCart();
+      }
     }
 
-    function changeQty(index, delta) {
-      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart")) || [];
-      cart[index].qty = Math.max(1, cart[index].qty + delta);
-      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
-      loadCart();
+    function checkout() {
+      const nama = prompt("Masukkan nama Anda:");
+      if (!nama) return alert("Nama tidak boleh kosong.");
+
+      const jenis = cart.map(i => i.name).join(", ");
+      const game = "Genshin Impact"; // Bisa disesuaikan dinamis
+      const total = cart.reduce((acc, i) => {
+        const price = parseInt(i.price.replace(/\D/g, "")) || 0;
+        return acc + (price * i.qty);
+      }, 0);
+
+      fetch("https://script.google.com/macros/s/AKfycbwgGZAC5v4lbAXeUIrc4wKdy_TAtvujObWqZFCl-CZjZA6lPCK3iltYjx-U_n0Ytv_9SA/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nama: nama,
+          jenis: jenis,
+          game: game,
+          total: total
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("Pesanan berhasil dikirim!\nKode Pesanan: " + data.kodePesanan);
+        localStorage.removeItem("pimonjoki_cart");
+        location.reload();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Gagal mengirim pesanan.");
+      });
     }
 
-    window.onload = loadCart;
+    document.addEventListener("DOMContentLoaded", renderCart);
   </script>
+
+  <footer>
+    <p>&copy; 2025 PIMONJOKI.ID</p>
+  </footer>
+
 </body>
 </html>
