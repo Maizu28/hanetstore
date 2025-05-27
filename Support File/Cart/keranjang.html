@@ -4,115 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Keranjang Belanja</title>
-  <link rel="stylesheet" href="keranjang.css" />
+  <link rel="stylesheet" href="keranjang.html">
   <style>
-    
     * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        background-color: #f9f9f9;
-      }
-      .cart-container {
-        max-width: 600px;
-        margin: auto;
-        padding: 16px;
-      }
-      h1 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .cart-card {
-        background: #fff;
-        border-radius: 10px;
-        padding: 16px;
-        margin-bottom: 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      }
-      .cart-card h3 {
-        margin: 0 0 10px;
-        font-size: 1rem;
-      }
-      .cart-info {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .price, .subtotal {
-        font-weight: bold;
-        margin-top: 8px;
-      }
-      .qty-controls {
-        display: flex;
-        align-items: center;
-        margin-top: 8px;
-      }
-      .qty-controls button {
-        width: 32px;
-        height: 32px;
-        font-size: 16px;
-        font-weight: bold;
-        background-color: #eee;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .qty-controls span {
-        margin: 0 12px;
-        font-size: 16px;
-      }
-      .remove-btn {
-        margin-top: 10px;
-        background: #e74c3c;
-        color: #fff;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .total-section {
-        text-align: right;
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-top: 20px;
-        padding-top: 10px;
-        border-top: 1px solid #ddd;
-      }
-      .checkout-btn {
-        display: block;
-        width: 100%;
-        background-color: #ff5722;
-        color: #fff;
-        padding: 12px;
-        margin-top: 16px;
-        font-weight: bold;
-        font-size: 1rem;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-      }
-      .empty-cart {
-        text-align: center;
-        font-size: 1.2rem;
-        margin-top: 40px;
-      }
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+    .cart-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 16px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .cart-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .cart-card h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+    .cart-info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .price, .subtotal {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .qty-controls button {
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #eee;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .qty-controls span {
+      margin: 0 12px;
+      font-size: 16px;
+    }
+    .remove-btn {
+      margin-top: 10px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .total-section {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+    }
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      background-color: #ff5722;
+      color: #fff;
+      padding: 12px;
+      margin-top: 16px;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .empty-cart {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>PIMONJOKI.ID</h1>
-    <p>Solusi Terbaik untuk Kebutuhan Anda</p>
-  </header>
-
-  <!-- Navigation -->
   <nav>
     <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Tentang%20Kami.html">Tentang Kami</a>
     <a href="https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html">Produk</a>
     <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Kontak.html">Kontak</a>
   </nav>
+
+  <!-- Container -->
+  <div class="container">
+
+    <div class="pagination">
+      <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20Genshin.html"><img src="https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Support%20File/Img/Genshin-Impact-Logo.png" alt="Genshin-Impact-Logo" border="0" class="active" alt="Page 1"></a>
+      <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20HSR.html"><img src="https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Support%20File/Img/Logo%20HSR.png" alt="Logo-HSR" border="0"alt="Page 3"></a>
+      <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20Wuwa.html"><img src="https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Support%20File/Img/Wuthering_Waves_logo.svg.png" alt="Wuthering-Waves-logo-svg" border="0" alt="Page 4"></a>
+      <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20ZZZ.html"><img src="https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Support%20File/Img/Logo%20ZZZ.webp" alt="Logo-ZZZ" border="0" alt="Page 2"></a>
+    </div>
+  </div>
 
 <div class="cart-container">
   <h1>Keranjang Belanja</h1>
@@ -122,11 +126,11 @@
 <script>
   const cart = JSON.parse(localStorage.getItem("pimonjoki_cart") || "[]");
 
-  function formatRupiah(num) {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR'
-    }).format(num);
+  function formatRupiah(number) {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR"
+    }).format(number);
   }
 
   function saveCart() {
@@ -134,63 +138,43 @@
   }
 
   function renderCart() {
-    const content = document.getElementById("cart-content");
-
+    const container = document.getElementById("cart-content");
     if (cart.length === 0) {
-      content.innerHTML = '<p class="empty-message">Keranjang Anda kosong.</p>';
+      container.innerHTML = '<div class="empty-cart">Keranjang Anda kosong.</div>';
       return;
     }
 
     let total = 0;
-    let html = `
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama Pesanan</th>
-            <th>Harga</th>
-            <th>Jumlah</th>
-            <th>Subtotal</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>`;
+    let html = "";
 
     cart.forEach((item, index) => {
-      const price = parseInt(item.price.replace(/\D/g, '')) || 0;
-      const subtotal = price * item.qty;
+      const price = parseInt(item.price.replace(/\D/g, "")) || 0;
+      const subtotal = item.qty * price;
       total += subtotal;
 
       html += `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${item.name}</td>
-          <td>${formatRupiah(price)}</td>
-          <td>
-            <div class="qty-control">
-              <button onclick="updateQty('${item.id}', -1)">-</button>
+        <div class="cart-card">
+          <h3>${item.name}</h3>
+          <div class="cart-info">
+            <div class="price">${formatRupiah(price)} / item</div>
+            <div class="qty-controls">
+              <button onclick="updateQty('${item.id}', -1)">−</button>
               <span>${item.qty}</span>
               <button onclick="updateQty('${item.id}', 1)">+</button>
             </div>
-          </td>
-          <td>${formatRupiah(subtotal)}</td>
-          <td><button class="remove-btn" onclick="removeItem('${item.id}')">Hapus</button></td>
-        </tr>`;
+          </div>
+          <div class="subtotal">Subtotal: ${formatRupiah(subtotal)}</div>
+          <button class="remove-btn" onclick="removeItem('${item.id}')">Hapus</button>
+        </div>
+      `;
     });
 
     html += `
-        <tr>
-          <td colspan="4" class="total">Total</td>
-          <td colspan="2" class="total">${formatRupiah(total)}</td>
-        </tr>
-      </tbody>
-      </table>
-      <div class="checkout">
-        <button class="checkout-btn" onclick="checkout()">Checkout</button>
-      </div>
+      <div class="total-section">Total: ${formatRupiah(total)}</div>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
     `;
 
-    content.innerHTML = html;
+    container.innerHTML = html;
   }
 
   function updateQty(id, delta) {
@@ -214,16 +198,16 @@
 
   function checkout() {
     const nama = prompt("Masukkan nama Anda:");
-    if (!nama) return alert("Nama tidak boleh kosong.");
+    if (!nama) return alert("Nama wajib diisi.");
 
     const jenis = cart.map(i => i.name).join(", ");
-    const game = "Genshin Impact"; // Sesuaikan jika multi-game
+    const game = "Genshin Impact";
     const total = cart.reduce((acc, i) => {
-      const price = parseInt(i.price.replace(/\D/g, "")) || 0;
-      return acc + (price * i.qty);
+      const p = parseInt(i.price.replace(/\D/g, "")) || 0;
+      return acc + (p * i.qty);
     }, 0);
 
-    fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbwgGZAC5v4lbAXeUIrc4wKdy_TAtvujObWqZFCl-CZjZA6lPCK3iltYjx-U_n0Ytv_9SA/exec", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -235,7 +219,7 @@
     })
     .then(res => res.json())
     .then(data => {
-      alert("Pesanan berhasil dikirim!\nKode Pesanan: " + data.kodePesanan);
+      alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
       localStorage.removeItem("pimonjoki_cart");
       location.reload();
     })
