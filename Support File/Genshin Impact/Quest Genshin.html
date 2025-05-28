@@ -33,25 +33,36 @@
       <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Loby%20ZZZ.html"><img src="https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Support%20File/Img/Logo%20ZZZ.webp" alt="Logo-ZZZ" border="0" alt="Page 2"></a>
   </div>
 
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Cari kategori pesanan" />
-        <button class="btn" onclick="handleSearch()">Search</button>
-      </div>
+      <!-- Pencarian -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Cari kategori pesanan" />
+      <button onclick="handleSearch()" class="icon-button">
+        <img src="Img/Search.png" alt="search" />
+      </button>
+      <a href="Cart/keranjang.html" class="icon-button">
+        <img src="Img/png cart.png" alt="cart" />
+      </a>
+    </div>
 
     <h1>Paket Joki Quest Genshin Impact</h1>
 
     <div class="package-card">
       <h2>Archon Quest</h2>
-      <li>Mondstadt</li>
-      <li>Liyue</li>
-      <li>Inazuma</li>
-      <li>Sumeru</li>
-      <li>Fontaine</li>
-      <li>Natlan</li>
-      <br>
+      <ul class="quest-list">
+        <li><label><input type="checkbox" value="Mondstadt"> Mondstadt</label></li>
+        <li><label><input type="checkbox" value="Liyue"> Liyue</label></li>
+        <li><label><input type="checkbox" value="Inazuma"> Inazuma</label></li>
+        <li><label><input type="checkbox" value="Sumeru"> Sumeru</label></li>
+        <li><label><input type="checkbox" value="Fontaine"> Fontaine</label></li>
+        <li><label><input type="checkbox" value="Natlan"> Natlan</label></li>
+      </ul>
+      
       <div class="price">Rp 15.000/Act</div>
       <button onclick="orderNow('Archon Quest')">Pesan Sekarang</button>
+
+      <button class="btn add-to-cart" onclick="addSelectedToCart(this)">+ Keranjang</button>
     </div>
+
 
     <div class="package-card">
       <h2>World Quest</h2>
