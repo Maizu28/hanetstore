@@ -55,3 +55,41 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("searchInput").value = query;
     }
   });
+
+  // Add to Cart
+function getCart() {
+  return JSON.parse(localStorage.getItem("pimonjoki_cart") || "[]");
+}
+
+function saveCart(cart) {
+  localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+}
+
+function addToCart(item) {
+  let cart = getCart();
+
+  const existing = cart.find((i) => i.id === item.id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...item, qty: 1 });
+  }
+
+  saveCart(cart);
+  alert(`"${item.name}" berhasil ditambahkan ke keranjang.`);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".add-to-cart");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const item = {
+        id: btn.dataset.id,
+        name: btn.dataset.name,
+        price: btn.dataset.price,
+        game: btn.dataset.game,
+      };
+      addToCart(item);
+    });
+  });
+});
