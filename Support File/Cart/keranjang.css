@@ -133,7 +133,7 @@ nav a:hover {
 .btn {
     background-color: #00a3ff;
     color: #ffffff;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -145,6 +145,7 @@ nav a:hover {
 .btn:hover {
     background-color: #0088cc;
 }
+
 .Elm {
     background-color: #00a3ff;
     color: #0a192f;
@@ -190,48 +191,46 @@ footer p {
     margin: 0;
 }
 
+/* Search Bar */
 .search-container {
+  padding: 10px;
   display: flex;
-  justify-content: left;
-  align-items: center;
-  gap: 12px;
-  max-width: 600px;
-  padding: 8px;
-  border-radius: 12px;
-  /* background: none; */ /* default */
-  box-shadow: none; /* Hapus bayangan jika tak perlu */
+  flex-direction: column;
+  gap: 10px;
 }
 
 .search-container input {
-  flex: 1;
   padding: 10px 14px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: transparent;
-  color: #333;
-  transition: border 0.3s, box-shadow 0.3s;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.search-container input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+.button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
 }
 
-.search-container button {
-  padding: 10px 18px;
-  font-size: 16px;
+.button-group button,
+.button-group .cart-btn {
+  flex: 1;
   background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 8px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.search-container button:hover {
-  background-color: #0056b3;
+.button-group img {
+  width: 20px;
+  height: 20px;
 }
 
 
@@ -255,12 +254,14 @@ footer p {
 
 .cart-btn {
   background-color: #007bff;
+  width: 18px;
+  height: 18px;
   color: white;
   text-decoration: none;
-  border-radius: 5px;
   transition: background-color 0.3s;
 }
 
 .cart-btn:hover {
   background-color: #0056b3;
 }
+

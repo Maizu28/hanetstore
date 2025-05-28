@@ -193,10 +193,10 @@ footer p {
 
 /* Search Bar */
 .search-container {
+  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 10px;
 }
 
 .search-container input {
@@ -205,10 +205,12 @@ footer p {
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .button-group {
   display: flex;
+  flex-direction: row;
   gap: 10px;
   justify-content: space-between;
 }
@@ -229,7 +231,6 @@ footer p {
 .button-group img {
   width: 20px;
   height: 20px;
-  object-fit: contain;
 }
 
 
