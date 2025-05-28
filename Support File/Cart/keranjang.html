@@ -4,32 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Keranjang Belanja</title>
+  <link rel="stylesheet" href="keranjang.css">
   <style>
     * {
       box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-    }
-    header {
-      text-align: center;
-      padding: 20px;
-      background-color: #00a3ff;
-      color: white;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      background-color: #f0f0f0;
-      padding: 10px;
-    }
-    nav a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
     }
     .cart-container {
       max-width: 600px;
@@ -210,7 +188,7 @@
     }
 
     function checkout() {
-      const nama = prompt("Masukkan nama Anda:");
+      const nama = prompt("Masukkan username Instagram/TikTok/X Anda:");
       if (!nama) return alert("Nama wajib diisi.");
 
       const jenis = cart.map(i => i.name).join(", ");
