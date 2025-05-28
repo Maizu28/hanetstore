@@ -1,151 +1,162 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keranjang Belanja</title>
-  <link rel="stylesheet" href="keranjang.css">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    .cart-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 16px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .cart-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-    .cart-card h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-    }
-    .cart-info {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .price, .subtotal {
-      font-weight: bold;
-      margin-top: 8px;
-    }
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      margin-top: 8px;
-    }
-    .qty-controls button {
-      width: 32px;
-      height: 32px;
-      font-size: 16px;
-      font-weight: bold;
-      background-color: #eee;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .qty-controls span {
-      margin: 0 12px;
-      font-size: 16px;
-    }
-    .remove-btn {
-      margin-top: 10px;
-      background: #0088cc;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .total-section {
-      text-align: right;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 20px;
-      padding-top: 10px;
-      border-top: 1px solid #ddd;
-    }
-    .checkout-btn {
-      display: block;
-      width: 100%;
-      background-color: #00a3ff;
-      color: #fff;
-      padding: 12px;
-      margin-top: 16px;
-      font-weight: bold;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .empty-cart {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 40px;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keranjang Belanja</title>
+    <link rel="stylesheet" href="keranjang.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .cart-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 16px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .cart-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      .cart-card h3 {
+        margin: 0 0 10px;
+        font-size: 1rem;
+      }
+      .cart-info {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .price,
+      .subtotal {
+        font-weight: bold;
+        margin-top: 8px;
+      }
+      .qty-controls {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .qty-controls button {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #eee;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .qty-controls span {
+        margin: 0 12px;
+        font-size: 16px;
+      }
+      .remove-btn {
+        margin-top: 10px;
+        background: #0088cc;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .total-section {
+        text-align: right;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px solid #ddd;
+      }
+      .checkout-btn {
+        display: block;
+        width: 100%;
+        background-color: #00a3ff;
+        color: #fff;
+        padding: 12px;
+        margin-top: 16px;
+        font-weight: bold;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .empty-cart {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>PIMONJOKI.ID</h1>
+      <p>Solusi Terbaik untuk Kebutuhan Anda</p>
+    </header>
 
-  <header>
-    <h1>PIMONJOKI.ID</h1>
-    <p>Solusi Terbaik untuk Kebutuhan Anda</p>
-  </header>
+    <nav>
+      <a
+        href="https://maizu28.github.io/pimonjokiid/Support%20File/Tentang%20Kami.html"
+        >Tentang Kami</a
+      >
+      <a
+        href="https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html"
+        >Produk</a
+      >
+      <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Kontak.html"
+        >Kontak</a
+      >
+    </nav>
 
-  <nav>
-    <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Tentang%20Kami.html">Tentang Kami</a>
-    <a href="https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html">Produk</a>
-    <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Kontak.html">Kontak</a>
-  </nav>
+    <div class="cart-container">
+      <h1>Keranjang Belanja</h1>
+      <div id="cart-content"></div>
+    </div>
 
-  <div class="cart-container">
-    <h1>Keranjang Belanja</h1>
-    <div id="cart-content"></div>
-  </div>
+    <script>
+      const cart = JSON.parse(localStorage.getItem("pimonjoki_cart") || "[]");
 
-  <script>
-    const cart = JSON.parse(localStorage.getItem("pimonjoki_cart") || "[]");
-
-    function formatRupiah(number) {
-      return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR"
-      }).format(number);
-    }
-
-    function saveCart() {
-      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
-    }
-
-    function renderCart() {
-      const container = document.getElementById("cart-content");
-      if (cart.length === 0) {
-        container.innerHTML = '<div class="empty-cart">Keranjang Anda kosong.</div>';
-        return;
+      function formatRupiah(number) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        }).format(number);
       }
 
-      let total = 0;
-      let html = "";
+      function saveCart() {
+        localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+      }
 
-      cart.forEach((item, index) => {
-        const price = parseInt(item.price.replace(/\D/g, "")) || 0;
-        const subtotal = item.qty * price;
-        total += subtotal;
+      function renderCart() {
+        const container = document.getElementById("cart-content");
+        if (cart.length === 0) {
+          container.innerHTML =
+            '<div class="empty-cart">Keranjang Anda kosong.</div>';
+          return;
+        }
 
-        html += `
+        let total = 0;
+        let html = "";
+
+        cart.forEach((item, index) => {
+          const price = parseInt(item.price.replace(/\D/g, "")) || 0;
+          const subtotal = item.qty * price;
+          total += subtotal;
+
+          html += `
           <div class="cart-card">
             <h3>${item.name}</h3>
-            <div style="font-size: 0.9rem; color: #555;">Game: ${item.game || '-'}</div>
+            <div style="font-size: 0.9rem; color: #555;">Game: ${
+              item.game || "-"
+            }</div>
             <div class="cart-info">
               <div class="price">${formatRupiah(price)} / item</div>
               <div class="qty-controls">
@@ -155,76 +166,83 @@
               </div>
             </div>
             <div class="subtotal">Subtotal: ${formatRupiah(subtotal)}</div>
-            <button class="remove-btn" onclick="removeItem('${item.id}')">Hapus</button>
+            <button class="remove-btn" onclick="removeItem('${
+              item.id
+            }')">Hapus</button>
           </div>
         `;
-      });
+        });
 
-      html += `
+        html += `
         <div class="total-section">Total: ${formatRupiah(total)}</div>
         <button class="checkout-btn" onclick="checkout()">Checkout</button>
       `;
 
-      container.innerHTML = html;
-    }
-
-    function updateQty(id, delta) {
-      const item = cart.find(i => i.id === id);
-      if (item) {
-        item.qty += delta;
-        if (item.qty < 1) item.qty = 1;
-        saveCart();
-        renderCart();
+        container.innerHTML = html;
       }
-    }
 
-    function removeItem(id) {
-      const index = cart.findIndex(i => i.id === id);
-      if (index > -1) {
-        cart.splice(index, 1);
-        saveCart();
-        renderCart();
-      }
-    }
-
-    function checkout() {
-      const nama = prompt("Masukkan username Instagram/TikTok/X Anda:");
-      if (!nama) return alert("Nama wajib diisi.");
-
-      const jenis = cart.map(i => i.name).join(", ");
-      const game = "Genshin Impact";
-      const total = cart.reduce((acc, i) => {
-        const p = parseInt(i.price.replace(/\D/g, "")) || 0;
-        return acc + (p * i.qty);
-      }, 0);
-
-      fetch("https://script.google.com/macros/s/AKfycbzIHLS59XHzfhvhdMJ6Tgvna1QXWAMKmibyyFTO4FFCDWJJHa7wJv0wfHl_faQGeqSdXg/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nama: nama,
-          jenis: jenis,
-          game: game, // Perhatikan bahwa 'game' masih hardcoded "Genshin Impact" di JS Anda
-          total: total
-  })
-})
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "sukses") {
-          alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
-          localStorage.removeItem("pimonjoki_cart");
-          location.reload();
-        } else {
-          alert("Gagal mengirim pesanan: " + (data.error || "Tidak diketahui"));
+      function updateQty(id, delta) {
+        const item = cart.find((i) => i.id === id);
+        if (item) {
+          item.qty += delta;
+          if (item.qty < 1) item.qty = 1;
+          saveCart();
+          renderCart();
         }
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Backend belum siap. Silakan coba lagi nanti.");
-      });
-    }
+      }
 
-    document.addEventListener("DOMContentLoaded", renderCart);
-  </script>
-</body>
+      function removeItem(id) {
+        const index = cart.findIndex((i) => i.id === id);
+        if (index > -1) {
+          cart.splice(index, 1);
+          saveCart();
+          renderCart();
+        }
+      }
+
+      function checkout() {
+        const nama = prompt("Masukkan username Instagram/TikTok/X Anda:");
+        if (!nama) return alert("Nama wajib diisi.");
+
+        const jenis = cart.map((i) => i.name).join(", ");
+        const game = "Genshin Impact";
+        const total = cart.reduce((acc, i) => {
+          const p = parseInt(i.price.replace(/\D/g, "")) || 0;
+          return acc + p * i.qty;
+        }, 0);
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzIHLS59XHzfhvhdMJ6Tgvna1QXWAMKmibyyFTO4FFCDWJJHa7wJv0wfHl_faQGeqSdXg/exec",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              nama: nama,
+              jenis: jenis,
+              game: game, // Perhatikan bahwa 'game' masih hardcoded "Genshin Impact" di JS Anda
+              total: total,
+            }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "sukses") {
+              alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
+              localStorage.removeItem("pimonjoki_cart");
+              location.reload();
+            } else {
+              alert(
+                "Gagal mengirim pesanan: " + (data.error || "Tidak diketahui")
+              );
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            alert("Backend belum siap. Silakan coba lagi nanti.");
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+  </body>
 </html>
