@@ -204,10 +204,10 @@
         body: JSON.stringify({
           nama: nama,
           jenis: jenis,
-          game: game,
+          game: game, // Perhatikan bahwa 'game' masih hardcoded "Genshin Impact" di JS Anda
           total: total
-        })
-      })
+  })
+})
       .then(res => res.json())
       .then(data => {
         if (data.status === "sukses") {
