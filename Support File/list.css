@@ -234,7 +234,11 @@ footer p {
 .icon-btn img {
   width: 24px;
   height: 24px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
+
 
 .icon-btn:hover {
   background-color: #0056b3;
