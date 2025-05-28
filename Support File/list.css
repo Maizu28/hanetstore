@@ -194,60 +194,43 @@ footer p {
 /* Search Bar */
 .search-container {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 12px;
-  max-width: 100%;
-  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .search-container input {
-  flex: 1 1 100%;
   padding: 10px 14px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: white;
-  color: #333;
-  transition: border 0.3s, box-shadow 0.3s;
+  width: 100%;
 }
 
-.search-container input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
-}
-
-.search-container button,
-.search-container a.cart-btn {
-  flex: 1 1 48%;
+.button-group {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.button-group button,
+.button-group .cart-btn {
+  flex: 1;
   background-color: #007bff;
   border: none;
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  height: 45px;
-  transition: background-color 0.3s;
-  text-decoration: none;
 }
 
-.search-container button:hover,
-.search-container a.cart-btn:hover {
-  background-color: #0056b3;
-}
-
-.search-container img {
+.button-group img {
   width: 20px;
   height: 20px;
   object-fit: contain;
 }
-
 
 
 /*Badge promo*/
