@@ -151,6 +151,7 @@
       html += `
         <div class="cart-card">
           <h3>${item.name}</h3>
+          <div style="font-size: 0.9rem; color: #555;">Game: ${item.game || '-'}</div>
           <div class="cart-info">
             <div class="price">${formatRupiah(price)} / item</div>
             <div class="qty-controls">

@@ -41,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         id: btn.dataset.id,
         name: btn.dataset.name,
         price: btn.dataset.price,
+        game: btn.dataset.game,
       };
       addToCart(item);
     });
