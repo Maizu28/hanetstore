@@ -195,61 +195,60 @@ footer p {
 .search-bar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 12px 16px;
-  margin: 0 auto;
   max-width: 600px;
+  margin: 20px auto;
+  padding: 0 16px;
 }
 
-/* Input pencarian */
 .search-bar input[type="text"] {
   flex: 1;
   padding: 10px 14px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-sizing: border-box;
   outline: none;
-  transition: border-color 0.3s;
-}
-
-.search-bar input[type="text"]:focus {
-  border-color: #007bff;
 }
 
 /* Tombol ikon (search & cart) */
 .icon-button {
   background-color: #007bff;
   border: none;
+  padding: 10px;
   border-radius: 8px;
-  padding: 10px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.icon-button:hover {
-  background-color: #0056b3;
-}
-
-/* Gambar ikon dalam tombol */
 .icon-button img {
   width: 20px;
   height: 20px;
+  object-fit: contain;
 }
 
-/* Responsif untuk layar kecil */
-@media (max-width: 480px) {
+/* Responsive untuk mobile */
+@media screen and (max-width: 480px) {
   .search-bar {
-    flex-direction: column;
-    align-items: stretch;
+    flex-direction: row;
+    gap: 6px;
+    padding: 0 12px;
+  }
+
+  .search-bar input[type="text"] {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 
   .icon-button {
-    width: 100%;
-    justify-content: center;
+    padding: 8px;
+  }
+
+  .icon-button img {
+    width: 18px;
+    height: 18px;
   }
 }
 
