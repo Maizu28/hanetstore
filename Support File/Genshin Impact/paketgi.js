@@ -6,13 +6,11 @@ function orderNow(buttonElement) {
     alert("Terjadi kesalahan, silakan coba lagi.");
     return;
   }
-  // Ambil nama paket utama dari elemen <h2> di dalam kartu
   const mainPackageNameElement = packageCard.querySelector('h2');
   const mainPackageName = mainPackageNameElement ? mainPackageNameElement.textContent.trim() : "Paket Pilihan";
-  let selectedItemsDescription = "";
+  let packageDetailsString = mainPackageName; 
   let selectedCheckboxes = packageCard.querySelectorAll('ul.selectable-item-list input.selectable-sub-item:checked');
   if (selectedCheckboxes.length === 0) {
-    
     selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
   }
   if (selectedCheckboxes.length > 0) {
@@ -21,14 +19,18 @@ function orderNow(buttonElement) {
       selectedItemNames.push(checkbox.value); 
     });
     if (selectedItemNames.length > 0) {
-      selectedItemsDescription = ` (pilihan: ${selectedItemNames.join(", ")})`;
+      packageDetailsString += ":\n"; 
+      selectedItemNames.forEach(name => {
+        packageDetailsString += `  - ${name}\n`; 
+      });
+      packageDetailsString = packageDetailsString.trimEnd(); 
     }
   }
   const gameName = packageCard.dataset.game || "Genshin Impact";
-  const messageText = `Halo Atmin, saya ingin memesan joki ${mainPackageName}${selectedItemsDescription} untuk game ${gameName}. Apakah masih tersedia? Terima kasih!`;
-  const whatsappNumber = "6285150893694"; 
+  const messageText = `Halo Atmin, saya ingin memesan joki:\n${packageDetailsString}\n\nUntuk game ${gameName}. Apakah masih tersedia? Terima kasih!`;
+  const whatsappNumber = "6285150893694";// Nomor WhatsApp Anda
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
-  window.open(whatsappLink, '_blank'); 
+  window.open(whatsappLink, '_blank');
 }
 
 //Search bar
