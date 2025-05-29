@@ -321,6 +321,7 @@ footer p {
     border-radius: 8px; /* Radius lebih besar, konsisten dengan search-bar */
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    height: 10px;
     /* height: 38px; Atur tinggi dengan padding atau line-height jika perlu, 
                    align-items: stretch pada parent akan membantu */
 }
