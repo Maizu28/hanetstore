@@ -5,7 +5,6 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
-    line-height: 1.6; /* Menambahkan line-height standar untuk keterbacaan */
 }
 
 /* Header */
@@ -26,7 +25,6 @@ header p {
     font-size: 1.2em;
 }
 
-/* Navigation */
 nav {
     background-color: #444;
     padding: 10px;
@@ -39,7 +37,6 @@ nav a {
     margin: 0 15px;
     transition: color 0.3s;
     font-size: 1.1em;
-    padding: 5px 0; /* Sedikit padding untuk area klik yang lebih baik */
 }
 
 nav a:hover {
