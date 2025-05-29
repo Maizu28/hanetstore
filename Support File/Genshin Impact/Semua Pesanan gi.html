@@ -188,16 +188,42 @@
         </div>
         
         <!--Explore Genshin-->
-        <div class="package-card" data-title="Explore; Mondstadt">
-          <h2>Explore Mondstadt</h2>
-          <div>Windery Hill: <span class="price2">Rp 30.000</span></div>
-          <div>Windwail Highland: <span class="price2">Rp 35.000</span></div>
-          <div>Brightcrown Mountains: <span class="price2">Rp 40.000</span></div>
-          <div>Starfell Valley: <span class="price2">Rp 50.000</span></div>
-          <h4>Pricelist all 100% Mondstadt</h4><div class="price">Rp 155.000</div>
-          <button onclick="orderNow('Explore Mondstadt')">
-            Pesan Sekarang
-          </button>
+        <div class="package-card" data-game="Genshin Impact"
+        data-title="Explore; Monstadts; Windery Hill; Windwail Highland; Brightcrown Mountains; Starfell Valley"> <h2>Explore Mondstadt</h2>
+
+          <ul class="selectable-item-list"> <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Windery Hill" data-price="30000"> 
+                Windery Hill (<span class="item-price-display">Rp 30.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Windwail Highland" data-price="35000"> 
+                Windwail Highland (<span class="item-price-display">Rp 35.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Brightcrown Mountains" data-price="40000"> 
+                Brightcrown Mountains (<span class="item-price-display">Rp 40.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Starfell Valley" data-price="50000"> 
+                Starfell Valley (<span class="item-price-display">Rp 50.000</span>)
+              </label>
+            </li>
+            </ul>
+          
+          <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+            <h4>Pricelist all 100% Mondstadt</h4>
+            <div class="price">Rp 155.000</div> 
+            </div>
+          
+          <button onclick="orderNow('Explore Mondstadt')">Pesan Sekarang</button>
+          <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
         </div>
 
         <div class="package-card" data-title="Explore; Liyue">
