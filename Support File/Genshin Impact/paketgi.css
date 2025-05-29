@@ -49,11 +49,8 @@ nav a:hover {
 /* Container Utama */
 .container {
     max-width: 1200px;
-    margin: 20px auto; /* Memberi jarak atas/bawah dari header/footer */
+    margin: 0 auto;
     padding: 20px;
-    background-color: #fff; /* Memberi background pada container utama jika diinginkan */
-    border-radius: 8px;     /* Sedikit lengkungan pada container */
-    box-shadow: 0 0 15px rgba(0,0,0,0.05); /* Shadow halus untuk container */
 }
 
 /* Daftar Semua Paket Pesanan */
