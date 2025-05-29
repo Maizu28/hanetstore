@@ -1,9 +1,37 @@
-function orderNow(packageName) {
-    const whatsappLink = `https://wa.me/6285150893694?text=Halo%20Atmin,%20saya%20ingin%20memesan%20joki%20${encodeURIComponent(packageName)}%20game%20Genshin%20Impact.%20Apakah%20masih%20ada?%20Terima%20kasih!`;
-    window.open(whatsappLink, '_blank');
+//kirim ke Whatsapp
+function orderNow(buttonElement) {
+  const packageCard = buttonElement.closest('.package-card');
+  if (!packageCard) {
+    console.error("orderNow: Tidak dapat menemukan .package-card terkait tombol.");
+    alert("Terjadi kesalahan, silakan coba lagi.");
+    return;
   }
+  // Ambil nama paket utama dari elemen <h2> di dalam kartu
+  const mainPackageNameElement = packageCard.querySelector('h2');
+  const mainPackageName = mainPackageNameElement ? mainPackageNameElement.textContent.trim() : "Paket Pilihan";
+  let selectedItemsDescription = "";
+  let selectedCheckboxes = packageCard.querySelectorAll('ul.selectable-item-list input.selectable-sub-item:checked');
+  if (selectedCheckboxes.length === 0) {
+    
+    selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
+  }
+  if (selectedCheckboxes.length > 0) {
+    const selectedItemNames = [];
+    selectedCheckboxes.forEach(checkbox => {
+      selectedItemNames.push(checkbox.value); 
+    });
+    if (selectedItemNames.length > 0) {
+      selectedItemsDescription = ` (pilihan: ${selectedItemNames.join(", ")})`;
+    }
+  }
+  const gameName = packageCard.dataset.game || "Genshin Impact";
+  const messageText = `Halo Atmin, saya ingin memesan joki ${mainPackageName}${selectedItemsDescription} untuk game ${gameName}. Apakah masih tersedia? Terima kasih!`;
+  const whatsappNumber = "6285150893694"; 
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+  window.open(whatsappLink, '_blank'); 
+}
 
-  
+//Search bar
 function searchCategory() {
   const input = document.getElementById("searchInput").value.toLowerCase();
   const cards = document.getElementsByClassName("card");
@@ -32,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Fungsi untuk pencarian kategori
-
   function handleSearch() {
     const input = document.getElementById("searchInput").value.trim();
     if (input) {
@@ -42,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+// Pencarian dengan Enter
   document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchInput").addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
