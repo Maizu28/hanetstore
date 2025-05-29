@@ -14,7 +14,7 @@ const PROMO_CODES = {
     "PIMONJOKIYES": {
         type: "percentage",
         value: 15,
-        description: "Spesial 15%",
+        description: "Diskon Spesial 15%",
         minPurchase: 100000
     },
     // Diskon Tetap
@@ -270,7 +270,7 @@ function renderCart() {
             discountAmount = Math.floor(discountAmount);
             discountAmount = Math.min(discountAmount, subtotalAmount);
             finalTotal = subtotalAmount - discountAmount;
-            discountDisplayHtml = `<div style="color: green; text-align: right; margin-top: 5px;">Diskon (${currentAppliedPromo.description}): -${formatRupiah(discountAmount)}</div>`;
+            discountDisplayHtml = `<div style="color: green; text-align: right; margin-top: 5px;"> (${currentAppliedPromo.description}): -${formatRupiah(discountAmount)}</div>`;// Deskripsi diskon
             promoStatusTextForRender = `Kode promo "${currentAppliedPromo.code}" (${currentAppliedPromo.description}) diterapkan.`;
             promoStatusColorForRender = "green";
         } else {
