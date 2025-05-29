@@ -27,7 +27,7 @@ function orderNow(buttonElement) {
     }
   }
   const gameName = packageCard.dataset.game || "Genshin Impact";
-  const messageText = `Halo Atmin, saya ingin memesan joki:\n${packageDetailsString}\n\nUntuk game ${gameName}. Apakah masih tersedia? Terima kasih!`;
+  const messageText = `Halo Atmin, saya ingin memesan joki game ${gameName}:\n\n${packageDetailsString}\n\n Apakah masih tersedia? Terima kasih!`;
   const whatsappNumber = "6285150893694";// Nomor WhatsApp Anda
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
   window.open(whatsappLink, '_blank');
