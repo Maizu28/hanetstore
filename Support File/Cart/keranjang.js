@@ -24,7 +24,7 @@ const PROMO_CODES = {
         description: "Potongan Rp 5.000",
         minPurchase: 25000
     },
-    "WELCOMENew": {
+    "WELCOMENEW": {
         type: "fixed",
         value: 20000,
         description: "Potongan Rp 20.000",
