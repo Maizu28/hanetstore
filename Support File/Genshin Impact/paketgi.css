@@ -55,26 +55,27 @@ nav a:hover {
 .package-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Mengatur jarak antar kartu, baik horizontal maupun vertikal */
-    justify-content: center;
+    gap: 20px; /* PENTING: Mengatur jarak antar kartu secara konsisten */
+    justify-content: flex-start; /* Kartu akan mulai dari kiri dan memanjang jika ada ruang (tergantung style .package-card) */
+    /* Atau 'center' jika Anda ingin grup kartu yang lebar tetap di tengah */
     margin-top: 30px;
 }
 
 .package-card {
-    position: relative; /* Untuk positioning badge diskon */
+    position: relative; 
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 16px;
     padding: 20px;
-    width: 280px; /* Lebar tetap, bisa dipertimbangkan menggunakan flex-basis untuk responsivitas lebih */
+    /* width: 280px; /* Dihapus agar kartu bisa responsif dengan flex-grow */
+    flex-basis: 280px;    /* PENTING: Lebar dasar kartu sebelum tumbuh/menyusut */
+    flex-grow: 1;         /* PENTING: Izinkan kartu untuk tumbuh mengisi ruang kosong di barisnya */
+    /* max-width: 450px; */ /* OPSIONAL: Batas lebar maksimum kartu jika diperlukan */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* margin-top: 30px; Dihapus karena .package-list sudah punya gap dan margin-top sendiri. 
-                       Jika tetap ingin margin atas per kartu, sesuaikan atau biarkan.
-                       Dengan gap, jarak antar kartu sudah diatur. */
 }
 
 .package-card:hover {
@@ -82,47 +83,50 @@ nav a:hover {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
 }
 
-/* Judul di dalam kartu paket (menggunakan h2 sesuai HTML Anda) */
-.package-card h2 {
-    font-size: 1.3em; /* Sebelumnya h3, disesuaikan menjadi h2 */
-    margin-top: 0; /* Hapus margin atas default h2 jika ada */
-    margin-bottom: 10px; /* Sesuaikan dengan margin-bottom h3 sebelumnya */
+.package-card h2 { /* Judul utama kartu paket */
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 10px;
     color: #333;
 }
 
-.package-card p,
-.package-card li {
+.package-card p { /* Paragraf umum di dalam kartu */
     font-size: 0.95em;
     color: #555;
     margin: 4px 0;
-    /* Untuk <li> yang tidak memiliki bullet/numbering default dari browser */
-    list-style-type: none; /* Tambahkan ini jika <li> Anda tidak di dalam <ul> atau <ol> dengan styling default */
-    padding-left: 0; /* Hapus padding kiri default jika list-style-type: none */
 }
 
-/* Harga di dalam kartu paket */
+.package-card li { /* Item list umum di dalam kartu (misal deskripsi Hangout) */
+    font-size: 0.95em;
+    color: #555;
+    margin: 4px 0;
+    list-style-type: none; 
+    padding-left: 0; 
+}
+
+/* Harga utama di dalam kartu paket */
 .package-card .price {
     font-size: 1.2em;
     font-weight: bold;
     color: #28a745;
-    margin-top: 10px; /* Menambahkan kembali margin-top yang ada di definisi .package-card .price sebelumnya */
+    margin-top: 10px;
 }
 
-/* Harga Diskon di dalam kartu paket (digabung dari dua definisi) */
+/* Harga Diskon di dalam kartu paket */
 .package-card .price-discount {
     font-size: 0.95em;
     color: #dc3545;
-    margin-bottom: 4px; /* Dari definisi .package-card .price-discount */
-    font-weight: 500;    /* Dari definisi .price-discount global */
+    margin-bottom: 4px;
+    font-weight: 500;
 }
 
 .package-card .price-discount s {
-    color: #888;         /* Dari definisi .price-discount s global */
+    color: #888;
     margin-right: 6px;
     text-decoration: line-through;
 }
 
-.package-card button {
+.package-card button { /* Tombol umum di dalam kartu */
     margin-top: 12px;
     padding: 10px 15px;
     background-color: #007bff;
@@ -136,6 +140,56 @@ nav a:hover {
 .package-card button:hover {
     background-color: #0056b3;
 }
+
+/* === STYLING KHUSUS UNTUK CHECKLIST DI DALAM PACKAGE-CARD === */
+/* Targetkan kelas ul yang Anda gunakan untuk checklist (misal, selectable-item-list atau quest-list) */
+.package-card ul.selectable-item-list,
+.package-card ul.quest-list { 
+  list-style-type: none; /* Menghilangkan bullet points */
+  padding-left: 0;       /* PENTING: Menghilangkan padding kiri default dari <ul> agar checklist rata kiri */
+  margin-top: 10px;      
+  margin-bottom: 15px;   
+  text-align: left;      /* Memastikan konten di dalam ul ini mulai dari kiri */
+}
+
+/* Item individual dalam checklist */
+.package-card ul.selectable-item-list li,
+.package-card ul.quest-list li {
+  /* Reset margin & padding default dari .package-card li jika ada yang spesifik di sini */
+  margin: 0 0 8px 0; /* Jarak antar item checklist, pastikan padding-left tetap 0 atau sesuai */
+  padding-left: 0;    /* Tegaskan lagi jika perlu */
+  text-align: left;   /* Pastikan konten di dalam setiap <li> rata kiri */
+  font-size: 0.9em;   /* Sesuaikan ukuran font untuk item checklist jika perlu */
+  color: #555;        /* Warna teks item checklist */
+}
+
+/* Label untuk checkbox agar rapi */
+.package-card ul.selectable-item-list li label,
+.package-card ul.quest-list li label {
+  display: flex;        /* PENTING: Untuk alignment checkbox dan teks */
+  align-items: center;  /* PENTING: Menyejajarkan checkbox dan teks secara vertikal */
+  cursor: pointer;      
+  /* Ukuran font dan warna diwarisi dari li atau bisa diatur spesifik di sini */
+}
+
+/* Checkbox itu sendiri */
+.package-card ul.selectable-item-list li input[type="checkbox"].selectable-sub-item, /* Jika Anda pakai class selectable-sub-item */
+.package-card ul.quest-list input[type="checkbox"] {
+  margin-right: 8px;   /* Jarak antara checkbox dan teks labelnya */
+  /* Tambahan styling untuk konsistensi ukuran checkbox jika diperlukan */
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0; /* Mencegah checkbox mengecil jika label panjang */
+}
+
+/* Untuk menampilkan harga per item di checklist (jika ada span.item-price-display) */
+.package-card span.item-price-display {
+    font-size: 0.9em;
+    color: #28a745; /* Warna harga, bisa disesuaikan */
+    margin-left: 5px;
+}
+/* === AKHIR STYLING CHECKLIST === */
+
 
 /* Animasi */
 @keyframes fadeSlide {
@@ -155,29 +209,28 @@ nav a:hover {
 
 /* Daftar Halaman (Pagination) */
 .pagination {
-    display: flex; /* Ditambahkan agar 'gap' berfungsi dan untuk alignment yang lebih baik */
+    display: flex; 
     overflow-x: auto;
-    white-space: nowrap; /* Tetap berguna jika item lebih banyak dari lebar container */
+    white-space: nowrap; 
     gap: 10px;
-    padding: 10px 0; /* Disesuaikan agar padding tidak terlalu banyak di sisi */
-    justify-content: flex-start; /* Atau 'center' jika ingin di tengah */
+    padding: 10px 0; 
+    justify-content: flex-start;
 }
 
 .pagination a {
-    display: inline-block; /* Tidak masalah, flex akan mengatur layoutnya */
+    display: inline-block; 
 }
 
 .pagination img {
     width: 100px;
     height: 56px;
     object-fit: contain;
-    /* max-width: auto; Dihapus, nilai default */
     padding: 10px;
-    margin: 0; /* Margin diatur oleh 'gap' pada parent (.pagination) */
+    margin: 0; 
     background-color: #00a3ff;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border 0.3s; /* Transisi diperhalus */
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border 0.3s;
 }
 
 .pagination img:hover {
@@ -189,8 +242,8 @@ nav a:hover {
 
 .pagination img.active {
     transform: translateY(-1px);
-    border: 2px solid #2a8bcc; /* Warna border sedikit dibedakan untuk status active */
-    background-color: #0092e0; /* Warna background sedikit dibedakan */
+    border: 2px solid #2a8bcc; 
+    background-color: #0092e0; 
     box-shadow: 0 5px 15px rgba(0, 146, 224, 0.3);
 }
 
@@ -206,19 +259,8 @@ nav a:hover {
     font-weight: bold;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    z-index: 10; /* PENTING: Agar badge tampil di atas konten kartu */
 }
-
-/* Harga (Global, jika ada yang menggunakan .price di luar .package-card) */
-/* Jika .price hanya untuk di dalam .package-card, definisi ini tidak perlu */
-/* Untuk saat ini, saya akan mengomentarinya karena sudah ada .package-card .price */
-/*
-.price {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #28a745;
-}
-*/
 
 /* Harga Alternatif (jika digunakan) */
 .price2 {
@@ -232,7 +274,6 @@ nav a:hover {
 .search-bar {
     display: flex;
     align-items: center;
-    /* justify-content: center; Dihapus agar input bisa mengambil ruang lebih jika hanya ada input dan 1 tombol */
     gap: 10px;
     max-width: 600px;
     margin: 20px auto;
@@ -240,7 +281,7 @@ nav a:hover {
 }
 
 .search-bar input[type="text"] {
-    flex: 1; /* Agar input mengambil sisa ruang yang tersedia */
+    flex: 1; 
     padding: 10px 14px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -258,10 +299,10 @@ nav a:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.2s ease; /* Tambahkan transisi */
+    transition: background-color 0.2s ease;
 }
 
-.icon-button:hover { /* Tambahkan hover state */
+.icon-button:hover {
     background-color: #0056b3;
 }
 
@@ -274,7 +315,6 @@ nav a:hover {
 /* Responsive untuk Mobile */
 @media screen and (max-width: 480px) {
     .search-bar {
-        /* flex-direction: row; Tidak perlu, sudah default */
         gap: 6px;
         padding: 0 12px;
     }
@@ -294,12 +334,13 @@ nav a:hover {
     }
 
     .package-card {
-        width: 100%; /* Kartu mengambil lebar penuh di layar kecil */
-        /* Atau bisa menggunakan persentase jika ingin 2 kartu per baris, misal width: calc(50% - 10px); */
+        flex-basis: 100%; /* PENTING: Kartu mengambil lebar penuh di layar kecil */
+        /* atau width: 100%; jika tidak menggunakan flex-basis secara konsisten */
+        max-width: none; /* Hapus max-width agar bisa full di mobile */
     }
 
     nav a {
-        margin: 0 8px; /* Kurangi margin untuk nav link di mobile */
+        margin: 0 8px;
         font-size: 1em;
     }
 
@@ -308,5 +349,11 @@ nav a:hover {
     }
     header p {
         font-size: 1em;
+    }
+
+    /* Sesuaikan padding untuk checklist di mobile jika terlalu mepet */
+    .package-card ul.selectable-item-list,
+    .package-card ul.quest-list {
+        /* padding-left: 10px; // Contoh jika ingin sedikit indent di mobile */
     }
 }
