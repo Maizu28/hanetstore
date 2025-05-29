@@ -491,7 +491,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
       throw new Error("Format respons dari server tidak valid.");
     }
 
-    if (typeof data === 'object' && data !== null && data.status === "sukses") {
+    if (typeof data === 'object' && data !== null && data.status === "s    // Diskon Tetapukses") {
       alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
       localStorage.removeItem("pimonjoki_cart");
       // localStorage.removeItem("appliedPimonjokiPromo");
@@ -511,4 +511,18 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
 document.addEventListener("DOMContentLoaded", () => {
   loadCartAndPromo();
   renderCart();
+});
+
+document.addEventListener("keydown", function(e) {
+    const promoInput = document.getElementById('promo-code-input');
+    const promoBtn = document.getElementById('apply-promo-btn');
+    if (
+        promoInput &&
+        promoBtn &&
+        document.activeElement === promoInput &&
+        (e.key === "Enter" || e.keyCode === 13)
+    ) {
+        e.preventDefault();
+        promoBtn.click();
+    }
 });
