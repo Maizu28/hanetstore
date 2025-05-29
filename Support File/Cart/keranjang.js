@@ -253,14 +253,14 @@ function applyPromoCode() {
 function renderCart() {
   const container = document.getElementById("cart-content");
   
+  // Di dalam fungsi renderCart()
   const promoSectionHTML = `
     <div class="promo-section">
-      <h4>Kode Promo</h4>
-      <div class="search-bar" style="display: flex; gap: 5px; align-items: stretch;">
-          <input type="text" id="promo-code-input" placeholder="Masukkan kode promo" value="${currentAppliedPromo ? currentAppliedPromo.code : ''}">
-          <button class="icon-button" id="apply-promo-btn">${currentAppliedPromo ? 'Ganti/Hapus' : 'Gunakan'}</button>
-      </div>
-      <div id="promo-status"></div>
+        <h4>Kode Promo</h4>
+        <div class="promo-input-group"> <input type="text" id="promo-code-input" placeholder="Masukkan kode promo" value="${currentAppliedPromo ? currentAppliedPromo.code : ''}">
+            <button id="apply-promo-btn">${currentAppliedPromo ? 'Ganti/Hapus' : 'Gunakan'}</button>
+        </div>
+        <div id="promo-status"></div>
     </div>`;
 
   if (cart.length === 0) {
