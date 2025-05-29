@@ -4,94 +4,272 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Keranjang Belanja</title>
-  <link rel="stylesheet" href="keranjang.css">
-  <style>
-    * {
-      box-sizing: border-box;
+  <link rel="stylesheet" href="keranjang.css"> <style>
+    /* Global Styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+        line-height: 1.6;
     }
+
+    /* Header */
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 15px 0;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2em;
+    }
+
+    header p {
+        margin: 5px 0 0;
+        font-size: 1em;
+    }
+
+    /* Navigation */
+    nav {
+        background-color: #444;
+        padding: 10px;
+        text-align: center;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 1em;
+        transition: color 0.3s;
+        padding: 5px 0;
+    }
+
+    nav a:hover {
+        color: #00a3ff;
+    }
+
+    /* Container Utama Keranjang */
     .cart-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 16px;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.05);
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
+
+    .cart-container h1 { /* Judul "Keranjang Belanja" */
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.8em;
     }
+
+    /* Kartu Item di Keranjang */
     .cart-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
+
     .cart-card h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
+        margin: 0 0 10px;
+        font-size: 1.1em;
+        font-weight: 600;
+        color: #333;
     }
+
     .cart-info {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-items: center;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        font-size: 0.9em;
     }
-    .price, .subtotal {
-      font-weight: bold;
-      margin-top: 8px;
+
+    .cart-card .price {
+        font-weight: 500;
+        margin-top: 5px;
+        color: #555;
     }
+    
+    .cart-card .subtotal {
+        font-weight: bold;
+        margin-top: 8px;
+        text-align: right;
+        color: #333;
+        font-size: 0.95em;
+    }
+
     .qty-controls {
-      display: flex;
-      align-items: center;
-      margin-top: 8px;
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
     }
+
     .qty-controls button {
-      width: 32px;
-      height: 32px;
-      font-size: 16px;
-      font-weight: bold;
-      background-color: #eee;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+        width: 30px;
+        height: 30px;
+        font-size: 1em;
+        font-weight: bold;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+        line-height: 1;
+        transition: background-color 0.2s ease;
     }
+    .qty-controls button:hover {
+        background-color: #e0e0e0;
+    }
+
     .qty-controls span {
-      margin: 0 12px;
-      font-size: 16px;
+        margin: 0 12px;
+        font-size: 1em;
+        min-width: 20px;
+        text-align: center;
     }
+
     .remove-btn {
-      margin-top: 10px;
-      background: #0088cc;
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      cursor: pointer;
+        margin-top: 12px;
+        background: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: background-color 0.2s ease;
     }
+    .remove-btn:hover {
+        background-color: #c82333;
+    }
+
+    .promo-section {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .promo-section h4 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        color: #333;
+    }
+
+    .promo-section input[type="text"] {
+        padding: 9px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 8px;
+        flex-grow: 1;
+        font-size: 0.95em;
+        height: 38px;
+    }
+
+    .promo-section button {
+        padding: 9px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.95em;
+        white-space: nowrap;
+        height: 38px;
+        transition: background-color 0.2s ease;
+    }
+    .promo-section button:hover {
+        background-color: #218838;
+    }
+
+    #promo-status {
+        font-size: 0.9em;
+        margin-top: 10px;
+        min-height: 1.2em; 
+    }
+
     .total-section {
-      text-align: right;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-top: 20px;
-      padding-top: 10px;
-      border-top: 1px solid #ddd;
+        text-align: right;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
     }
+
+    .total-section div {
+        margin-bottom: 6px;
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .total-section div[style*="font-size: 1.2em"] { 
+        font-size: 1.25em !important;
+        font-weight: bold !important;
+        color: #28a745 !important;
+        margin-top: 10px !important;
+        padding-top: 10px !important;
+        border-top: 1px dashed #ccc !important;
+    }
+     .total-section div[style*="color: green"] {
+        font-size: 0.95rem;
+     }
+
     .checkout-btn {
-      display: block;
-      width: 100%;
-      background-color: #00a3ff;
-      color: #fff;
-      padding: 12px;
-      margin-top: 16px;
-      font-weight: bold;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+        display: block;
+        width: 100%;
+        background-color: #007bff;
+        color: #fff;
+        padding: 12px;
+        margin-top: 25px;
+        font-weight: bold;
+        font-size: 1.1em;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
     }
+
+    .checkout-btn:hover {
+        background-color: #0056b3;
+    }
+
     .empty-cart {
-      text-align: center;
-      font-size: 1.2rem;
-      margin-top: 40px;
+        text-align: center;
+        font-size: 1.1rem;
+        margin-top: 40px;
+        padding: 20px;
+        color: #777;
+        background-color: #f9f9f9;
+        border: 1px dashed #ddd;
+        border-radius: 8px;
+    }
+
+    @media screen and (max-width: 480px) {
+        .cart-container {
+            margin: 10px;
+            padding: 15px;
+        }
+        header h1 { font-size: 1.8em; }
+        header p { font-size: 0.9em; }
+        nav { padding: 8px 5px; }
+        nav a { margin: 0 5px; font-size: 0.9em; }
+
+        .promo-section input[type="text"] {
+            width: calc(100% - 115px); 
+        }
+        .cart-info { font-size: 0.85em; }
+        .cart-card h3 { font-size: 1em; }
+        .total-section div { font-size: 0.95rem; }
+        .total-section div[style*="font-size: 1.2em"] { font-size: 1.15em !important; }
+        .checkout-btn { font-size: 1em; }
     }
   </style>
 </head>
@@ -110,121 +288,11 @@
 
   <div class="cart-container">
     <h1>Keranjang Belanja</h1>
-    <div id="cart-content"></div>
+    <div id="cart-content">
+      </div>
   </div>
 
-  <script>
-    const cart = JSON.parse(localStorage.getItem("pimonjoki_cart") || "[]");
+  <script src="keranjang.js"></script>
 
-    function formatRupiah(number) {
-      return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR"
-      }).format(number);
-    }
-
-    function saveCart() {
-      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
-    }
-
-    function renderCart() {
-      const container = document.getElementById("cart-content");
-      if (cart.length === 0) {
-        container.innerHTML = '<div class="empty-cart">Keranjang Anda kosong.</div>';
-        return;
-      }
-
-      let total = 0;
-      let html = "";
-
-      cart.forEach((item, index) => {
-        const price = parseInt(item.price.replace(/\D/g, "")) || 0;
-        const subtotal = item.qty * price;
-        total += subtotal;
-
-        html += `
-          <div class="cart-card">
-            <h3>${item.name}</h3>
-            <div style="font-size: 0.9rem; color: #555;">Game: ${item.game || '-'}</div>
-            <div class="cart-info">
-              <div class="price">${formatRupiah(price)} / item</div>
-              <div class="qty-controls">
-                <button onclick="updateQty('${item.id}', -1)">−</button>
-                <span>${item.qty}</span>
-                <button onclick="updateQty('${item.id}', 1)">+</button>
-              </div>
-            </div>
-            <div class="subtotal">Subtotal: ${formatRupiah(subtotal)}</div>
-            <button class="remove-btn" onclick="removeItem('${item.id}')">Hapus</button>
-          </div>
-        `;
-      });
-
-      html += `
-        <div class="total-section">Total: ${formatRupiah(total)}</div>
-        <button class="checkout-btn" onclick="checkout()">Checkout</button>
-      `;
-
-      container.innerHTML = html;
-    }
-
-    function updateQty(id, delta) {
-      const item = cart.find(i => i.id === id);
-      if (item) {
-        item.qty += delta;
-        if (item.qty < 1) item.qty = 1;
-        saveCart();
-        renderCart();
-      }
-    }
-
-    function removeItem(id) {
-      const index = cart.findIndex(i => i.id === id);
-      if (index > -1) {
-        cart.splice(index, 1);
-        saveCart();
-        renderCart();
-      }
-    }
-
-    function checkout() {
-      const nama = prompt("Masukkan nama Anda:");
-      if (!nama) return alert("Nama wajib diisi.");
-
-      const jenis = cart.map(i => i.name).join(", ");
-      const game = "Genshin Impact";
-      const total = cart.reduce((acc, i) => {
-        const p = parseInt(i.price.replace(/\D/g, "")) || 0;
-        return acc + (p * i.qty);
-      }, 0);
-
-      fetch("https://script.google.com/macros/s/AKfycbzr8IMeZG2ZGi6FTUeCLOpGnSeuxAFCo_q-lOnGgN1UR-_JXk8UG_mR7uWxOJSongsXBg/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          nama: nama,
-          jenis: jenis,
-          game: game,
-          total: total
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "sukses") {
-          alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
-          localStorage.removeItem("pimonjoki_cart");
-          location.reload();
-        } else {
-          alert("Gagal mengirim pesanan: " + (data.error || "Tidak diketahui"));
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Backend belum siap. Silakan coba lagi nanti.");
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", renderCart);
-  </script>
 </body>
 </html>
