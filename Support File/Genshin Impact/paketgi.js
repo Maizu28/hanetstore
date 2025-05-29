@@ -57,13 +57,18 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Add to Cart
+// File JavaScript Anda (misalnya, paketgi.js atau script.js)
+
+// === BAGIAN 1: FUNGSI HELPER DAN INTI MANAJEMEN KERANJANG (Dari kode Anda) ===
 function getCart() {
+  // Lebih baik menggunakan versi yang lebih robust untuk menangani JSON parsing error
   let cartData = [];
   try {
     const cartString = localStorage.getItem("pimonjoki_cart");
     if (cartString) {
       cartData = JSON.parse(cartString);
       if (!Array.isArray(cartData)) {
+        console.warn("Data keranjang di localStorage bukan array, direset.");
         cartData = [];
       }
     }
@@ -79,22 +84,41 @@ function saveCart(cart) {
     localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
   } catch (error) {
     console.error("Error menyimpan keranjang ke localStorage:", error);
+    // Mungkin tambahkan alert jika gagal simpan, misal karena storage penuh
   }
 }
 
-// === FUNGSI SPESIFIK UNTUK PAKET DENGAN ITEM PILIHAN (ARCHON QUEST, WORLD QUEST) ===
+// Fungsi inti untuk menambahkan item ke keranjang (Dari kode Anda)
+// Fungsi ini akan dipanggil oleh listener generik DAN oleh fungsi khusus checkbox
+function addToCart(item) {
+  let cart = getCart();
+  const existing = cart.find((i) => i.id === item.id);
+
+  if (existing) {
+    existing.qty += 1; // Selalu tambah 1 jika sudah ada
+  } else {
+    // Jika item baru, tambahkan dengan qty: 1.
+    // Pastikan objek item yang masuk tidak memiliki qty, atau qty-nya diabaikan di sini.
+    cart.push({ ...item, qty: 1 });
+  }
+
+  saveCart(cart);
+  alert(`"${item.name}" berhasil ditambahkan ke keranjang.`);
+}
+
+// === BAGIAN 2: FUNGSI KHUSUS UNTUK PAKET DENGAN CHECKBOX (ARCHON QUEST, WORLD QUEST) ===
+// Fungsi ini akan MENYIAPKAN item lalu MEMANGGIL addToCart() dari BAGIAN 1
 function addSelectedToCart(buttonElement) {
   const packageCard = buttonElement.closest('.package-card');
   if (!packageCard) {
     console.error("Tombol tidak berada di dalam .package-card.");
-    alert("Terjadi kesalahan internal.");
+    alert("Terjadi kesalahan internal (package card tidak ditemukan).");
     return;
   }
 
   const basePackageNameElement = packageCard.querySelector('h2');
   const basePackageName = basePackageNameElement ? basePackageNameElement.textContent : "Paket Pilihan";
 
-  // Selector yang lebih spesifik untuk checkbox di dalam .quest-list
   const selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
   if (selectedCheckboxes.length === 0) {
     alert(`Silakan pilih minimal satu item dari ${basePackageName}.`);
@@ -109,7 +133,7 @@ function addSelectedToCart(buttonElement) {
   const priceDiv = packageCard.querySelector('.price');
   let pricePerItem = 0;
 
-  if (priceDiv && priceDiv.dataset.pricePerAct) { // Membaca data-price-per-act
+  if (priceDiv && priceDiv.dataset.pricePerAct) {
     pricePerItem = parseInt(priceDiv.dataset.pricePerAct, 10);
   } else if (priceDiv) {
     const priceText = priceDiv.textContent;
@@ -120,7 +144,7 @@ function addSelectedToCart(buttonElement) {
   }
 
   if (isNaN(pricePerItem) || pricePerItem <= 0) {
-    alert("Harga per item tidak valid. Pastikan ada data-price-per-act di HTML.");
+    alert("Harga per item tidak valid. Pastikan atribut data-price-per-act ada dan benar pada elemen .price di HTML.");
     return;
   }
 
@@ -133,69 +157,47 @@ function addSelectedToCart(buttonElement) {
   const itemId = `${idPrefix}-${selectionIdentifier}`;
   const itemName = `${basePackageName} (${sortedItemValues.join(", ")})`;
   const formattedTotalPrice = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-  const gameName = packageCard.dataset.game || "Genshin Impact";
+  const gameName = packageCard.dataset.game || "Genshin Impact"; // Ambil dari data-game di card, atau default
 
-  const newItem = {
+  // Siapkan objek item untuk dikirim ke fungsi addToCart() inti
+  // TIDAK perlu properti 'qty' di sini, karena fungsi addToCart() inti akan menanganinya.
+  const itemForCart = {
     id: itemId,
     name: itemName,
     price: formattedTotalPrice,
-    game: gameName,
-    qty: 1
+    game: gameName
   };
 
-  let cart = getCart();
-  const existingItemIndex = cart.findIndex(item => item.id === newItem.id);
-
-  if (existingItemIndex > -1) {
-    cart[existingItemIndex].qty += 1;
-  } else {
-    cart.push(newItem);
-  }
-  saveCart(cart);
-  alert(`"${itemName}" (Total: ${formattedTotalPrice}) telah ditambahkan ke keranjang!`);
+  // Panggil fungsi addToCart() inti
+  addToCart(itemForCart);
+  // Alert akan ditampilkan oleh fungsi addToCart() inti.
 }
 
-// === SKRIP GENERIK UNTUK TOMBOL .add-to-cart (RAWAT AKUN MONTHLY, DLL) ===
-// (Ini adalah skrip yang Anda berikan sebelumnya, dengan sedikit pengaman)
-function genericAddToCart(itemData) { // Fungsi ini sekarang menerima objek itemData
-  if (!itemData || !itemData.id || !itemData.name || !itemData.price) {
-    // console.warn("Data item tidak lengkap untuk genericAddToCart, proses diabaikan.", itemData);
-    // Tidak menampilkan alert agar tidak mengganggu jika tombol sudah ditangani onclick
-    return;
-  }
-  let cart = getCart();
-  const existing = cart.find((i) => i.id === itemData.id);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ game: "Genshin Impact", ...itemData, qty: itemData.qty || 1 });
-  }
-  saveCart(cart);
-  alert(`"${itemData.name}" berhasil ditambahkan ke keranjang.`);
-}
-
+// === BAGIAN 3: EVENT LISTENER GENERIK UNTUK TOMBOL .add-to-cart (Dari kode Anda, dengan penyesuaian) ===
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".add-to-cart");
   buttons.forEach((btn) => {
-    if (!btn.onclick) { 
+    // Pasang listener ini HANYA jika tombol TIDAK memiliki handler onclick di HTML.
+    // Ini untuk mencegah eksekusi ganda pada tombol yang sudah punya onclick="addSelectedToCart(this)"
+    // dan juga memiliki class "add-to-cart".
+    if (!btn.onclick) {
       btn.addEventListener("click", () => {
         const item = {
           id: btn.dataset.id,
           name: btn.dataset.name,
           price: btn.dataset.price,
-          game: btn.dataset.game || "Genshin Impact", 
+          game: btn.dataset.game || "Genshin Impact", // Default jika tidak ada data-game
         };
+
+        // Pastikan data dasar ada sebelum memanggil addToCart
         if (item.id && item.name && item.price) {
-          genericAddToCart(item);
+          addToCart(item); // Panggil fungsi addToCart() inti
         } else {
-          console.warn("Tombol .add-to-cart tanpa onclick dan tanpa data-* yang cukup:", btn);
+          console.warn("Tombol .add-to-cart tanpa onclick dan tanpa atribut data-* yang cukup:", btn);
+          // Anda bisa menambahkan alert di sini jika mau, tapi biasanya ini adalah kesalahan konfigurasi HTML
         }
       });
     }
-    // Jika tombol memiliki class .add-to-cart DAN onclick yang memanggil addSelectedToCart,
-    // maka addSelectedToCart akan dieksekusi dari HTML.
-    // Listener generik ini tidak akan terpasang pada tombol tersebut karena kondisi if (!btn.onclick).
-    // Ini adalah cara untuk memisahkan tugas.
   });
 });
 
