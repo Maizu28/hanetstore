@@ -43,12 +43,6 @@ nav a:hover {
     color: #00a3ff;
 }
 
-/* Container Utama */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
 
 /* Daftar Semua Paket Pesanan */
 .package-list {
@@ -204,6 +198,7 @@ nav a:hover {
 }
 
 /* Daftar Halaman (Pagination) */
+/* Page List */
 .pagination {
     overflow-x: auto;
     white-space: nowrap;
@@ -240,6 +235,12 @@ nav a:hover {
     border: 2px solid #3da7d8;
     background-color: #3ab7ff;
     box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /* Badge Promo */
@@ -373,10 +374,5 @@ nav a:hover {
         left: 8px;
         padding: 4px 6px;
         font-size: 0.7em;
-    }
-    .pagination img {
-        width: 80px;
-        height: 45px;
-        padding: 6px;
     }
 }
