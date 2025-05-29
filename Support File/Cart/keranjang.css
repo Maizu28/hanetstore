@@ -191,42 +191,42 @@ footer p {
     margin: 0;
 }
 
-/* search bar */
+/* Search Bar */
 .search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 25px auto; /* Margin atas/bawah konsisten */
+    padding: 0 16px;
 }
 
 .search-bar input[type="text"] {
-  flex: 1;
-  padding: 10px 14px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
+    flex: 1; 
+    padding: 10px 15px; /* Padding konsisten */
+    font-size: 1em;    /* Ukuran font konsisten */
+    border: 1px solid #ced4da; /* Warna border standar */
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Tombol ikon (search & cart) */
+.search-bar input[type="text"]:focus { /* Efek focus */
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Tombol Ikon (Search & Cart) */
 .icon-button {
-  background-color: #007bff;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.icon-button img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 /* Responsive untuk mobile */
@@ -285,3 +285,40 @@ footer p {
   background-color: #0056b3;
 }
 
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 25px auto; /* Margin atas/bawah konsisten */
+    padding: 0 16px;
+}
+
+.search-bar input[type="text"] {
+    flex: 1; 
+    padding: 10px 15px; /* Padding konsisten */
+    font-size: 1em;    /* Ukuran font konsisten */
+    border: 1px solid #ced4da; /* Warna border standar */
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar input[type="text"]:focus { /* Efek focus */
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Tombol Ikon (Search & Cart) */
+.icon-button {
+    background-color: #007bff;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
