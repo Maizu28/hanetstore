@@ -114,6 +114,14 @@ applyPromoCode = function() {
     });
 
     if (PROMO_CODES[promoCodeEntered]) {
+        // Check if promo is expired
+        if (!isPromoDateValid(promoCodeEntered)) {
+            currentAppliedPromo = null;
+            promoStatusDiv.textContent = "Kode promo sudah kedaluwarsa.";
+            promoStatusDiv.style.color = "red";
+            renderCart();
+            return;
+        }
         // Check usage limit
         if (PROMO_CODES[promoCodeEntered].usageLimit !== undefined && !isPromoAvailable(promoCodeEntered)) {
             currentAppliedPromo = null;
@@ -150,7 +158,7 @@ applyPromoCode = function() {
         }
     } else {
         currentAppliedPromo = null;
-        promoStatusDiv.textContent = "Kode promo tidak valid atau sudah kedaluwarsa.";
+        promoStatusDiv.textContent = "Kode promo tidak valid.";
         promoStatusDiv.style.color = "red";
     }
     renderCart();
@@ -440,7 +448,7 @@ function removeItem(id) {
   }
 }
 
-function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed) {
+async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed) {
   const nama = prompt("Masukkan nama Anda:");
   if (!nama) return alert("Nama wajib diisi.");
 
@@ -461,42 +469,43 @@ function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed) {
   // GANTI DENGAN URL GOOGLE APPS SCRIPT ANDA YANG AKTIF!
   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzr8IMeZG2ZGi6FTUeCLOpGnSeuxAFCo_q-lOnGgN1UR-_JXk8UG_mR7uWxOJSongsXBg/exec"; 
 
-  fetch(APPS_SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(dataToSend)
-  })
-  .then(res => {
-      if (!res.ok) {
-          return res.text().then(text => { throw new Error("Server merespons dengan error: " + res.status + (text ? " - " + text : "")) });
-      }
-      const contentType = res.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-          return res.json();
-      } else {
-          return res.text().then(text => { 
-              console.error("Respons bukan JSON:", text);
-              throw new Error("Format respons dari server tidak valid."); 
-          });
-      }
-  })
-  .then(data => {
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataToSend)
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error("Server merespons dengan error: " + res.status + (text ? " - " + text : ""));
+    }
+
+    const contentType = res.headers.get("content-type");
+    let data;
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      data = await res.json();
+    } else {
+      const text = await res.text();
+      console.error("Respons bukan JSON:", text);
+      throw new Error("Format respons dari server tidak valid.");
+    }
+
     if (typeof data === 'object' && data !== null && data.status === "sukses") {
       alert("Pesanan berhasil!\nKode Pesanan: " + data.kodePesanan);
       localStorage.removeItem("pimonjoki_cart");
       // localStorage.removeItem("appliedPimonjokiPromo");
       currentAppliedPromo = null;
-      cart = []; 
+      cart = [];
       // renderCart(); // Cukup reload untuk membersihkan state sepenuhnya
-      location.reload(); 
+      location.reload();
     } else {
       alert("Gagal mengirim pesanan: " + (data.message || data.error || (typeof data === 'string' ? data : "Format respons tidak diketahui")));
     }
-  })
-  .catch(err => {
+  } catch (err) {
     console.error("Fetch Error:", err);
     alert("Backend belum siap atau terjadi kesalahan jaringan. Detail: " + err.message);
-  });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
