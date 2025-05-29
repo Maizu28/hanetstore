@@ -8,30 +8,34 @@ const PROMO_CODES = {
         type: "percentage",
         value: 10,
         description: "Diskon 10%",
-        minPurchase: 50000 },
+        minPurchase: 50000
+    },
     "PIMONJOKIYES": {
         type: "percentage",
         value: 15,
-        description:"Diskon Spesial 15%",
-        minPurchase: 100000 },
+        description: "Diskon Spesial 15%",
+        minPurchase: 100000
+    },
 
-    //Diskon Tetap
+    // Diskon Tetap
     "DISKON5K": {
         type: "fixed",
         value: 5000,
         description: "Potongan Rp 5.000",
-        minPurchase: 25000 },
+        minPurchase: 25000
+    },
     "WELCOMENew": {
         type: "fixed",
         value: 20000,
         description: "Potongan Rp 20.000",
-        minPurchase: 75000 },
-    
+        minPurchase: 75000
+    },
+
     // Diskon untuk pembelian tercepat
-    "10TERCEPAT": { 
-        type: "fixed", 
-        value: 10000, 
-        description: "Potongan Rp 10.000 untuk 10 orang tercepat", 
+    "10TERCEPAT": {
+        type: "fixed",
+        value: 10000,
+        description: "Potongan Rp 10.000 untuk 10 orang tercepat",
         minPurchase: 50000,
         usageLimit: 10
     },
@@ -48,8 +52,39 @@ const PROMO_CODES = {
         description: "Potongan Rp 5.000 untuk 50 orang tercepat",
         minPurchase: 25000,
         usageLimit: 50
+    },
+
+    // Contoh kode promo dengan batas tanggal & waktu
+    "FLASHSALE": {
+        type: "percentage",
+        value: 20,
+        description: "Flash Sale 20% (hanya 1-2 Juli 2024)",
+        minPurchase: 30000,
+        validFrom: "2024-07-01T00:00:00+07:00", // WIB
+        validUntil: "2024-07-02T23:59:59+07:00"
+    },
+    "HARIJADI": {
+        type: "fixed",
+        value: 10000,
+        description: "Diskon Ulang Tahun (10-15 Juli 2024)",
+        minPurchase: 50000,
+        validFrom: "2024-07-10T00:00:00+07:00",
+        validUntil: "2024-07-15T23:59:59+07:00"
     }
 };
+
+// Helper untuk cek tanggal promo
+function isPromoDateValid(code) {
+    const promo = PROMO_CODES[code];
+    if (!promo) return false;
+    if (promo.validFrom && promo.validUntil) {
+        const now = new Date();
+        const from = new Date(promo.validFrom);
+        const until = new Date(promo.validUntil);
+        return now >= from && now <= until;
+    }
+    return true;
+}
 
 // Helper to check usage limit for promo codes
 function isPromoAvailable(code) {
