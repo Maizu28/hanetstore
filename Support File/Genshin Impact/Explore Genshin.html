@@ -61,132 +61,349 @@
       <button class="btn add-to-cart" onclick="addSelectedToCart(this)">+ Keranjang</button>
     </div>
 
-    
-    <div class="package-card" data-game="Genshin Impact"
-    data-title="Explore; Monstadts; Windery Hill; Windwail Highland; Brightcrown Mountains; Starfell Valley"> <h2>Explore Mondstadt</h2>
-
-      <ul class="selectable-item-list"> 
+    <!-- Explore Monstads -->  
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Monstadts; Windery Hill; Windwail Highland; Brightcrown Mountains; Starfell Valley"> <h2>Explore Mondstadt</h2>
+        
+      <ul class="selectable-item-list">
         <li>
           <label>
             <input type="checkbox" class="selectable-sub-item" value="Windery Hill" data-price="30000"> 
-            Windery Hill: <span class="item-price-display" class="price">Rp 30.000</span>
+            Windery Hill (<span class="item-price-display">Rp 30.000</span>)
           </label>
         </li>
         <li>
           <label>
             <input type="checkbox" class="selectable-sub-item" value="Windwail Highland" data-price="35000"> 
-            Windwail Highland: <span class="item-price-display" class="price">Rp 35.000</span>
+            Windwail Highland (<span class="item-price-display">Rp 35.000</span>)
           </label>
         </li>
         <li>
           <label>
             <input type="checkbox" class="selectable-sub-item" value="Brightcrown Mountains" data-price="40000"> 
-            Brightcrown Mountains: <span class="item-price-display" class="price">Rp 40.000</span>
+            Brightcrown Mountains (<span class="item-price-display">Rp 40.000</span>)
           </label>
         </li>
         <li>
           <label>
             <input type="checkbox" class="selectable-sub-item" value="Starfell Valley" data-price="50000"> 
-            Starfell Valley: <span class="item-price-display" class="price">Rp 50.000</span>
+            Starfell Valley (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+      </ul>
+          
+        <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+          <h4>Pricelist all 100% Mondstadt</h4>
+          <div class="price">Rp 155.000</div> 
+        </div>
+          
+      <button onclick="orderNow('Explore Mondstadt')">Pesan Sekarang</button>
+      <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+    </div>  
+
+    <!-- Explore Liyue -->    
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Liyue; Minlin; Bishui Plain; Qiongji Estuary; Sea Of Clouds">
+      <h2>Explore Liyue</h2>
+      <ul class="selectable-item-list">
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Minlin" data-price="70000"> 
+            Minlin (<span class="item-price-display">Rp 70.000</span>)
           </label>
         </li>
         <li>
           <label>
-            <input type="checkbox" class="selectable-sub-item" value="All 100% Mondstadt" data-price="150000"> 
-            All 100% Mondstadt: 
-            <p><span class="item-price-display" class="price-discount">Rp 200.000</span></p>
-            <p><span class="item-price-display" class="price">Rp 155.000</span></p>
+            <input type="checkbox" class="selectable-sub-item" value="Bishui Plain" data-price="70000"> 
+            Bishui Plain (<span class="item-price-display">Rp 70.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Qiongji Estuary" data-price="60000"> 
+            Qiongji Estuary (<span class="item-price-display">Rp 60.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Sea Of Clouds" data-price="55000"> 
+            Sea Of Clouds (<span class="item-price-display">Rp 55.000</span>)
           </label>
         </li>
       </ul>
-      
-      
-      
-      <button onclick="orderNow('Explore Mondstadt')">Pesan Sekarang</button>
+      <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+        <h4>Pricelist all 100% Liyue</h4>
+        <div class="price">Rp 300.000</div> 
+      </div>
+      <button onclick="orderNow('Explore Liyue')">Pesan Sekarang</button>
       <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
     </div>
 
-
-
-    <div class="package-card" data-title="Explore; Liyue">
-      <h2>Explore Liyue</h2>
-      <div>Minlin: <span class="price">Rp 70.000</span></div>
-      <div>Bishui ​​Plain: <span class="price">Rp 70.000</span></div>
-      <div>Qiongji Estuary: <span class="price">Rp 60.000</span></div>
-      <div>Sea Of Clouds: <span class="price">Rp 55.000</span></div>
-      <h4>Pricelist all 100% Liyue</h4>
-      <div class="price">Rp 300.000</div>
-      <button onclick="orderNow('Explore Liyue')">Pesan Sekarang</button>
-    </div>
-
-    <div class="package-card" data-title="Explore; Inazuma">
+    <!-- Explore Inazuma -->
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Inazuma; Narukami island; Kannazuka; Seirai island; Watatsumi island; Yashiori island; Tsurumi island">
       <h2>Explore Inazuma</h2>
-      <div>Narukami island: <span class="price">Rp 85.000</span></div>
-      <div>Kannazuka: <span class="price">Rp 75.000</span></div>
-      <div>Seirai island: <span class="price">Rp 75.000</span></div>
-      <div>Watatsumi island: <span class="price">Rp 70.000</span></div>
-      <div>Yashiori island: <span class="price">Rp 70.000</span></div>
-      <div>Tsurumi island: <span class="price">Rp 80.000</span></div>
-      <h4>Pricelist all 100% Inazuma</h4>
-      <div class="price">Rp 455.000</div>
+      <ul class="selectable-item-list">
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Narukami island" data-price="85000"> 
+            Narukami island (<span class="item-price-display">Rp 85.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Kannazuka" data-price="75000"> 
+            Kannazuka (<span class="item-price-display">Rp 75.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Seirai island" data-price="75000"> 
+            Seirai island (<span class="item-price-display">Rp 75.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Watatsumi island" data-price="70000"> 
+            Watatsumi island (<span class="item-price-display">Rp 70.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Yashiori island" data-price="70000"> 
+            Yashiori island (<span class="item-price-display">Rp 70.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Tsurumi island" data-price="80000"> 
+            Tsurumi island (<span class="item-price-display">Rp 80.000</span>)
+          </label>
+        </li>
+      </ul>
+      <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+        <h4>Pricelist all 100% Inazuma</h4>
+        <div class="price">Rp 455.000</div> 
+      </div>
       <button onclick="orderNow('Explore Inazuma')">Pesan Sekarang</button>
+      <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
     </div>
 
-    <div class="package-card" data-title="Explore; Sumeru; Green Land">
+    <!--Explore Sumeru (Green Land)-->
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Sumeru Green Land; Ardravi Valley; Ashavan Realms; Avidya Forest; Lokapala Jungle; Lost Nursery; Vanarana; Vissudha Field">
       <h2>Explore Sumeru (Green Land)</h2>
-      <div>Ardravi Valley: <span class="price">Rp 80.000</span></div>
-      <div>Ashavan Realms: <span class="price">Rp 75.000</span></div>
-      <div>Avidya Forest: <span class="price">Rp 50.000</span></div>
-      <div>Lokapala Jungle: <span class="price">Rp 50.000</span></div>
-      <div>Lost Nursery: <span class="price">Rp 20.000</span></div>
-      <div>Vanarana: <span class="price">Rp 15.000</span></div>
-      <div>Vissudha Field: <span class="price">Rp 50.000</span></div>
-      <h4>Pricelist all 100% Sumeru Green Land</h4>
-      <div class="price">Rp 455.000</div>
+      <ul class="selectable-item-list">
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Ardravi Valley" data-price="80000"> 
+            Ardravi Valley (<span class="item-price-display">Rp 80.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Ashavan Realms" data-price="75000"> 
+            Ashavan Realms (<span class="item-price-display">Rp 75.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Avidya Forest" data-price="50000"> 
+            Avidya Forest (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Lokapala Jungle" data-price="50000"> 
+            Lokapala Jungle (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Lost Nursery" data-price="20000"> 
+            Lost Nursery (<span class="item-price-display">Rp 20.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Vanarana" data-price="15000"> 
+            Vanarana (<span class="item-price-display">Rp 15.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Vissudha Field" data-price="50000"> 
+            Vissudha Field (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+      </ul>
+      <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+        <h4>Pricelist all 100% Sumeru Green Land</h4>
+        <div class="price">Rp 340.000</div> </div>
       <button onclick="orderNow('Explore Sumeru ^^Green Land^^')">Pesan Sekarang</button>
+      <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
     </div>
         
-    <div class="package-card" data-title="Explore; Sumeru; Desert">
+    <!-- Explore Sumeru (Desert) -->
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Sumeru Desert; Hypostyle Dyesert; Land of Lower Setekh; Land of Upper Setekh; Desert of Hadramaveth; Gavireh Lahavard; Realm of Farahkert">
       <h2>Explore Sumeru (Desert)</h2>
-      <div>Hypostyle Dyesert: <span class="price">Rp 65.000</span></div>
-      <div>Land of Lower Setekh: <span class="price">Rp 75.000</span></div>
-      <div>Land of Upper Setekh: <span class="price">Rp 50.000</span></div>
-      <div>Desert of Hadramaveth: <span class="price">Rp 160.000</span></div>
-      <div>Gavireh Lahavard: <span class="price">Rp 65.000</span></div>
-      <div>Realm of Farahkert: <span class="price">Rp 65.000</span></div>
-      <h4>Pricelist all 100% Sumeru Green Land</h4>
-      <div class="price">Rp 450.000</div>
+      <ul class="selectable-item-list">
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Hypostyle Dyesert" data-price="65000"> 
+            Hypostyle Dyesert (<span class="item-price-display">Rp 65.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Land of Lower Setekh" data-price="75000"> 
+            Land of Lower Setekh (<span class="item-price-display">Rp 75.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Land of Upper Setekh" data-price="50000"> 
+            Land of Upper Setekh (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Desert of Hadramaveth" data-price="160000"> 
+            Desert of Hadramaveth (<span class="item-price-display">Rp 160.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Gavireh Lahavard" data-price="65000"> 
+            Gavireh Lahavard (<span class="item-price-display">Rp 65.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Realm of Farahkert" data-price="65000"> 
+            Realm of Farahkert (<span class="item-price-display">Rp 65.000</span>)
+          </label>
+        </li>
+      </ul>
+      <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+        <h4>Pricelist all 100% Sumeru Desert</h4> <div class="price">Rp 480.000</div> </div>
       <button onclick="orderNow('Explore Sumeru ^^Desert^^')">Pesan Sekarang</button>
+      <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
     </div>
 
-    <div class="package-card" data-title="Explore; Fontaine">
+    <!-- Explore Fontaine -->
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Fontaine; Belleau Region; Beryl Region; Court of Fontaine; Liffey Region; Fontaine Research institute; Erinnyes Forest; Morte Region">
       <h2>Explore Fontaine</h2>
-      <div>Belleau Region: <span class="price">Rp 30.000</span></div>
-      <div>Beryl Region: <span class="price">Rp 75.000</span></div>
-      <div>Court of Fontaine: <span class="price">Rp 95.000</span></div>
-      <div>Liffey Region: <span class="price">Rp 70.000</span></div>
-      <div>Fontaine Research institute: <span class="price">Rp 95.000</span></div>
-      <div>Erinnyes Forest: <span class="price">Rp 70.000</span></div>
-      <div>Morte Region: <span class="price">Rp 95.000</span></div>
-      <h4>Pricelist all 100% Sumeru Green Land</h4>
-      <div class="price">Rp 530.000</div>
+      <ul class="selectable-item-list">
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Belleau Region" data-price="30000"> 
+            Belleau Region (<span class="item-price-display">Rp 30.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Beryl Region" data-price="75000"> 
+            Beryl Region (<span class="item-price-display">Rp 75.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Court of Fontaine" data-price="95000"> 
+            Court of Fontaine (<span class="item-price-display">Rp 95.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Liffey Region" data-price="70000"> 
+            Liffey Region (<span class="item-price-display">Rp 70.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Fontaine Research institute" data-price="95000"> 
+            Fontaine Research institute (<span class="item-price-display">Rp 95.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Erinnyes Forest" data-price="70000"> 
+            Erinnyes Forest (<span class="item-price-display">Rp 70.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Morte Region" data-price="95000"> 
+            Morte Region (<span class="item-price-display">Rp 95.000</span>)
+          </label>
+        </li>
+      </ul>
+      <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+        <h4>Pricelist all 100% Fontaine</h4> <div class="price">Rp 530.000</div> 
+      </div>
       <button onclick="orderNow('Explore Fontaine')">Pesan Sekarang</button>
+      <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
     </div>
 
-    <div class="package-card" data-title="Explore; Natlan">
+    <!-- Explore Natlan -->
+    <div class="package-card" data-game="Genshin Impact" data-title="Explore; Natlan; Tequemecan Valley; Coalepec Mountain; Basin of Unnumbered Flamen; Toyac Springs; Tezcatpetonco Range; Quahuacan Cliff; Ochkanatlan; Atocpan; Ancient Sacred Mountain">
       <h2>Explore Natlan</h2>
-      <div>Tequemecan Valley: <span class="price">Rp 60.000</span></div>
-      <div>Coalepec Mountain: <span class="price">Rp 45.000</span></div>
-      <div>Basin of Unnumbered Flamen: <span class="price">Rp 55.000</span></div>
-      <div>Toyac Springs: <span class="price">Rp 50.000</span></div>
-      <div>Tezcatpetonco Range: <span class="price">Rp 55.000</span></div>
-      <div>Quahuacan Cliff: <span class="price">Rp 50.000</span></div>
-      <div>Ochkanatlan: <span class="price">Rp 55.000</span></div>
-      <div>Atocpan: <span class="price">Rp 65.000</span></div>
-      <div>Ancient Sacred Mountain: <span class="price">Rp 70.000</span></div>
-      <h4>Pricelist all 100% Sumeru Green Land</h4>
-      <div class="price">Rp 510.000</div>
+      <ul class="selectable-item-list">
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Tequemecan Valley" data-price="60000"> 
+            Tequemecan Valley (<span class="item-price-display">Rp 60.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Coalepec Mountain" data-price="45000"> 
+            Coalepec Mountain (<span class="item-price-display">Rp 45.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Basin of Unnumbered Flamen" data-price="55000"> 
+            Basin of Unnumbered Flamen (<span class="item-price-display">Rp 55.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Toyac Springs" data-price="50000"> 
+            Toyac Springs (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Tezcatpetonco Range" data-price="55000"> 
+            Tezcatpetonco Range (<span class="item-price-display">Rp 55.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Quahuacan Cliff" data-price="50000"> 
+            Quahuacan Cliff (<span class="item-price-display">Rp 50.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Ochkanatlan" data-price="55000"> 
+            Ochkanatlan (<span class="item-price-display">Rp 55.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Atocpan" data-price="65000"> 
+            Atocpan (<span class="item-price-display">Rp 65.000</span>)
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" class="selectable-sub-item" value="Ancient Sacred Mountain" data-price="70000"> 
+            Ancient Sacred Mountain (<span class="item-price-display">Rp 70.000</span>)
+          </label>
+        </li>
+      </ul>
+      <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+        <h4>Pricelist all 100% Natlan</h4> <div class="price">Rp 505.000</div> </div>
       <button onclick="orderNow('Explore Natlan')">Pesan Sekarang</button>
+      <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
     </div>
 
     <script src="paketgi.js"></script>
