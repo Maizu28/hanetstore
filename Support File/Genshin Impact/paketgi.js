@@ -93,3 +93,140 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// === FUNGSI HELPER UNTUK MANAJEMEN KERANJANG (localStorage) ===
+// Pastikan fungsi-fungsi ini sudah ada di skrip Anda.
+function getCart() {
+  let cartData = [];
+  try {
+      const cartString = localStorage.getItem("pimonjoki_cart"); // Gunakan kunci yang konsisten
+      if (cartString) {
+          cartData = JSON.parse(cartString);
+          if (!Array.isArray(cartData)) {
+              console.warn("Data keranjang di localStorage bukan array, direset.");
+              cartData = [];
+          }
+      }
+  } catch (error) {
+      console.error("Error parsing keranjang dari localStorage:", error);
+      cartData = []; 
+  }
+  return cartData;
+}
+
+function saveCart(cart) {
+  try {
+      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart)); // Gunakan kunci yang konsisten
+  } catch (error) {
+      console.error("Error menyimpan keranjang ke localStorage:", error);
+      alert("Gagal menyimpan keranjang. Penyimpanan browser mungkin penuh atau tidak diizinkan.");
+  }
+}
+
+// === FUNGSI HELPER UNTUK MANAJEMEN KERANJANG (localStorage) ===
+function getCart() {
+  let cartData = [];
+  try {
+      const cartString = localStorage.getItem("pimonjoki_cart");
+      if (cartString) {
+          cartData = JSON.parse(cartString);
+          if (!Array.isArray(cartData)) {
+              cartData = [];
+          }
+      }
+  } catch (error) {
+      console.error("Error parsing keranjang dari localStorage:", error);
+      cartData = []; 
+  }
+  return cartData;
+}
+
+function saveCart(cart) {
+  try {
+      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+  } catch (error) {
+      console.error("Error menyimpan keranjang ke localStorage:", error);
+  }
+}
+
+// === FUNGSI UTAMA UNTUK TOMBOL "+ KERANJANG" PADA KARTU PAKET DENGAN CHECKBOX ===
+function addSelectedToCart(buttonElement) {
+  const packageCard = buttonElement.closest('.package-card');
+  if (!packageCard) {
+    console.error("Tidak dapat menemukan .package-card terkait tombol.");
+    alert("Terjadi kesalahan. Tidak dapat menambahkan ke keranjang.");
+    return;
+  }
+
+  const basePackageNameElement = packageCard.querySelector('h2');
+  const basePackageName = basePackageNameElement ? basePackageNameElement.textContent : "Paket Pilihan";
+
+  const selectedCheckboxes = packageCard.querySelectorAll('.quest-list input[type="checkbox"]:checked');
+  if (selectedCheckboxes.length === 0) {
+    alert(`Silakan pilih minimal satu item dari ${basePackageName}.`);
+    return;
+  }
+
+  const selectedItemValues = [];
+  selectedCheckboxes.forEach(checkbox => {
+    selectedItemValues.push(checkbox.value);
+  });
+
+  const priceDiv = packageCard.querySelector('.price');
+  let pricePerItem = 0; // Mengganti nama variabel agar lebih umum
+
+  if (priceDiv && priceDiv.dataset.pricePerAct) { // Tetap menggunakan pricePerAct jika itu nama data attribute Anda
+    pricePerItem = parseInt(priceDiv.dataset.pricePerAct, 10);
+  } else if (priceDiv) { 
+    const priceText = priceDiv.textContent;
+    const priceMatch = priceText.match(/Rp\s*([\d.]+)/);
+    if (priceMatch && priceMatch[1]) {
+      pricePerItem = parseInt(priceMatch[1].replace(/\./g, ''), 10);
+    }
+  }
+
+  if (isNaN(pricePerItem) || pricePerItem <= 0) {
+    alert("Harga per item tidak valid atau tidak dapat ditemukan. Pastikan atribut data-price-per-act ada dan benar.");
+    console.error("Harga per item tidak valid atau tidak ditemukan. Nilai terambil: ", pricePerItem);
+    return;
+  }
+
+  const totalItemsSelected = selectedCheckboxes.length;
+  const totalPrice = totalItemsSelected * pricePerItem;
+
+  const sortedItemValues = [...selectedItemValues].sort();
+  const selectionIdentifier = sortedItemValues.join('-').toLowerCase().replace(/\s+/g, '-');
+  
+  const idPrefix = basePackageName.toLowerCase().replace(/\s+/g, '-') || 'custom-package';
+  const itemId = `${idPrefix}-${selectionIdentifier}`; 
+  const itemName = `${basePackageName} (${sortedItemValues.join(", ")})`; 
+  const formattedTotalPrice = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+
+  // Asumsi game: "Genshin Impact". Jika bisa berbeda, tambahkan data-game di .package-card
+  const gameName = packageCard.dataset.game || "Genshin Impact"; 
+
+  const newItem = {
+    id: itemId,
+    name: itemName,
+    price: formattedTotalPrice,
+    game: gameName, 
+    qty: 1                 
+  };
+
+  let cart = getCart();
+  const existingItemIndex = cart.findIndex(item => item.id === newItem.id);
+
+  if (existingItemIndex > -1) {
+    cart[existingItemIndex].qty += 1;
+  } else {
+    cart.push(newItem);
+  }
+
+  saveCart(cart);
+  alert(`"${itemName}" (Total: ${formattedTotalPrice}) telah ditambahkan ke keranjang!`);
+}
+
+// Fungsi orderNow(packageName) akan membutuhkan implementasinya sendiri.
+// function orderNow(packageName) {
+//   // ...
+// }
