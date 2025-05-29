@@ -327,20 +327,7 @@ nav a:hover {
 }
 
 @media screen and (max-width: 480px) {
-    header h1 {
-        font-size: 2em;
-    }
-    header p {
-        font-size: 1em;
-    }
-    nav {
-        padding: 10px 5px; /* Kurangi padding nav agar link tidak wrap terlalu cepat */
-    }
-    nav a {
-        margin: 0 5px; 
-        font-size: 0.9em; /* Sedikit lebih kecil lagi */
-    }
-
+    
     .search-bar {
         gap: 8px;
         padding: 0 10px;
