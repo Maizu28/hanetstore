@@ -95,35 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // === FUNGSI HELPER UNTUK MANAJEMEN KERANJANG (localStorage) ===
-// Pastikan fungsi-fungsi ini sudah ada di skrip Anda.
-function getCart() {
-  let cartData = [];
-  try {
-      const cartString = localStorage.getItem("pimonjoki_cart"); // Gunakan kunci yang konsisten
-      if (cartString) {
-          cartData = JSON.parse(cartString);
-          if (!Array.isArray(cartData)) {
-              console.warn("Data keranjang di localStorage bukan array, direset.");
-              cartData = [];
-          }
-      }
-  } catch (error) {
-      console.error("Error parsing keranjang dari localStorage:", error);
-      cartData = []; 
-  }
-  return cartData;
-}
-
-function saveCart(cart) {
-  try {
-      localStorage.setItem("pimonjoki_cart", JSON.stringify(cart)); // Gunakan kunci yang konsisten
-  } catch (error) {
-      console.error("Error menyimpan keranjang ke localStorage:", error);
-      alert("Gagal menyimpan keranjang. Penyimpanan browser mungkin penuh atau tidak diizinkan.");
-  }
-}
-
-// === FUNGSI HELPER UNTUK MANAJEMEN KERANJANG (localStorage) ===
 function getCart() {
   let cartData = [];
   try {
