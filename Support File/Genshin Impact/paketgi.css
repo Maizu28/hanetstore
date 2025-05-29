@@ -210,49 +210,31 @@ nav a:hover {
 }
 
 /* Daftar Halaman (Pagination) */
-.pagination {
-    display: flex; 
-    overflow-x: auto; /* Memungkinkan scroll horizontal jika item banyak */
-    white-space: nowrap; 
-    gap: 10px;        /* Jarak antar item pagination */
-    padding: 15px 0;  /* Padding atas/bawah */
-    justify-content: flex-start; /* Atau 'center' */
-    border-bottom: 1px solid #eee; /* Garis bawah halus */
-    margin-bottom: 20px; /* Jarak ke konten di bawahnya */
-}
-
-.pagination a {
-    display: inline-block; 
-    flex-shrink: 0; /* Mencegah gambar mengecil saat di flex container */
-}
-
 .pagination img {
     width: 100px;
     height: 56px;
     object-fit: contain;
-    padding: 8px; /* Padding di dalam gambar sedikit dikurangi */
-    margin: 0; 
-    background-color: #e9ecef; /* Warna background lebih netral */
-    color: #495057; /* Untuk alt text jika gambar tidak muncul */
-    border: 1px solid #dee2e6; /* Border halus */
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-    border-radius: 8px; /* Radius disamakan dengan tombol */
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    max-width: auto;
+    padding: 10px;
+    margin: 5px;
+    background-color: #00a3ff;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: transform 0.3s;
 }
 
 .pagination img:hover {
     transform: translateY(-2px);
-    border-color: #007bff; /* Warna border saat hover */
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.15);
+    border: 2px solid #3da7d8;
+    background-color: #3ab7ff;
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
 
 .pagination img.active {
     transform: translateY(-1px);
-    border-color: #0056b3; 
-    background-color: #007bff; 
-    color: white; /* Untuk alt text jika gambar tidak muncul */
-    box-shadow: 0 2px 5px rgba(0, 86, 179, 0.25);
+    border: 2px solid #3da7d8;
+    background-color: #3ab7ff;
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
 
 /* Badge Promo */
