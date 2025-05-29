@@ -57,11 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Add to Cart
-// File JavaScript Anda (misalnya, paketgi.js atau script.js)
-
-// === BAGIAN 1: FUNGSI HELPER DAN INTI MANAJEMEN KERANJANG (Dari kode Anda) ===
 function getCart() {
-  // Lebih baik menggunakan versi yang lebih robust untuk menangani JSON parsing error
   let cartData = [];
   try {
     const cartString = localStorage.getItem("pimonjoki_cart");
@@ -84,21 +80,16 @@ function saveCart(cart) {
     localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
   } catch (error) {
     console.error("Error menyimpan keranjang ke localStorage:", error);
-    // Mungkin tambahkan alert jika gagal simpan, misal karena storage penuh
   }
 }
 
-// Fungsi inti untuk menambahkan item ke keranjang (Dari kode Anda)
-// Fungsi ini akan dipanggil oleh listener generik DAN oleh fungsi khusus checkbox
 function addToCart(item) {
   let cart = getCart();
   const existing = cart.find((i) => i.id === item.id);
 
   if (existing) {
-    existing.qty += 1; // Selalu tambah 1 jika sudah ada
+    existing.qty += 1;
   } else {
-    // Jika item baru, tambahkan dengan qty: 1.
-    // Pastikan objek item yang masuk tidak memiliki qty, atau qty-nya diabaikan di sini.
     cart.push({ ...item, qty: 1 });
   }
 
@@ -106,98 +97,105 @@ function addToCart(item) {
   alert(`"${item.name}" berhasil ditambahkan ke keranjang.`);
 }
 
-// === BAGIAN 2: FUNGSI KHUSUS UNTUK PAKET DENGAN CHECKBOX (ARCHON QUEST, WORLD QUEST) ===
-// Fungsi ini akan MENYIAPKAN item lalu MEMANGGIL addToCart() dari BAGIAN 1
-function addSelectedToCart(buttonElement) {
+function addSelectedItemsToCart(buttonElement) {
   const packageCard = buttonElement.closest('.package-card');
   if (!packageCard) {
-    console.error("Tombol tidak berada di dalam .package-card.");
-    alert("Terjadi kesalahan internal (package card tidak ditemukan).");
+    alert("Kesalahan: Kartu paket tidak ditemukan.");
     return;
   }
 
   const basePackageNameElement = packageCard.querySelector('h2');
-  const basePackageName = basePackageNameElement ? basePackageNameElement.textContent : "Paket Pilihan";
+  const basePackageName = basePackageNameElement ? basePackageNameElement.textContent.trim() : "Paket Pilihan";
 
-  const selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
+  let selectedCheckboxes = packageCard.querySelectorAll('ul.selectable-item-list input.selectable-sub-item:checked');
+  if (selectedCheckboxes.length === 0) {
+    selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
+  }
+
   if (selectedCheckboxes.length === 0) {
     alert(`Silakan pilih minimal satu item dari ${basePackageName}.`);
     return;
   }
 
   const selectedItemValues = [];
-  selectedCheckboxes.forEach(checkbox => {
-    selectedItemValues.push(checkbox.value);
-  });
+  const selectedItemUniqueIds = [];
+  let totalPrice = 0;
+  let priceCalculationMode = "individual";
 
-  const priceDiv = packageCard.querySelector('.price');
-  let pricePerItem = 0;
+  const pricePerActDiv = packageCard.querySelector('div[data-price-per-act]');
+  let pricePerActFromCard = 0;
 
-  if (priceDiv && priceDiv.dataset.pricePerAct) {
-    pricePerItem = parseInt(priceDiv.dataset.pricePerAct, 10);
-  } else if (priceDiv) {
-    const priceText = priceDiv.textContent;
-    const priceMatch = priceText.match(/Rp\s*([\d.]+)/);
-    if (priceMatch && priceMatch[1]) {
-      pricePerItem = parseInt(priceMatch[1].replace(/\./g, ''), 10);
+  if (pricePerActDiv && pricePerActDiv.dataset.pricePerAct) {
+    pricePerActFromCard = parseInt(pricePerActDiv.dataset.pricePerAct, 10);
+    if (!isNaN(pricePerActFromCard) && pricePerActFromCard > 0) {
+      priceCalculationMode = "perAct";
     }
   }
 
-  if (isNaN(pricePerItem) || pricePerItem <= 0) {
-    alert("Harga per item tidak valid. Pastikan atribut data-price-per-act ada dan benar pada elemen .price di HTML.");
+  if (priceCalculationMode === "perAct") {
+    totalPrice = selectedCheckboxes.length * pricePerActFromCard;
+    selectedCheckboxes.forEach(checkbox => {
+      selectedItemValues.push(checkbox.value);
+      selectedItemUniqueIds.push(checkbox.value.toLowerCase().replace(/\s+/g, '-'));
+    });
+  } else {
+    selectedCheckboxes.forEach(checkbox => {
+      const itemPrice = parseInt(checkbox.dataset.price, 10);
+      if (!isNaN(itemPrice) && itemPrice >= 0) {
+        totalPrice += itemPrice;
+        selectedItemValues.push(checkbox.value);
+        selectedItemUniqueIds.push(checkbox.dataset.questId || checkbox.value.toLowerCase().replace(/\s+/g, '-'));
+      } else {
+        console.warn(`Item "${checkbox.value}" tidak memiliki harga valid dan dilewati.`);
+      }
+    });
+    if (selectedItemValues.length === 0 && selectedCheckboxes.length > 0) {
+        alert("Item yang dipilih tidak memiliki harga yang valid.");
+        return;
+    }
+  }
+  
+  if (selectedItemValues.length === 0) {
+    alert(`Tidak ada item valid yang dipilih dari ${basePackageName}.`);
     return;
   }
 
-  const totalItemsSelected = selectedCheckboxes.length;
-  const totalPrice = totalItemsSelected * pricePerItem;
-
-  const sortedItemValues = [...selectedItemValues].sort();
-  const selectionIdentifier = sortedItemValues.join('-').toLowerCase().replace(/\s+/g, '-');
+  const sortedItemIds = [...selectedItemUniqueIds].sort();
+  const selectionIdentifier = sortedItemIds.join('-');
+  
   const idPrefix = basePackageName.toLowerCase().replace(/\s+/g, '-') || 'custom-package';
-  const itemId = `${idPrefix}-${selectionIdentifier}`;
-  const itemName = `${basePackageName} (${sortedItemValues.join(", ")})`;
+  const itemId = `${idPrefix}-${selectionIdentifier}`; 
+  const itemName = `${basePackageName} (${selectedItemValues.join(", ")})`; 
   const formattedTotalPrice = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-  const gameName = packageCard.dataset.game || "Genshin Impact"; // Ambil dari data-game di card, atau default
+  const gameName = packageCard.dataset.game || "Genshin Impact";
 
-  // Siapkan objek item untuk dikirim ke fungsi addToCart() inti
-  // TIDAK perlu properti 'qty' di sini, karena fungsi addToCart() inti akan menanganinya.
-  const itemForCart = {
+  const newItemForCart = {
     id: itemId,
     name: itemName,
     price: formattedTotalPrice,
-    game: gameName
+    game: gameName,
   };
 
-  // Panggil fungsi addToCart() inti
-  addToCart(itemForCart);
-  // Alert akan ditampilkan oleh fungsi addToCart() inti.
+  addToCart(newItemForCart);
 }
 
-// === BAGIAN 3: EVENT LISTENER GENERIK UNTUK TOMBOL .add-to-cart (Dari kode Anda, dengan penyesuaian) ===
 document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".add-to-cart");
+  const buttons = document.querySelectorAll(".add-to-cart"); 
   buttons.forEach((btn) => {
-    // Pasang listener ini HANYA jika tombol TIDAK memiliki handler onclick di HTML.
-    // Ini untuk mencegah eksekusi ganda pada tombol yang sudah punya onclick="addSelectedToCart(this)"
-    // dan juga memiliki class "add-to-cart".
-    if (!btn.onclick) {
+    if (!btn.onclick) { 
       btn.addEventListener("click", () => {
         const item = {
           id: btn.dataset.id,
           name: btn.dataset.name,
           price: btn.dataset.price,
-          game: btn.dataset.game || "Genshin Impact", // Default jika tidak ada data-game
+          game: btn.dataset.game || "Genshin Impact",
         };
-
-        // Pastikan data dasar ada sebelum memanggil addToCart
         if (item.id && item.name && item.price) {
-          addToCart(item); // Panggil fungsi addToCart() inti
+          addToCart(item); 
         } else {
           console.warn("Tombol .add-to-cart tanpa onclick dan tanpa atribut data-* yang cukup:", btn);
-          // Anda bisa menambahkan alert di sini jika mau, tapi biasanya ini adalah kesalahan konfigurasi HTML
         }
       });
     }
   });
 });
-
