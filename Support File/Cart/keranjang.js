@@ -430,3 +430,16 @@ document.addEventListener("keydown", function(e) {
         promoBtn.click();
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const promoInput = document.getElementById('promo-code-input');
+    const promoBtn = document.getElementById('apply-promo-btn');
+    if (promoInput && promoBtn) {
+        promoInput.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                promoBtn.click();
+            }
+        });
+    }
+});
