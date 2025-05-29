@@ -313,7 +313,7 @@ footer p {
 /* Input field untuk kode promo */
 .promo-section input[type="text"]#promo-code-input {
     flex-grow: 1;
-    padding: 10px 15px;
+    padding: 0 15px; /* padding vertikal 0, horizontal 15px */
     font-size: 1em;
     color: #495057;
     background-color: #fff;
@@ -323,38 +323,20 @@ footer p {
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     height: 40px; /* Samakan tinggi dengan button */
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    /* Pastikan line-height sama dengan tinggi */
+    line-height: normal;
+    /* Samakan tinggi input dan button */
 }
 
-.promo-section input[type="text"]#promo-code-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-/* Tombol "Gunakan" atau "Ganti/Hapus" untuk promo */
-.promo-section button#apply-promo-btn {
-    padding: 0 15px; /* Hapus padding vertikal, gunakan height */
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+.promo-section button,
+.promo-input-group button {
+    height: 40px;
+    padding: 0 20px;
     font-size: 1em;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: background-color 0.2s ease;
-    height: 40px; /* Samakan tinggi dengan input */
+    border-radius: 8px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-}
-
-.promo-section button#apply-promo-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Div untuk menampilkan status kode promo */
-#promo-status {
-    font-size: 0.9em;
-    margin-top: 10px;
-    min-height: 1.2em;
 }
