@@ -350,10 +350,4 @@ nav a:hover {
     header p {
         font-size: 1em;
     }
-
-    /* Sesuaikan padding untuk checklist di mobile jika terlalu mepet */
-    .package-card ul.selectable-item-list,
-    .package-card ul.quest-list {
-        /* padding-left: 10px; // Contoh jika ingin sedikit indent di mobile */
-    }
 }
