@@ -65,7 +65,7 @@ nav a:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    
 }
 
 .package-card:hover {
@@ -131,7 +131,6 @@ nav a:hover {
     transition: background-color 0.2s ease;
     font-weight: bold;
     font-size: 0.95em;
-    align-content: flex-end; /* Pastikan tombol berada di bawah */
 }
 
 .package-card button:hover {
