@@ -153,18 +153,18 @@ nav a:hover {
 
 /* Warna spesifik untuk tombol di .card-actions (Tidak diubah sesuai permintaan Anda untuk mempertahankan warna tombol default) */
 .package-card .card-actions button[onclick*="orderNow"] {
-   /* background-color: #007bff; */ /* Dibiarkan untuk mewarisi style .package-card button */
+background-color: #007bff;
 }
 .package-card .card-actions button[onclick*="orderNow"]:hover {
-   /* background-color: #0056b3; */
+background-color: #0056b3; 
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"],
 .package-card .card-actions button.add-to-cart { 
-   /* background-color: #28a745; */ /* Dibiarkan untuk mewarisi style .package-card button atau bisa di-set spesifik jika warna default berbeda */
+   background-color: #28a745; 
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
 .package-card .card-actions button.add-to-cart:hover {
-   /* background-color: #218838; */
+background-color: #218838; 
 }
 
 /* === STYLING UNTUK LIST DESKRIPTIF DENGAN EMOJI CHECKMARK === */
@@ -328,7 +328,7 @@ nav a:hover {
     .search-bar input[type="text"] { font-size: 0.9em; padding: 8px 12px; }
     .icon-button { padding: 8px; }
     .icon-button img { width: 18px; height: 18px; }
-    .package-list { /* gap: 15px; Dihapus, jarak diatur oleh margin .package-card */ }
+    .package-list { gap: 15px; }
     .package-card {
         width: 100%; /* Mengambil lebar penuh dari padding .container di mobile */
         max-width: none; /* Hapus max-width agar bisa full di mobile */
