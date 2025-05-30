@@ -57,7 +57,7 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: flex-start; /* Kartu akan mulai dari kiri */
+    justify-content: flex-start; 
     margin-top: 20px;
 }
 .package-card {
@@ -66,14 +66,13 @@ nav a:hover {
     border: 1px solid #ddd;
     border-radius: 16px;
     padding: 20px;
-    flex-basis: 280px;    /* Lebar dasar kartu */
-    flex-grow: 1;         /* Izinkan kartu untuk tumbuh */
-    /* max-width: 450px; */ /* Opsional: Batas lebar maksimum */
+    flex-basis: 280px;    
+    flex-grow: 1;         
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Penting untuk mendorong .card-actions ke bawah */
+    justify-content: space-between; 
 }
 .package-card:hover {
     transform: translateY(-5px);
@@ -81,8 +80,8 @@ nav a:hover {
 }
 .package-card h2 {
     font-size: 1.4em;
-    margin-top: 20px; /* Ruang untuk badge promo */
-    margin-bottom: 10px; /* Jarak ke checklist atau konten lain */
+    margin-top: 20px; 
+    margin-bottom: 10px; 
     color: #333;
     font-weight: 600;
 }
@@ -92,17 +91,18 @@ nav a:hover {
     margin: 8px 0;
     line-height: 1.5;
 }
-/* Styling umum untuk semua <li> di dalam kartu (akan ditimpa oleh aturan yang lebih spesifik di bawah jika perlu) */
-.package-card li {
+
+/* Styling umum untuk semua <li> di dalam kartu */
+.package-card li { 
     font-size: 0.9em;
     color: #555;
-    /* margin-bottom akan diatur lebih spesifik di bawah untuk jenis list yang berbeda */
-    list-style-type: none; /* Default untuk semua li di kartu */
-    padding-left: 0;       /* Default untuk semua li di kartu */
+    margin-bottom: 6px; /* Default margin-bottom untuk semua li */
+    list-style-type: none; /* Menghilangkan bullet default */
+    padding-left: 0;       /* Menghilangkan padding kiri default */
     text-align: left;
 }
 
-.package-card .price { /* Harga utama (misal, total paket bundle) */
+.package-card .price { 
     font-size: 1.3em;
     font-weight: bold;
     color: #28a745;
@@ -123,7 +123,7 @@ nav a:hover {
 /* Styling Tombol Umum di dalam .package-card */
 .package-card button {
     padding: 10px 15px;
-    background-color: #007bff; /* Warna default biru, bisa ditimpa untuk tombol spesifik */
+    background-color: #007bff; 
     color: white;
     border: none;
     border-radius: 8px;
@@ -131,99 +131,96 @@ nav a:hover {
     transition: background-color 0.2s ease;
     font-weight: bold;
     font-size: 0.95em;
-    margin-top: 15px; /* Margin atas default untuk tombol yang bukan di .card-actions */
+    margin-top: 15px; 
 }
 .package-card button:hover {
-    background-color: #0056b3; /* Hover default biru */
+    background-color: #0056b3; 
 }
 
 /* Wrapper untuk Tombol Aksi di Bawah Kartu */
 .package-card .card-actions {
-  margin-top: auto; /* PENTING: Mendorong blok tombol ini ke bagian paling bawah kartu */
-  padding-top: 15px; /* Jarak dari konten di atasnya ke tombol pertama */
+  margin-top: auto; 
+  padding-top: 15px; 
 }
-
 .package-card .card-actions button {
   width: 100%;
   display: block;
-  margin-top: 0; /* Hapus margin atas individu, jarak diatur oleh :not(:last-child) */
+  margin-top: 0; 
 }
-
 .package-card .card-actions button:not(:last-child) {
-  margin-bottom: 10px; /* Jarak antar tombol yang bertumpuk */
+  margin-bottom: 10px; 
 }
 
-/* Warna spesifik untuk tombol di .card-actions (Tidak diubah sesuai permintaan terakhir) */
+/* Warna spesifik untuk tombol di .card-actions (Tidak diubah sesuai permintaan Anda untuk mempertahankan warna tombol default) */
 .package-card .card-actions button[onclick*="orderNow"] {
-   /* background-color: #007bff;  Biarkan mewarisi dari .package-card button jika tidak ada override */
+   /* background-color: #007bff; */ /* Dibiarkan untuk mewarisi style .package-card button */
 }
 .package-card .card-actions button[onclick*="orderNow"]:hover {
    /* background-color: #0056b3; */
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"],
-.package-card .card-actions button.add-to-cart { /* Tombol "+ Keranjang" */
-   /* background-color: #28a745;  Biarkan mewarisi dari .package-card button jika tidak ada override */
+.package-card .card-actions button.add-to-cart { 
+   /* background-color: #28a745; */ /* Dibiarkan untuk mewarisi style .package-card button atau bisa di-set spesifik jika warna default berbeda */
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
 .package-card .card-actions button.add-to-cart:hover {
    /* background-color: #218838; */
 }
 
-
 /* === STYLING UNTUK LIST DESKRIPTIF DENGAN EMOJI CHECKMARK === */
-/* Targetkan ul deskriptif (misalnya yang tidak memiliki kelas .selectable-item-list atau .quest-list) */
-/* Atau berikan kelas khusus pada <ul> deskriptif seperti <ul class="fitur-deskriptif"> */
-.package-card ul:not(.selectable-item-list):not(.quest-list) {
-  list-style-type: none;
-  padding-left: 0;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  text-align: left;
+/* Menggunakan kelas spesifik 'fitur-deskriptif' pada <ul> untuk target yang lebih aman */
+.package-card ul.fitur-deskriptif {
+  list-style-type: none; 
+  padding-left: 0;       
+  margin-top: 10px;      
+  margin-bottom: 15px;   
+  text-align: left;      
 }
 
-.package-card ul:not(.selectable-item-list):not(.quest-list) li {
-  position: relative;
-  padding-left: 28px; /* Ruang untuk emoji ✔ */
-  margin-bottom: 8px;
-  line-height: 1.4;
-  /* font-size & color akan diwarisi dari .package-card li umum */
+.package-card ul.fitur-deskriptif li {
+  position: relative;      
+  padding-left: 28px;      /* Ruang untuk emoji ✔ */
+  margin-bottom: 8px;      /* Override margin-bottom dari .package-card li umum jika perlu */
+  line-height: 1.4;   
+  /* font-size & color diwarisi dari .package-card li umum */
 }
 
-.package-card ul:not(.selectable-item-list):not(.quest-list) li::before {
-  content: "✔";
-  color: #007bff; /* Warna biru untuk emoji */
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-  top: 0px; /* Sesuaikan jika perlu untuk alignment vertikal dengan teks */
-  /* line-height: inherit; */
+.package-card ul.fitur-deskriptif li::before {
+  content: "✔";         
+  color: #007bff;         
+  font-weight: bold;       
+  position: absolute;      
+  left: 0;                 
+  top: 0px; /* Sesuaikan jika perlu untuk alignment vertikal */
 }
 /* === AKHIR STYLING LIST DESKRIPTIF DENGAN EMOJI === */
 
 
-/* STYLING KHUSUS UNTUK CHECKLIST INTERAKTIF (selectable-item-list / quest-list) */
-/* Memastikan checklist interaktif tidak mendapat emoji dan paddingnya benar */
+/* === STYLING KHUSUS UNTUK CHECKLIST INTERAKTIF (selectable-item-list / quest-list) === */
+/* Ini memastikan checklist interaktif tidak mendapat emoji dan paddingnya benar */
 .package-card ul.selectable-item-list,
 .package-card ul.quest-list {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 5px;
+    list-style-type: none; 
+    padding-left: 0;       
+    margin-top: 5px;       
     margin-bottom: 15px;
     text-align: left;
 }
 
+/* Untuk <li> di dalam checklist interaktif, pastikan tidak ada styling emoji */
 .package-card ul.selectable-item-list li,
 .package-card ul.quest-list li {
-    padding-left: 0; /* Tidak ada padding kiri tambahan untuk emoji */
-    position: static;  /* Override jika ada */
-    margin: 0 0 8px 0;
+    padding-left: 0;    /* Tidak ada padding kiri tambahan untuk emoji */
+    position: static;   /* Override jika ada dari aturan lain */
+    margin: 0 0 8px 0;  /* Margin spesifik untuk item checklist */
     list-style-type: none; /* Tegaskan */
+    /* font-size & color diwarisi dari .package-card li umum */
 }
 /* Secara eksplisit menghapus ::before dari item checklist interaktif */
 .package-card ul.selectable-item-list li::before,
 .package-card ul.quest-list li::before {
-    content: "" !important;
-    display: none !important;
+    content: "" !important; /* Tidak ada konten emoji */
+    display: none !important; /* Tidak ditampilkan */
 }
 
 .package-card ul.selectable-item-list li label,
@@ -247,21 +244,12 @@ nav a:hover {
 }
 /* === AKHIR STYLING CHECKLIST === */
 
-
 /* Animasi */
 @keyframes fadeSlide {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
-.fade-slide {
-    animation: fadeSlide 0.4s ease-out;
-}
+.fade-slide { animation: fadeSlide 0.4s ease-out; }
 
 /* Daftar Halaman (Pagination) */
 .pagination {
@@ -271,190 +259,92 @@ nav a:hover {
     gap: 10px;
     padding: 10px;
 }
-.pagination a {
-    display: inline-block;
-    flex-shrink: 0;
-}
+.pagination a { display: inline-block; flex-shrink: 0; }
 .pagination img {
-    width: 100px;
-    height: 56px;
-    object-fit: contain;
-    padding: 10px;
-    margin: 0;
-    background-color: #00a3ff;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    width: 100px; height: 56px; object-fit: contain; padding: 10px; margin: 0;
+    background-color: #00a3ff; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border 0.3s;
 }
 .pagination img:hover {
-    transform: translateY(-2px);
-    border: 2px solid #3da7d8;
-    background-color: #3ab7ff;
+    transform: translateY(-2px); border: 2px solid #3da7d8; background-color: #3ab7ff;
     box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
 .pagination img.active {
-    transform: translateY(-1px);
-    border: 2px solid #2a8bcc;
-    background-color: #0092e0;
+    transform: translateY(-1px); border: 2px solid #2a8bcc; background-color: #0092e0;
     box-shadow: 0 5px 15px rgba(0, 146, 224, 0.3);
 }
 
 /* Badge Promo */
 .badge-discount {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background-color: #dc3545;
-    color: white;
-    padding: 5px 10px;
-    font-size: 0.8em;
-    font-weight: bold;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    position: absolute; top: 12px; left: 12px; background-color: #dc3545; color: white;
+    padding: 5px 10px; font-size: 0.8em; font-weight: bold; border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 10;
 }
 
 /* Harga Alternatif */
 .price2 {
-    font-size: 1.0em;
-    text-align: right;
-    font-weight: normal;
-    color: #28a745;
+    font-size: 1.0em; text-align: right; font-weight: normal; color: #28a745;
 }
 
 /* Search Bar */
 .search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: 600px;
-    margin: 25px auto;
-    padding: 0 16px;
+    display: flex; align-items: center; gap: 10px; max-width: 600px;
+    margin: 25px auto; padding: 0 16px;
 }
 .search-bar input[type="text"] {
-    flex: 1;
-    padding: 10px 15px;
-    font-size: 1em;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    outline: none;
+    flex: 1; padding: 10px 15px; font-size: 1em; border: 1px solid #ced4da;
+    border-radius: 8px; outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .search-bar input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: #007bff; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 /* Tombol Ikon (Search & Cart) */
 .icon-button {
-    background-color: #007bff;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    background-color: #007bff; border: none; padding: 10px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
     transition: background-color 0.2s ease;
 }
-.icon-button:hover {
-    background-color: #0056b3;
-}
+.icon-button:hover { background-color: #0056b3; }
 .icon-button img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
+    width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1);
 }
 
 /* Responsive untuk Mobile */
 @media screen and (max-width: 768px) {
-    .package-list {
-        justify-content: center;
-    }
-    .package-card {
-        flex-basis: calc(50% - 10px); 
-        max-width: calc(50% - 10px);
-    }
-    nav a {
-        margin: 0 10px;
-        font-size: 1em;
-    }
+    .package-list { justify-content: center; }
+    .package-card { flex-basis: calc(50% - 10px); max-width: calc(50% - 10px); }
+    nav a { margin: 0 10px; font-size: 1em; }
 }
 @media screen and (max-width: 480px) {
-    header h1 {
-        font-size: 1.8em;
-    }
-    header p {
-        font-size: 0.9em;
-    }
-    nav {
-        padding: 10px 5px;
-    }
-    nav a {
-        margin: 0 5px;
-        font-size: 0.9em;
-    }
-    .container {
-        padding: 10px;
-        margin: 10px auto;
-    }
-    .search-bar {
-        gap: 8px;
-        padding: 0 10px;
-        margin: 20px auto;
-    }
-    .search-bar input[type="text"] {
-        font-size: 0.9em;
-        padding: 8px 12px;
-    }
-    .icon-button {
-        padding: 8px;
-    }
-    .icon-button img {
-        width: 18px;
-        height: 18px;
-    }
-    .package-list {
-        /* gap: 15px; /* Tidak berlaku jika bukan flex/grid, jarak diatur oleh margin .package-card */
-    }
+    header h1 { font-size: 1.8em; }
+    header p { font-size: 0.9em; }
+    nav { padding: 10px 5px; }
+    nav a { margin: 0 5px; font-size: 0.9em; }
+    .container { padding: 10px; margin: 10px auto; }
+    .search-bar { gap: 8px; padding: 0 10px; margin: 20px auto; }
+    .search-bar input[type="text"] { font-size: 0.9em; padding: 8px 12px; }
+    .icon-button { padding: 8px; }
+    .icon-button img { width: 18px; height: 18px; }
+    .package-list { /* gap: 15px; Dihapus, jarak diatur oleh margin .package-card */ }
     .package-card {
-        width: 100%; /* Mengambil lebar penuh dari padding .container */
+        width: 100%; /* Mengambil lebar penuh dari padding .container di mobile */
         max-width: none; /* Hapus max-width agar bisa full di mobile */
         margin-bottom: 20px; /* Jarak antar kartu di mobile jika bertumpuk */
         padding: 15px;
     }
-    .package-card h2 {
-        font-size: 1.2em;
-        margin-top: 15px; 
-        margin-bottom: 10px;
-    }
-    .package-card .price {
-        font-size: 1.1em;
-    }
+    .package-card h2 { font-size: 1.2em; margin-top: 15px; margin-bottom: 10px; }
+    .package-card .price { font-size: 1.1em; }
     .package-card button, 
-    .package-card .card-actions button { 
-        font-size: 0.9em;
-        padding: 10px 12px;
-    }
-    .badge-discount {
-        top: 8px;
-        left: 8px;
-        padding: 4px 6px;
-        font-size: 0.7em;
-    }
-    .pagination img {
-        width: 80px;
-        height: 45px;
-        padding: 6px;
-    }
+    .package-card .card-actions button { font-size: 0.9em; padding: 10px 12px; }
+    .badge-discount { top: 8px; left: 8px; padding: 4px 6px; font-size: 0.7em; }
+    .pagination img { width: 80px; height: 45px; padding: 6px; }
+
     /* Penyesuaian untuk emoji checklist di mobile jika terlalu besar/mepet */
     .package-card ul:not(.selectable-item-list):not(.quest-list) li {
-        padding-left: 24px; /* Sedikit kurangi jika emoji terasa besar di mobile */
+        padding-left: 24px; 
         margin-bottom: 6px;
     }
-    /* .package-card ul:not(.selectable-item-list):not(.quest-list) li::before {
-        top: 1px; // Contoh jika perlu penyesuaian vertikal emoji di mobile
-        font-size: 0.9em; // Jika ingin emoji lebih kecil di mobile
-    } */
 }
