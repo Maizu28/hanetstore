@@ -140,7 +140,6 @@ nav a:hover {
     font-weight: bold;
     margin: 15px;
     transition: background-color 0.3s;
-    align-items: flex-end;
 }
 
 .btn:hover {
