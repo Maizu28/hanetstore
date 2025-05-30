@@ -73,9 +73,10 @@
         <img src="https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Support%20File/Img/png%20cart.png" alt="cart" />
       </a>
     </div>
-      
-      <!--Rawat Akun Genshin-->
+
+
     <div class="package-list">
+      <!--Rawat Akun Genshin-->
         <div class="package-card"data-title="Rawat Akun; daily; Harian; 1 Hari">
           <h2>Rawat Akun Daily</h2>
           <li>Daily comission</li>
@@ -85,6 +86,9 @@
           <br />
           <div class="price">Rp 5.000</div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
+
+          <button class="btn add-to-cart" data-id="rawat-akun-1day-genshin" data-game="Genshin Impact"
+          data-name="RAWAT AKUN - 1 Days" data-price="Rp 5.000">+ Keranjang</button>
         </div>
 
         <div class="package-card" data-title="Rawat Akun; Weekly; Mingguan; 7 Hari">
@@ -97,6 +101,9 @@
           <br />
           <div class="price">Rp 30.000</div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
+
+          <button class="btn add-to-cart" data-id="rawat-akun-7day-genshin" data-game="Genshin Impact"
+          data-name="RAWAT AKUN - 7 Days" data-price="Rp 30.000">+ Keranjang</button>
         </div>
 
         <div class="package-card" data-title="Rawat Akun; Monthly; Bulanan; 30 Hari">
@@ -116,6 +123,9 @@
           <div class="price-discount"><s>Rp 150.000</s> 43%</div>
           <div class="price">Rp 85.000</div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
+
+          <button class="btn add-to-cart" data-id="rawat-akun-30day-genshin" data-game="Genshin Impact"
+          data-name="RAWAT AKUN - 30 Days" data-price="Rp 85.000">+ Keranjang</button>
         </div>
 
         <!--Event Genshin-->
@@ -130,7 +140,8 @@
           <div class="price">Rp 45.000</div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
 
-          <button class="btn add-to-cart" data-id="genshin-event-lantern-rite" data-name="LIMITED EVENT - Latern Rite" data-price="Rp 45.000" data-game="Genshin Impact">+ Keranjang</button>
+          <button class="btn add-to-cart" data-id="genshin-event-lantern-rite"
+          data-name="LIMITED EVENT - Latern Rite" data-price="Rp 45.000" data-game="Genshin Impact">+ Keranjang</button>
 
         </div>
 
@@ -145,7 +156,8 @@
           <div class="price">Rp 60.000</div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
 
-          <button class="btn add-to-cart" data-id="genshin-event-aniversary" data-name="LIMITED EVENT - Aniversary" data-price="Rp 60.000" data-game="Genshin Impact">+ Keranjang</button>
+          <button class="btn add-to-cart" data-id="genshin-event-aniversary"
+          data-name="LIMITED EVENT - Aniversary" data-price="Rp 60.000" data-game="Genshin Impact">+ Keranjang</button>
         </div>
 
         <!--Quest Genshin-->
@@ -530,6 +542,233 @@
           </ul>
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Natlan</h4> <div class="price">Rp 505.000</div> </div>
+          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+        </div>
+
+        <!-- Other Genshin Impact -->
+        <!-- Ascension Character dan Up Talent -->  
+        <div class="package-card" data-game="Genshin Impact" data-title="Ascension Character; Level Up Character; Level Up Karakter; Up Talent; Karakter"> <h2>Ascension Character</h2>
+            
+          <ul class="selectable-item-list">
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 01–40" data-price="5000"> 
+                Level 01–40 (<span class="item-price-display">Rp 5.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 40–50" data-price="5000"> 
+                Level 40–50 (<span class="item-price-display">Rp 5.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 50–60" data-price="6000"> 
+                Level 50–60 (<span class="item-price-display">Rp 6.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 60–70" data-price="8000"> 
+                Level 60–70 (<span class="item-price-display">Rp 8.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 70–80" data-price="15000"> 
+                Level 70–80 (<span class="item-price-display">Rp 15.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 80–90" data-price="27000"> 
+                Level 80–90 (<span class="item-price-display">Rp 27.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 01–90" data-price="65000"> 
+                Level 01–90 (<span class="item-price-display">Rp 65.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Up Talent 3 crown" data-price="65000"> 
+                Up Talent 3 crown (<span class="item-price-display">Rp 65.000</span>)
+              </label>
+            </li>
+          </ul>
+              
+            <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+              <h4>PAKET Ascension Character + Up Talent 3 Crown</h4>
+              <div class="price">Rp 115.000</div> 
+            </div>
+              
+          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+        </div>  
+
+        <!-- Upgrade Senjata -->    
+        <div class="package-card" data-game="Genshin Impact" data-title="Upgrade Senjata; Upgrade Weapon; Level Up Senjata; Level Up Weapon">
+          <h2>Upgrade Senjata</h2>
+          <ul class="selectable-item-list">
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 20–40" data-price="4000"> 
+                Level 20–40 (<span class="item-price-display">Rp 4.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 40–50" data-price="5000"> 
+                Level 40–50 (<span class="item-price-display">Rp 5.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 50–60" data-price="5000"> 
+                Level 50–60 (<span class="item-price-display">Rp 5.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 60–70" data-price="7000"> 
+                Level 60–70 (<span class="item-price-display">Rp 7.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 70–80" data-price="12000"> 
+                Level 70–80 (<span class="item-price-display">Rp 12.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 60–70" data-price="21000"> 
+                Level 80–90 (<span class="item-price-display">Rp 21.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Level 01–90" data-price="55000"> 
+                Level 01–90 (<span class="item-price-display">Rp 55.000</span>)
+              </label>
+            </li>
+          </ul>
+          
+          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+        </div>
+
+        <!-- Material -->
+        <div class="package-card" data-game="Genshin Impact" data-title="Material">
+          <h2>Material</h2>
+          <ul class="selectable-item-list">
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="50 Material" data-price="10000"> 
+                50 Material (<span class="item-price-display">Rp 10.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="250 Material" data-price="50000"> 
+                250 Material (<span class="item-price-display">Rp 50.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="50 Crafting" data-price="10000"> 
+                50 Crafting (<span class="item-price-display">Rp 10.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="50 Ore" data-price="10000"> 
+                50 Ore (<span class="item-price-display">Rp 10.000</span>)
+              </label>
+            </li>
+          </ul>
+          
+          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+        </div>
+
+        <!--Spiral Abyss-->
+        <div class="package-card" data-game="Genshin Impact" data-title="Spiral Abyss">
+          <h2>Spiral Abyss</h2>
+          <ul class="selectable-item-list">
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Floor 1-3" data-price="10000"> 
+                Floor 1-3 (<span class="item-price-display">Rp 10.000/Floor</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Floor 4-8" data-price="15000"> 
+                Floor 4-8 (<span class="item-price-display">Rp 15.000/Floor</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="Avidya Forest" data-price="25000"> 
+                Floor 9-12 (<span class="item-price-display">Rp 25.000/Floor</span>)
+              </label>
+            </li>
+          </ul>
+          <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+            <h4>Sebelum memesan tanyakan pada admin karakter yang dipunya sanggup atau tidak untuk menjalankan Spiral Abyss</h4>
+          </div>
+          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+        </div>
+            
+        <!-- Mancing -->
+        <div class="package-card" data-game="Genshin Impact" data-title="Mancing/lain buat senjata">
+          <h2>Mancing/lain buat senjata</h2>
+          <ul class="selectable-item-list">
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="The Catch Weapon" data-price="20000"> 
+                The Catch Weapon (<span class="item-price-display">Rp 20.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="The Catch Refine" data-price="13.000"> 
+                The Catch Refine (<span class="item-price-display">Rp 13.000/Refine</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="The catch R5" data-price="75000"> 
+                The catch R5 (<span class="item-price-display">Rp 75.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="End of line Weapon" data-price="20000"> 
+                End of line Weapon (<span class="item-price-display">Rp 20.000</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="End of line Refine" data-price="13000"> 
+                End of line Refine (<span class="item-price-display">Rp 13.000/Refine</span>)
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="checkbox" class="selectable-sub-item" value="End of line R5" data-price="75000"> 
+                End of line R5 (<span class="item-price-display">Rp 75.000</span>)
+              </label>
+            </li>
+          </ul>
+          <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
+            <h4>Pricelist all 100% Sumeru Desert</h4> <div class="price">Rp 480.000</div> </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
         </div>
