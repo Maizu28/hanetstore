@@ -165,11 +165,11 @@ nav a:hover {
 
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"],
 .package-card .card-actions button.add-to-cart { /* Tombol "+ Keranjang" */
-   background-color: #28a745; /* Hijau untuk Tambah Keranjang */
+   background-color: #007bff; /* Hijau untuk Tambah Keranjang */
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
 .package-card .card-actions button.add-to-cart:hover {
-   background-color: #218838;
+   background-color: #0056b3;
 }
 /* === AKHIR BAGIAN TOMBOL AKSI === */
 
