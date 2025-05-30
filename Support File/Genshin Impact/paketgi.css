@@ -57,7 +57,7 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Kartu akan mulai dari kiri */
     margin-top: 20px;
 }
 .package-card {
@@ -66,13 +66,14 @@ nav a:hover {
     border: 1px solid #ddd;
     border-radius: 16px;
     padding: 20px;
-    flex-basis: 280px;
-    flex-grow: 1;
+    flex-basis: 280px;    /* Lebar dasar kartu */
+    flex-grow: 1;         /* Izinkan kartu untuk tumbuh */
+    /* max-width: 450px; */ /* Opsional: Batas lebar maksimum */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Penting untuk mendorong .card-actions ke bawah */
 }
 .package-card:hover {
     transform: translateY(-5px);
@@ -80,8 +81,8 @@ nav a:hover {
 }
 .package-card h2 {
     font-size: 1.4em;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-top: 20px; /* Ruang untuk badge promo */
+    margin-bottom: 10px; /* Jarak ke checklist atau konten lain */
     color: #333;
     font-weight: 600;
 }
@@ -91,43 +92,135 @@ nav a:hover {
     margin: 8px 0;
     line-height: 1.5;
 }
-.package-card li,
-.package-card ul.selectable-item-list li,
-.package-card ul.quest-list li {
+
+/* Styling umum untuk semua <li> di dalam kartu (termasuk deskripsi dan checklist) */
+.package-card li {
     font-size: 0.9em;
     color: #555;
-    margin-bottom: 8px;
-    list-style-type: none;
-    padding-left: 0;
+    /* margin-bottom akan diatur lebih spesifik di bawah untuk jenis list yang berbeda */
+    list-style-type: none; /* Default untuk semua li di kartu */
+    padding-left: 0;       /* Default untuk semua li di kartu */
     text-align: left;
-    position: relative;
-    padding-left: 28px;
-    line-height: 1.5;
 }
-.package-card ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 10px;
-    margin-bottom: 15px;
+
+/* Harga utama di dalam kartu paket */
+.package-card .price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 15px;
 }
+/* Harga Diskon di dalam kartu paket */
+.package-card .price-discount {
+    font-size: 0.9em;
+    color: #dc3545;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+.package-card .price-discount s {
+    color: #777;
+    margin-right: 6px;
+    text-decoration: line-through;
+}
+
+/* Styling Tombol Umum di dalam .package-card */
+.package-card button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-weight: bold;
+    font-size: 0.95em;
+    margin-top: 15px; /* Default margin atas, bisa dioverride oleh .card-actions */
+}
+.package-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Wrapper untuk Tombol Aksi di Bawah Kartu */
+.package-card .card-actions {
+  margin-top: auto; 
+  padding-top: 15px; 
+}
+.package-card .card-actions button {
+  width: 100%;
+  display: block;
+  margin-top: 0; 
+}
+.package-card .card-actions button:not(:last-child) {
+  margin-bottom: 10px; 
+}
+.package-card .card-actions button[onclick*="orderNow"] {
+   background-color: #007bff; 
+}
+.package-card .card-actions button[onclick*="orderNow"]:hover {
+   background-color: #0056b3;
+}
+.package-card .card-actions button[onclick*="addSelectedItemsToCart"],
+.package-card .card-actions button.add-to-cart { 
+   background-color: #28a745; 
+}
+.package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
+.package-card .card-actions button.add-to-cart:hover {
+   background-color: #218838;
+}
+
+/* === STYLING UNTUK LIST DENGAN EMOJI CHECKMARK (UNTUK UL DESKRIPTIF) === */
+/* Targetkan ul deskriptif, misalnya jika Anda memberinya kelas 'feature-list' atau 'descriptive-list' */
+/* Untuk contoh ini, kita akan menargetkan semua <ul> langsung di dalam .package-card yang BUKAN .selectable-item-list atau .quest-list */
+/* Jika semua <li> di dalam .package-card (yang ada di <ul>) ingin emoji, gunakan ini: */
+.package-card ul li {
+    position: relative; /* Diperlukan untuk posisi ::before */
+    padding-left: 28px; /* Ruang untuk emoji dan spasi */
+    margin-bottom: 8px; /* Jarak antar item */
+    line-height: 1.4;   /* Sesuaikan line-height jika perlu untuk alignment emoji */
+}
+
+.package-card ul li::before {
+  content: "✔";          /* Emoji checklist */
+  color: #007bff;          /* Warna biru untuk emoji */
+  font-weight: bold;        /* Opsional: membuat emoji lebih tebal */
+  position: absolute;       /* Posisi absolut relatif terhadap <li> */
+  left: 0;                  /* Posisikan emoji di paling kiri area padding <li> */
+  top: 0px; /* Sesuaikan ini agar emoji sejajar dengan teks. Mungkin perlu sedikit trial-error atau gunakan line-height. */
+  /* line-height: inherit; */ /* Alternatif untuk alignment vertikal */
+}
+
+/* === STYLING KHUSUS UNTUK CHECKLIST INTERAKTIF (JANGAN TAMBAHKAN EMOJI ✔ DI SINI) === */
+/* Pastikan styling ini tidak menimpa atau tidak terpengaruh oleh styling emoji di atas jika tidak diinginkan */
 .package-card ul.selectable-item-list,
 .package-card ul.quest-list {
-    margin-top: 5px;
+    list-style-type: none; /* Sudah ada dari .package-card li, tapi bisa ditegaskan */
+    padding-left: 0;       /* Sudah ada dari .package-card li */
+    margin-top: 5px;       /* Jarak dari h2 ke checklist */
     margin-bottom: 15px;
+    text-align: left;
 }
-.package-card ul li::before {
-    content: "✔";
-    color: #007bff;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-    top: 0;
+
+/* Untuk <li> di dalam checklist interaktif, kita override padding-left dari emoji */
+.package-card ul.selectable-item-list li,
+.package-card ul.quest-list li {
+    padding-left: 0;    /* Override padding-left dari li umum agar label bisa rata kiri */
+    position: static;   /* Override position jika ada, agar ::before tidak berlaku atau berlaku normal */
+    margin: 0 0 8px 0;
 }
+/* Hapus ::before untuk li di dalam checklist interaktif jika styling emoji di atas terlalu global */
+.package-card ul.selectable-item-list li::before,
+.package-card ul.quest-list li::before {
+    content: ""; /* Hapus emoji untuk item checklist interaktif */
+    /* Atau display: none; */
+}
+
+
 .package-card ul.selectable-item-list li label,
 .package-card ul.quest-list li label {
     display: flex;
     align-items: center;
     cursor: pointer;
+    /* Font-size dan color diwarisi dari .package-card li */
 }
 .package-card ul.selectable-item-list li input[type="checkbox"].selectable-sub-item,
 .package-card ul.quest-list input[type="checkbox"] {
@@ -142,70 +235,8 @@ nav a:hover {
     margin-left: 5px;
     font-weight: 500;
 }
-.package-card .price {
-    font-size: 1.3em;
-    font-weight: bold;
-    color: #28a745;
-    margin-top: 15px;
-}
-.package-card .price-discount {
-    font-size: 0.9em;
-    color: #dc3545;
-    margin-bottom: 4px;
-    font-weight: 500;
-}
-.package-card .price-discount s {
-    color: #777;
-    margin-right: 6px;
-    text-decoration: line-through;
-}
+/* === AKHIR STYLING CHECKLIST === */
 
-/* Tombol Umum di dalam .package-card & .card-actions */
-.package-card button,
-.package-card .card-actions button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-weight: bold;
-    font-size: 0.95em;
-    margin-top: 15px;
-}
-.package-card button:hover,
-.package-card .card-actions button:hover {
-    background-color: #0056b3;
-}
-
-/* Card Actions */
-.package-card .card-actions {
-    margin-top: auto;
-    padding-top: 15px;
-}
-.package-card .card-actions button {
-    width: 100%;
-    display: block;
-    margin-top: 0;
-}
-.package-card .card-actions button:not(:last-child) {
-    margin-bottom: 10px;
-}
-.package-card .card-actions button[onclick*="orderNow"] {
-    background-color: #007bff;
-}
-.package-card .card-actions button[onclick*="orderNow"]:hover {
-    background-color: #0056b3;
-}
-.package-card .card-actions button[onclick*="addSelectedItemsToCart"],
-.package-card .card-actions button.add-to-cart {
-    background-color: #007bff;
-}
-.package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
-.package-card .card-actions button.add-to-cart:hover {
-    background-color: #0056b3;
-}
 
 /* Animasi */
 @keyframes fadeSlide {
@@ -332,7 +363,7 @@ nav a:hover {
         justify-content: center;
     }
     .package-card {
-        flex-basis: calc(50% - 10px);
+        flex-basis: calc(50% - 10px); 
         max-width: calc(50% - 10px);
     }
     nav a {
@@ -375,24 +406,24 @@ nav a:hover {
         height: 18px;
     }
     .package-list {
-        gap: 15px;
-        justify-content: center;
+        /* gap: 15px; /* Tidak berlaku jika bukan flex/grid */
     }
     .package-card {
-        flex-basis: 100%;
+        width: 100%; 
         max-width: none;
         padding: 15px;
+        margin-bottom: 20px; /* Jarak antar kartu di mobile */
     }
     .package-card h2 {
         font-size: 1.2em;
-        margin-top: 15px;
+        margin-top: 15px; 
         margin-bottom: 10px;
     }
     .package-card .price {
         font-size: 1.1em;
     }
-    .package-card button,
-    .package-card .card-actions button {
+    .package-card button, 
+    .package-card .card-actions button { 
         font-size: 0.9em;
         padding: 10px 12px;
     }
@@ -407,4 +438,18 @@ nav a:hover {
         height: 45px;
         padding: 6px;
     }
+    /* Penyesuaian untuk emoji checklist di mobile jika terlalu besar/mepet */
+    .package-card ul li {
+        padding-left: 24px; /* Sedikit kurangi jika emoji terasa besar di mobile */
+        margin-bottom: 6px;
+    }
+    .package-card ul li::before {
+        /* top: 1px; */ /* Mungkin perlu disesuaikan sedikit di mobile */
+        /* font-size: 0.9em; */ /* Jika ingin emoji lebih kecil di mobile */
+    }
+    .package-card ul.selectable-item-list li,
+    .package-card ul.quest-list li {
+         padding-left: 0; /* Pastikan checklist interaktif tidak terpengaruh padding emoji */
+    }
+
 }
