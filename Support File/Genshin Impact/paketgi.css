@@ -160,11 +160,11 @@ background-color: #0056b3;
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"],
 .package-card .card-actions button.add-to-cart { 
-   background-color: #28a745; 
+   background-color: #007bff; 
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
 .package-card .card-actions button.add-to-cart:hover {
-background-color: #218838; 
+background-color: #0056b3; 
 }
 
 /* === STYLING UNTUK LIST DESKRIPTIF DENGAN EMOJI CHECKMARK === */
@@ -316,14 +316,9 @@ background-color: #218838;
 @media screen and (max-width: 768px) {
     .package-list { justify-content: center; }
     .package-card { flex-basis: calc(50% - 10px); max-width: calc(50% - 10px); }
-    nav a { margin: 0 10px; font-size: 1em; }
+    
 }
 @media screen and (max-width: 480px) {
-    header h1 { font-size: 1.8em; }
-    header p { font-size: 0.9em; }
-    nav { padding: 10px 5px; }
-    nav a { margin: 0 5px; font-size: 0.9em; }
-    .container { padding: 10px; margin: 10px auto; }
     .search-bar { gap: 8px; padding: 0 10px; margin: 20px auto; }
     .search-bar input[type="text"] { font-size: 0.9em; padding: 8px 12px; }
     .icon-button { padding: 8px; }
@@ -340,8 +335,7 @@ background-color: #218838;
     .package-card button, 
     .package-card .card-actions button { font-size: 0.9em; padding: 10px 12px; }
     .badge-discount { top: 8px; left: 8px; padding: 4px 6px; font-size: 0.7em; }
-    .pagination img { width: 80px; height: 45px; padding: 6px; }
-
+    
     /* Penyesuaian untuk emoji checklist di mobile jika terlalu besar/mepet */
     .package-card ul:not(.selectable-item-list):not(.quest-list) li {
         padding-left: 24px; 
