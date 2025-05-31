@@ -68,6 +68,26 @@ const PROMO_CODES = {
         minPurchase: 50000,
         validFrom: "2024-07-10T00:00:00+07:00",
         validUntil: "2024-07-15T23:59:59+07:00"
+    },
+    // Promo dengan batas waktu dan hanya bisa digunakan 1x per user
+    "LIMIT1USER": {
+        type: "percentage",
+        value: 25,
+        description: "Diskon 25% hanya 1x per user (3-5 Juli 2024)",
+        minPurchase: 60000,
+        validFrom: "2024-07-03T00:00:00+07:00",
+        validUntil: "2024-07-05T23:59:59+07:00",
+        perUser: true // custom flag, implementasi cek di bawah
+    },
+    // Promo dengan batas waktu dan hanya bisa digunakan 3x per user
+    "LIMIT3USER": {
+        type: "fixed",
+        value: 12000,
+        description: "Diskon Rp 12.000 hanya 3x per user (6-10 Juli 2024)",
+        minPurchase: 70000,
+        validFrom: "2024-07-06T00:00:00+07:00",
+        validUntil: "2024-07-10T23:59:59+07:00",
+        perUser: 3 // custom flag, implementasi cek di bawah
     }
 };
 
@@ -92,28 +112,6 @@ function isPromoAvailable(code) {
         return used < PROMO_CODES[code].usageLimit;
     }
     return true;
-}
-
-function loadCartAndPromo() {
-    const cartString = localStorage.getItem("pimonjoki_cart");
-    if (cartString) {
-        try {
-            const parsedCart = JSON.parse(cartString);
-            if (Array.isArray(parsedCart)) {
-                cart = parsedCart;
-            } else {
-                console.warn("Data keranjang di localStorage bukan array, direset.");
-                cart = [];
-            }
-        } catch (e) {
-            console.error("Gagal parse keranjang dari localStorage:", e);
-            cart = [];
-        }
-    } else {
-        cart = [];
-    }
-    // (Opsional) Muat promo yang tersimpan dari localStorage
-    // ...
 }
 
 function formatRupiah(number) {
