@@ -7,37 +7,52 @@ body {
 }
 
 /* Header */
+/* Header Styles (merged and cleaned) */
 header {
     background-color: #333;
     color: #fff;
-    padding: 20px 0;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 2.2em;
+    line-height: 1.2;
+    text-align: left;
+    flex-grow: 1;
+    font-weight: bold;
 }
 
-header p {
-    margin: 10px 0 0;
-    font-size: 1.2em;
+header p, p.tagline-header {
+    margin: 8px auto 0;
+    font-size: 1em;
+    color: #ccc;
+    max-width: 1200px;
+    text-align: center;
+    opacity: 0.9;
 }
 
+/* Navigation Styles */
 nav {
     background-color: #444;
     padding: 10px;
     text-align: center;
 }
-
 nav a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     transition: color 0.3s;
     font-size: 1.1em;
+    padding: 5px 0;
 }
-
 nav a:hover {
     color: #00a3ff;
 }
@@ -286,12 +301,7 @@ footer p {
 }
 
 /* Sesuaikan atau tambahkan pada CSS Header Anda yang sudah ada */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 15px 20px; /* Padding atas/bawah dan kiri/kanan untuk header */
-    /* text-align: center; /* Hapus ini jika menggunakan flex untuk alignment */
-}
+/* Removed duplicate header block for clarity. */
 
 /* Wrapper untuk konten header agar bisa menggunakan Flexbox */
 .header-content {
@@ -400,12 +410,7 @@ header {
     color: #fff;
     padding: 15px 20px; /* Memberi padding kiri-kanan pada header */
     text-align: center; /* Untuk menengahkan tagline jika ia block */
-}
-
-.header-main-line {
-    display: flex;              /* Mengaktifkan Flexbox */
-    justify-content: space-between; /* Mendorong H1 ke kiri, Login ke kanan */
-    align-items: center;        /* Menyejajarkan H1 dan tombol Login secara vertikal */
+/* Removed duplicate header block for clarity. */
     max-width: 1200px;          /* Batas lebar konten header (konsisten dengan .container) */
     margin: 0 auto;             /* Menengahkan .header-main-line di dalam <header> */
 }
@@ -520,6 +525,11 @@ nav a:hover {
     background-color: #dc3545; /* Warna berbeda untuk logout */
 }
 
+/* (Duplicate header and h1 rules removed, already merged above) */
+
+.account-actions .header-auth-button.logout-btn {
+    background-color: #dc3545;
+}
 .account-actions .header-auth-button:hover {
     background-color: #0056b3;
 }
@@ -527,8 +537,42 @@ nav a:hover {
     background-color: #c82333;
 }
 
-/* Styling untuk div userInfo jika menggunakan flex */
+p.tagline-header {
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 1em;
+    color: #ccc;
+    margin-bottom: 0;
+}
+
+/* Styling untuk tagline agar berada di bawah dan mengambil lebar penuh */
+p.tagline-header {
+    flex-basis: 100%; /* Membuat tagline mengambil lebar penuh dan pindah ke baris baru */
+    text-align: center; /* Menengahkan tagline */
+    margin-top: 5px;    /* Jarak dari baris H1/Login */
+    font-size: 1em;
+    color: #ccc;
+    margin-bottom: 0; /* Hapus margin bawah jika ada */
+}
+
+
+/* --- CSS untuk elemen login/logout dinamis --- */
+/* Pastikan ID ini sesuai dengan yang Anda gunakan di JavaScript */
+/* #loginLink diatur display: none oleh JavaScript jika diperlukan */
+#loginLink {
+    display: none;
+}
+
 #userInfo {
-    display: flex; /* default akan diubah oleh JS */
+    display: flex;
     align-items: center;
 }
+
+#userDisplayName {
+    margin-right: 15px;
+    color: #fff;
+    font-size: 0.9em;
+}
+
+/* #logoutBtn: styling sudah diberikan melalui class .header-auth-button.logout-btn */
