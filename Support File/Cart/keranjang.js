@@ -696,23 +696,6 @@ document.addEventListener("DOMContentLoaded", () => {
 }); // Akhir DOMContentLoaded
 
 
-// === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
 window.updateQty = updateQty;
 window.removeItem = removeItem;
-window.checkout = checkout; // checkout sekarang async
-window.applyPromoCode = applyPromoCode; // applyPromoCode sekarang async
-// Jika ada fungsi lain yang dipanggil dari onclick di HTML:
-// window.handleSearch = handleSearch;
-// window.addSelectedItemsToCart = addSelectedItemsToCart;
-// window.orderNow = orderNow;
-// window.filterProductCardsOnPage = filterProductCardsOnPage;
-
-// Catatan: Jika Anda memindahkan definisi fungsi seperti handleSearch, addSelectedItemsToCart, orderNow
-// ke dalam DOMContentLoaded, maka Anda tidak bisa menempelkannya ke window seperti ini.
-// Biarkan definisi fungsi utama di luar DOMContentLoaded jika ingin diakses global.
-// Untuk contoh ini, saya asumsikan definisi handleSearch, addSelectedItemsToCart, orderNow ada di luar DOMContentLoaded.
-// Karena kode Anda menempatkan banyak fungsi di luar, saya akan menempatkan window. assignments di bawahnya.
-if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
-if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
-if (typeof orderNow === 'function') window.orderNow = orderNow;
-if (typeof filterProductCardsOnPage === 'function') window.filterProductCardsOnPage = filterProductCardsOnPage;
+window.checkout = checkout;
