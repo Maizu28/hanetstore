@@ -7,11 +7,12 @@ body {
     color: #333;
     line-height: 1.6;
 }
-.container {
+
+.container { /* Kontainer utama untuk membatasi lebar konten */
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #fff; /* Opsional, jika ingin konten utama punya background putih */
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0,0,0,0.05);
 }
@@ -22,147 +23,157 @@ header {
     color: #fff;
     padding: 10px 15px;
 }
+
 .header-content {
     display: flex;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
+    max-width: 1200px; /* Samakan dengan .container */
+    margin: 0 auto;    /* Menengahkan konten header */
+    position: relative; 
 }
-.burger-menu-btn {
+
+.burger-menu-btn { /* Tombol burger menggunakan gambar ikon */
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    z-index: 1002;
-    margin-right: 15px;
+    padding: 8px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 1002; /* Di atas slide-nav dan overlay */
+    margin-right: 15px; /* Jarak dari logo jika logo di tengah/kanan */
 }
-.burger-menu-btn .burger-bar {
+
+.burger-menu-btn img { /* Styling untuk gambar ikon burger */
+    width: 24px;  
+    height: 24px; 
     display: block;
-    width: 100%;
-    height: 3px;
-    background-color: #fff;
-    border-radius: 3px;
-    transition: all 0.3s ease-in-out;
+    /* filter: brightness(0) invert(1); /* Jika ikon Anda gelap dan ingin jadi putih */
 }
-.burger-menu-btn.burger-active .burger-bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.burger-menu-btn.burger-active .burger-bar:nth-child(2) {
-    opacity: 0;
-}
-.burger-menu-btn.burger-active .burger-bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
+/* Jika Anda ingin animasi 'X' pada burger, Anda perlu dua gambar dan JS untuk menukarnya,
+   atau kembali ke metode CSS bar. Kode untuk .burger-bar dan .burger-active .burger-bar
+   tidak lagi relevan jika Anda menggunakan satu <img>. */
+
 .header-content .logo-area {
-    flex-grow: 1;
-    text-align: left;
+    flex-grow: 1; 
+    text-align: left; /* Logo rata kiri setelah burger */
+    /* Jika ingin logo di tengah, set text-align: center; dan pastikan burger
+       dan elemen lain di kanan (jika ada) memiliki ruang yang seimbang atau gunakan grid/posisi. */
 }
-.header-content .logo-area h1 {
+
+.header-content .logo-area h1 { 
     margin: 0;
-    font-size: 1.8em;
+    font-size: 1.8em; 
     line-height: 1.2;
     font-weight: bold;
 }
-header p.tagline-header {
-    text-align: center;
+
+header p.tagline-header { 
+    text-align: center; 
     margin: 5px auto 0;
     font-size: 0.9em;
     color: #ccc;
-    max-width: 1200px;
+    max-width: 1200px; /* Samakan dengan .header-content */
 }
 
 /* ====== SLIDE NAVIGATION ====== */
 .slide-nav {
-    height: 100vh;
-    width: 280px;
-    position: fixed;
+    height: 100vh; 
+    width: 280px;  
+    position: fixed; 
     top: 0;
-    left: -280px;
-    background-color: #2c2c2c;
+    left: -280px; /* Posisi awal di luar layar */
+    background-color: #2c2c2c; 
     box-shadow: 2px 0 10px rgba(0,0,0,0.3);
     padding: 20px;
     box-sizing: border-box;
-    transition: left 0.3s ease-in-out;
-    z-index: 1001;
-    overflow-y: auto;
+    transition: left 0.3s ease-in-out; 
+    z-index: 1001; 
+    overflow-y: auto; 
 }
-.slide-nav.nav-active {
-    left: 0;
+
+.slide-nav.nav-active { /* Kelas ditambahkan oleh JS untuk memunculkan nav */
+    left: 0; 
 }
+
 .slide-nav-content {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 25px; 
 }
+
 .slide-nav .nav-links {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     align-items: flex-start;
-    gap: 15px;
+    gap: 15px; 
 }
+
 .slide-nav .nav-links a {
     color: #f0f0f0;
     text-decoration: none;
-    font-size: 1.15em;
-    padding: 10px 5px;
-    display: block;
+    font-size: 1.15em; 
+    padding: 10px 5px; 
+    display: block; 
     width: 100%;
     transition: color 0.2s ease, background-color 0.2s ease;
     border-radius: 4px;
 }
+
 .slide-nav .nav-links a:hover {
     color: #00a3ff;
-    background-color: #3a3a3a;
+    background-color: #3a3a3a; 
 }
+
 .slide-nav .nav-divider {
     border: none;
     border-top: 1px solid #555;
-    margin: 15px 0;
+    margin: 15px 0; 
 }
+
 .slide-nav .account-actions-nav {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
 }
-.slide-nav #userStatusText {
-    color: #e0e0e0;
-    font-size: 1em;
+
+.slide-nav #userStatusText { 
+    color: #e0e0e0; 
+    font-size: 1em; 
     padding: 5px 0;
 }
-.slide-nav .nav-auth-button {
+
+.slide-nav .nav-auth-button { 
     color: #ffffff;
-    background-color: #007bff;
-    padding: 9px 18px;
+    background-color: #007bff; 
+    padding: 9px 18px; 
     text-decoration: none;
     border-radius: 5px;
-    font-size: 1em;
+    font-size: 1em; 
     font-weight: 500;
     transition: background-color 0.2s ease;
     border: none;
     cursor: pointer;
-    display: block;
+    display: block; 
     text-align: center;
-    width: 100%;
+    width: 100%; 
     box-sizing: border-box;
 }
+
 .slide-nav .nav-auth-button.logout-btn {
-    background-color: #dc3545;
+    background-color: #dc3545; 
 }
+
 .slide-nav .nav-auth-button:hover {
-    opacity: 0.85;
+    opacity: 0.85; 
 }
-.nav-close-btn {
+
+.nav-close-btn { 
     background: none;
     border: none;
     color: #fff;
-    font-size: 2.2em;
+    font-size: 2.2em; 
     position: absolute;
     top: 15px;
     right: 20px;
@@ -170,25 +181,27 @@ header p.tagline-header {
     padding: 0;
     line-height: 1;
 }
-.overlay-screen {
+
+.overlay-screen { 
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    display: none;
-    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1000; 
+    display: none; 
+    opacity: 0; 
     transition: opacity 0.3s ease-in-out;
 }
-.overlay-screen.overlay-active {
+.overlay-screen.overlay-active { 
     display: block;
     opacity: 1;
 }
 
-/* ====== NAVIGATION DESKTOP ====== */
+/* Navigasi Desktop Standar (jika ada dan digunakan sebagai fallback) */
 nav.desktop-nav {
     background-color: #444;
     padding: 10px;
     text-align: center;
+    /* display: none; /* Awalnya sembunyikan jika mobile-first, atau atur di media query */
 }
 nav.desktop-nav a {
     color: white;
@@ -201,15 +214,7 @@ nav.desktop-nav a {
 nav.desktop-nav a:hover {
     color: #00a3ff;
 }
-@media screen and (max-width: 768px) {
-    nav.desktop-nav { display: none; }
-    .burger-menu-btn { display: flex; }
-}
-@media screen and (min-width: 769px) {
-    .burger-menu-btn { display: none; }
-    nav.desktop-nav { display: block; }
-    .slide-nav, .overlay-screen { display: none !important; }
-}
+
 
 /* ====== PACKAGE LIST & CARD ====== */
 .package-list {
@@ -276,7 +281,7 @@ nav.desktop-nav a:hover {
     text-decoration: line-through;
 }
 
-/* ====== BUTTONS ====== */
+/* Tombol Umum .btn */
 .btn {
     background-color: #00a3ff;
     color: #ffffff;
@@ -285,14 +290,15 @@ nav.desktop-nav a:hover {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    margin: 15px;
+    margin: 15px; 
     transition: background-color 0.3s;
 }
 .btn:hover {
     background-color: #0088cc;
 }
-.package-card button,
-.package-card .card-actions button {
+
+/* Tombol spesifik di dalam .package-card (yang BUKAN di .card-actions) */
+.package-card > button:not(.btn) { /* Menargetkan button anak langsung dari .package-card */
     padding: 10px 15px;
     background-color: #007bff;
     color: white;
@@ -303,61 +309,71 @@ nav.desktop-nav a:hover {
     font-weight: bold;
     font-size: 0.95em;
     margin-top: 15px;
-    width: 100%;
-    display: block;
-    margin-left: 0;
-    margin-right: 0;
+    width: 100%; /* Agar tombol "Lihat Paket" juga full-width jika diinginkan */
+    box-sizing: border-box;
 }
-.package-card button:hover,
-.package-card .card-actions button:hover {
+.package-card > button:not(.btn):hover {
     background-color: #0056b3;
 }
+
+/* Wrapper untuk Tombol Aksi di Bawah Kartu */
 .package-card .card-actions {
-    margin-top: auto;
-    padding-top: 15px;
+  margin-top: auto;
+  padding-top: 15px;
+}
+.package-card .card-actions button { /* Tombol di dalam .card-actions */
+  width: 100%;
+  display: block;
+  padding: 10px 15px; /* Samakan padding dengan tombol umum kartu */
+  font-size: 0.95em;  /* Samakan font-size */
+  font-weight: bold;   /* Samakan font-weight */
+  border-radius: 8px; /* Samakan radius */
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 .package-card .card-actions button:not(:last-child) {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .package-card .card-actions button[onclick*="orderNow"] {
-    background-color: #007bff;
+   background-color: #007bff;
 }
 .package-card .card-actions button[onclick*="orderNow"]:hover {
-    background-color: #0056b3;
+   background-color: #0056b3;
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"],
 .package-card .card-actions button.add-to-cart {
-    background-color: #28a745;
+   background-color: #28a745; /* Hijau untuk + Keranjang */
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
 .package-card .card-actions button.add-to-cart:hover {
-    background-color: #218838;
+   background-color: #218838;
 }
 
-/* ====== LIST DESKRIPTIF DENGAN EMOJI CHECKMARK ====== */
+/* LIST DESKRIPTIF DENGAN EMOJI ✔ (Gunakan kelas .fitur-deskriptif pada <ul>) */
 .package-card ul.fitur-deskriptif {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    text-align: left;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-align: left;
 }
 .package-card ul.fitur-deskriptif li {
-    position: relative;
-    padding-left: 28px;
-    margin-bottom: 8px;
-    line-height: 1.4;
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 .package-card ul.fitur-deskriptif li::before {
-    content: "✔";
-    color: #007bff;
-    font-weight: bold;
-    position: absolute;
-    left: 0;
-    top: 0px;
+  content: "✔";
+  color: #007bff;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0px;
 }
 
-/* ====== CHECKLIST INTERAKTIF (Tanpa Emoji) ====== */
+/* CHECKLIST INTERAKTIF (Tanpa Emoji) */
 .package-card ul.selectable-item-list,
 .package-card ul.quest-list {
     list-style-type: none;
@@ -398,86 +414,8 @@ nav.desktop-nav a:hover {
     font-weight: 500;
 }
 
-/* ====== BADGE PROMO ====== */
-.badge-discount {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #dc3545;
-    color: white;
-    padding: 4px 8px;
-    font-size: 0.75em;
-    font-weight: bold;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
 
-/* ====== HARGA ALTERNATIF ====== */
-.price2 {
-    font-size: 1.0em;
-    text-align: right;
-    font-weight: normal;
-    color: #28a745;
-}
-
-/* ====== SEARCH BAR & ICON BUTTON ====== */
-.search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 0 16px;
-}
-.search-bar input[type="text"] {
-    flex: 1;
-    padding: 10px 14px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.search-bar input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-.icon-button {
-    background-color: #007bff;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-.icon-button:hover {
-    background-color: #0056b3;
-}
-.icon-button img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-}
-
-/* ====== CART BUTTON ====== */
-.cart-btn {
-    background-color: #007bff;
-    width: 18px;
-    height: 18px;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-.cart-btn:hover {
-    background-color: #0056b3;
-}
-
-/* ====== PAGINATION ====== */
+/* Daftar Halaman (Pagination) */
 .pagination {
     display: flex;
     overflow-x: auto;
@@ -485,18 +423,10 @@ nav.desktop-nav a:hover {
     gap: 10px;
     padding: 10px;
 }
-.pagination a {
-    display: inline-block;
-    flex-shrink: 0;
-}
+.pagination a { display: inline-block; flex-shrink: 0; }
 .pagination img {
-    width: 100px;
-    height: 56px;
-    object-fit: contain;
-    padding: 10px;
-    margin: 0;
-    background-color: #00a3ff;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    width: 100px; height: 56px; object-fit: contain; padding: 10px; margin: 0;
+    background-color: #00a3ff; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border 0.3s;
 }
@@ -506,28 +436,74 @@ nav.desktop-nav a:hover {
     background-color: #3ab7ff;
     box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
+
 .pagination img.active {
     transform: translateY(-1px);
-    border: 2px solid #2a8bcc;
-    background-color: #0092e0;
-    box-shadow: 0 5px 15px rgba(0, 146, 224, 0.3);
+    border: 2px solid #3da7d8;
+    background-color: #3ab7ff;
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
 
-/* ====== ANIMATION ====== */
-@keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Badge Promo */
+.badge-discount {
+    position: absolute; top: 10px; left: 10px;
+    background-color: #dc3545; color: white;
+    padding: 4px 8px; font-size: 0.75em; font-weight: bold; border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 10;
 }
-.fade-slide { animation: fadeSlide 0.4s ease-out; }
 
-/* ====== RESPONSIVE ====== */
+/* Harga Alternatif */
+.price2 {
+    font-size: 1.0em; text-align: right; font-weight: normal; color: #28a745;
+}
+/* Search Bar */
+.search-bar {
+    display: flex; align-items: center; gap: 10px; max-width: 600px;
+    margin: 20px auto; padding: 0 16px;
+}
+.search-bar input[type="text"] {
+    flex: 1; padding: 10px 14px; font-size: 16px; border: 1px solid #ccc;
+    border-radius: 8px; outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.search-bar input[type="text"]:focus {
+    border-color: #007bff; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Tombol Ikon (Search & Cart) */
+.icon-button {
+    background-color: #007bff; border: none; padding: 10px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.icon-button:hover { background-color: #0056b3; }
+.icon-button img {
+    width: 20px; height: 20px; object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+/* Responsive untuk Mobile */
 @media screen and (max-width: 768px) {
+    nav.desktop-nav { display: none; } /* Sembunyikan nav desktop */
+    .burger-menu-btn { display: flex; } /* Tampilkan burger */
+
     .package-list { justify-content: center; }
     .package-card { flex-basis: calc(50% - 10px); max-width: calc(50% - 10px); }
-}
-@media screen and (max-width: 480px) {
-    header h1 { font-size: 1.8em; }
+    
+    /* Penyesuaian header untuk tablet jika burger aktif */
+    .header-content { 
+        flex-direction: column
+    }
+    header .logo-area h1 { 
+        font-size: 1.6em; /* Mungkin perkecil logo sedikit jika ada burger */
+        text-align: center; /* Jika ingin logo di tengah setelah burger */
+    }
     header p.tagline-header { font-size: 0.85em; }
+}
+
+@media screen and (max-width: 480px) {
+    /* Header sudah diatur oleh burger, jadi tidak perlu override h1/p di sini lagi kecuali spesifik */
+    /* nav a (di slide-nav) sudah diatur */
     .container { padding: 10px; margin: 10px auto; }
     .search-bar { gap: 6px; padding: 0 10px; margin: 20px auto; }
     .search-bar input[type="text"] { font-size: 0.9em; padding: 8px 12px; }
