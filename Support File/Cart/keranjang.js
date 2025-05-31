@@ -534,3 +534,44 @@ async function fetchCartFromFirestore(userId) {
 
 // Contoh pemakaian (misal userId dari localStorage atau auth):
 // fetchCartFromFirestore(localStorage.getItem("userId"));
+
+/**
+ * Fungsi sederhana untuk login (hanya simulasi, bukan autentikasi sebenarnya).
+ * Anda bisa ganti dengan sistem login yang lebih aman (Firebase Auth, dsb).
+ */
+function promptLoginIfNeeded() {
+    let userName = localStorage.getItem("pimonjoki_user_name");
+    if (!userName) {
+        userName = prompt("Silakan login/masukkan nama akun Anda untuk menggunakan kode promo:");
+        if (userName && userName.trim()) {
+            localStorage.setItem("pimonjoki_user_name", userName.trim());
+        } else {
+            alert("Anda harus login/isi nama akun untuk menggunakan kode promo.");
+            return null;
+        }
+    }
+    return userName.trim();
+}
+
+// Patch applyPromoCode agar wajib login sebelum redeem kode promo
+const originalApplyPromoCode = applyPromoCode;
+applyPromoCode = async function() {
+    const userName = promptLoginIfNeeded();
+    if (!userName) return; // Batalkan jika user tidak login
+    // Simpan userName ke global jika ingin dipakai di fungsi lain
+    window.pimonjokiCurrentUserName = userName;
+    // Panggil fungsi asli
+    await originalApplyPromoCode.apply(this, arguments);
+};
+
+// Patch checkout agar wajib login juga
+const originalCheckout = checkout;
+checkout = async function(finalAmount, originalSubtotal, discountValue, promoCodeUsed) {
+    let userName = localStorage.getItem("pimonjoki_user_name");
+    if (!userName) {
+        userName = promptLoginIfNeeded();
+        if (!userName) return;
+    }
+    window.pimonjokiCurrentUserName = userName;
+    await originalCheckout.apply(this, arguments);
+};

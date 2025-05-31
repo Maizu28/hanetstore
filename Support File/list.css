@@ -500,3 +500,35 @@ nav a:hover {
         font-size: 1em;
     }
 }
+
+/* CSS untuk Tombol Login/Logout di Header (Contoh) */
+.account-actions .header-auth-button {
+    color: #ffffff;
+    background-color: #007bff;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    border: none; /* Jika menggunakan <button> */
+    cursor: pointer; /* Jika menggunakan <button> */
+    display: inline-block; /* Untuk tag <a> agar padding bekerja dengan baik */
+}
+
+.account-actions .header-auth-button.logout-btn {
+    background-color: #dc3545; /* Warna berbeda untuk logout */
+}
+
+.account-actions .header-auth-button:hover {
+    background-color: #0056b3;
+}
+.account-actions .header-auth-button.logout-btn:hover {
+    background-color: #c82333;
+}
+
+/* Styling untuk div userInfo jika menggunakan flex */
+#userInfo {
+    display: flex; /* default akan diubah oleh JS */
+    align-items: center;
+}

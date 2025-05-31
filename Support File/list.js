@@ -1,6 +1,5 @@
 import { auth, db } from './firebase-init.js'; // db = Firestore instance
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 // Ambil keranjang user dari Firestore
 async function getCartFromAccount(userId) {
@@ -66,4 +65,62 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
+});
+
+
+// (Dihapus: Inisialisasi dan ekspor Firebase, karena sudah dilakukan di firebase-init.js)
+
+// pimonjoki.js atau script-utama.js
+
+// Impor instance 'auth' dari firebase-init.js (REKOMENDASI)
+import { auth } from './firebase-init.js'; 
+// Impor fungsi Firebase Auth yang dibutuhkan
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"; // Sesuaikan versi jika perlu
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loginLink = document.getElementById('loginLink');
+    const userInfoDiv = document.getElementById('userInfo');
+    const userDisplayNameSpan = document.getElementById('userDisplayName');
+    const logoutBtn = document.getElementById('logoutBtn'); // Tombol logout di dalam userInfoDiv
+
+    if (!auth) {
+        console.error("Firebase Auth tidak terinisialisasi! Tombol login/logout tidak akan berfungsi dengan benar.");
+        // Tampilkan tombol login sebagai default jika auth error
+        if(loginLink) loginLink.style.display = 'inline-block';
+        if(userInfoDiv) userInfoDiv.style.display = 'none';
+        return;
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Pengguna sedang login
+            console.log("Status Login: Pengguna login -", user.email, "(DisplayName:", user.displayName, ")");
+            if (loginLink) loginLink.style.display = 'none';
+            if (userInfoDiv) userInfoDiv.style.display = 'flex'; // Tampilkan info pengguna dan tombol logout
+            if (userDisplayNameSpan) userDisplayNameSpan.textContent = user.displayName || user.email; // Tampilkan nama atau email
+
+if (logoutBtn) {
+    // Remove old event listeners by replacing the button with its clone
+    const newLogoutBtn = logoutBtn.cloneNode(true);
+    logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+    newLogoutBtn.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            console.log('Pengguna berhasil logout');
+            // Redirect to login page or homepage after logout
+            window.location.href = '/Login/login.js'; // Change if needed
+        } catch (error) {
+            console.error('Error saat logout:', error);
+            alert('Gagal logout: ' + error.message);
+        }
+    });
+}
+        } else {
+            // Pengguna sudah logout atau belum login
+            console.log("Status Login: Tidak ada pengguna yang login.");
+            if (loginLink) loginLink.style.display = 'inline-block'; // Tampilkan tombol/link Login
+            if (userInfoDiv) userInfoDiv.style.display = 'none'; // Sembunyikan info pengguna dan tombol logout
+            if (userDisplayNameSpan) userDisplayNameSpan.textContent = '';
+        }
+    });
 });
