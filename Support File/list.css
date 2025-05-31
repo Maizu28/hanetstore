@@ -66,22 +66,19 @@ nav a:hover {
 }
 .package-card {
     position: relative;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 16px;
+    background-color: #f4f4f4;
     padding: 20px;
-    flex-basis: 280px;
-    flex-grow: 1;
+    border-radius: 10px;
+    width: 300px;
+    transition: transform 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
+
 .package-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
 }
+
 .package-card h2 {
     font-size: 1.4em;
     margin-top: 20px;
