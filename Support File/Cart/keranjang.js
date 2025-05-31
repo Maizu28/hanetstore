@@ -850,13 +850,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // --- Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ---
 // Ini penting jika Anda memanggil fungsi-fungsi ini langsung dari atribut onclick di HTML Anda.
-if (typeof updateQty === "function") window.updateQty = updateQty;
-if (typeof removeItem === "function") window.removeItem = removeItem;
-if (typeof checkout === "function") window.checkout = checkout;
-if (typeof applyPromoCode === "function")
-	window.applyPromoCode = applyPromoCode;
-if (typeof handleSearch === "function") window.handleSearch = handleSearch;
-if (typeof addSelectedItemsToCart === "function")
-	window.addSelectedItemsToCart = addSelectedItemsToCart;
-if (typeof orderNow === "function") window.orderNow = orderNow;
-// if (typeof filterProductCardsOnPage === 'function') window.filterProductCardsOnPage = filterProductCardsOnPage; // Jika Anda menggunakannya
