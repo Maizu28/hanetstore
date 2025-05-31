@@ -326,33 +326,3 @@ background-color: #0056b3;
     width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1);
 }
 
-/* Responsive untuk Mobile */
-@media screen and (max-width: 768px) {
-    .package-list { justify-content: center; }
-    .package-card { flex-basis: calc(50% - 10px); max-width: calc(50% - 10px); }
-    
-}
-@media screen and (max-width: 480px) {
-    .search-bar { gap: 8px; padding: 0 10px; margin: 20px auto; }
-    .search-bar input[type="text"] { font-size: 0.9em; padding: 8px 12px; }
-    .icon-button { padding: 8px; }
-    .icon-button img { width: 18px; height: 18px; }
-    .package-list { gap: 15px; }
-    .package-card {
-        width: 100%; /* Mengambil lebar penuh dari padding .container di mobile */
-        max-width: none; /* Hapus max-width agar bisa full di mobile */
-        margin-bottom: 20px; /* Jarak antar kartu di mobile jika bertumpuk */
-        padding: 15px;
-    }
-    .package-card h2 { font-size: 1.2em; margin-top: 15px; margin-bottom: 10px; }
-    .package-card .price { font-size: 1.1em; }
-    .package-card button, 
-    .package-card .card-actions button { font-size: 0.9em; padding: 10px 12px; }
-    .badge-discount { top: 8px; left: 8px; padding: 4px 6px; font-size: 0.7em; }
-    
-    /* Penyesuaian untuk emoji checklist di mobile jika terlalu besar/mepet */
-    .package-card ul:not(.selectable-item-list):not(.quest-list) li {
-        padding-left: 24px; 
-        margin-bottom: 6px;
-    }
-}
