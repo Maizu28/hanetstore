@@ -14,32 +14,41 @@
 <body>
   <!-- Header -->
   <header>
-    <div class="header-main-line">
-      <h1>PIMONJOKI.ID</h1>
+      <div class="header-content">
+          <button class="burger-menu-btn" id="burgerBtn" aria-label="Toggle Navigation" aria-expanded="false">
+              <span class="burger-bar"></span>
+              <span class="burger-bar"></span>
+              <span class="burger-bar"></span>
+          </button>
+          <div class="logo-area">
+              <h1>PIMONJOKI.ID</h1>
+          </div>
+      </div>
       <p class="tagline-header">Solusi Terbaik untuk Kebutuhan Anda</p>
   </header>
 
   <!-- Navigation -->
-  <nav>
-    <div class="nav-links"> 
-
-    <a href="Tentang Kami.html">Tentang Kami</a>
-    <a href="PimonJoki.html">Produk</a>
-    <a href="Kontak.html">Kontak</a>
-    <a href="Login/login.html">Login</a>
-
-
-    </div>
-
-    <div class="account-actions-nav"> <a href="Login/login.html" class="nav-auth-button" id="loginLink" style="display: none;">Login</a>
-      
-      <div id="userInfo" style="display: none; align-items: center;">
-        <span id="userDisplayName" style="margin-right: 10px; color: #fff; font-size: 0.9em;"></span>
-        <button id="logoutBtn" class="nav-auth-button logout-btn">Logout</button>
+  <nav id="slideInNav" class="slide-nav">
+      <div class="slide-nav-content">
+          <button class="nav-close-btn" id="navCloseBtn" aria-label="Close Navigation">&times;</button>
+          
+          <div class="nav-links">
+              <a href="Tentang Kami.html">Tentang Kami</a>
+              <a href="PimonJoki.html">Produk</a>
+              <a href="Kontak.html">Kontak</a>
+          </div>
+          <hr class="nav-divider"> <div class="account-actions-nav">
+              <span id="userStatusText" style="color: #e0e0e0; margin-right: 15px; font-size: 0.95em;"></span> 
+              <a href="Login/login.html" class="nav-auth-button" id="loginLink" style="display: none;">Login</a>
+              <div id="userInfo" style="display: none; flex-direction: column; align-items: flex-start; gap: 10px;">
+                  <span id="userDisplayName" style="color: #fff; font-size: 1em; margin-bottom: 5px;"></span>
+                  <button id="logoutBtn" class="nav-auth-button logout-btn">Logout</button>
+              </div>
+          </div>
       </div>
-    </div>
-
   </nav>
+
+  <div class="overlay-screen" id="overlayScreen" style="display: none;"></div>
 
   <div class="container">
     <div class="pagination">

@@ -1,3 +1,73 @@
+
+
+// Pastikan Anda sudah mengimpor 'auth' dari firebase-init.js
+import { auth } from '.Login/firebase-init.js'; 
+// Dan fungsi Firebase Auth yang dibutuhkan
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (kode Anda yang lain untuk badge promo, add-to-cart generik, dll. tetap di sini) ...
+
+    // --- Manajemen Status Login & UI Navigasi ---
+    const userStatusTextSpan = document.getElementById('userStatusText');
+    const loginActionLink = document.getElementById('loginActionLink');
+    const logoutActionBtn = document.getElementById('logoutActionBtn');
+
+    if (!auth) { // auth diimpor dari firebase-init.js
+        console.error("Firebase Auth tidak terinisialisasi! Fitur login/logout tidak akan berfungsi.");
+        // Tampilkan status default jika auth gagal
+        if (userStatusTextSpan) userStatusTextSpan.textContent = 'Guest';
+        if (loginActionLink) loginActionLink.style.display = 'inline-block';
+        if (logoutActionBtn) logoutActionBtn.style.display = 'none';
+        return;
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Pengguna login
+            console.log("Nav UI: Pengguna login -", user.displayName || user.email);
+            if (userStatusTextSpan) {
+                userStatusTextSpan.textContent = user.displayName || user.email;
+                userStatusTextSpan.style.display = 'inline'; 
+            }
+            if (loginActionLink) loginActionLink.style.display = 'none';
+            if (logoutActionBtn) {
+                logoutActionBtn.style.display = 'inline-block'; // Atau 'block' sesuai styling Anda
+
+                // Untuk menghindari penambahan listener berulang kali jika onAuthStateChanged terpanggil lagi
+                const newLogoutBtn = logoutActionBtn.cloneNode(true);
+                logoutActionBtn.parentNode.replaceChild(newLogoutBtn, logoutActionBtn);
+                
+                newLogoutBtn.addEventListener('click', async () => {
+                    try {
+                        await signOut(auth);
+                        console.log('Pengguna berhasil logout');
+                        // Setelah logout, onAuthStateChanged akan terpanggil lagi dengan user = null,
+                        // dan akan otomatis mengupdate UI ke status "Guest" dan tombol "Login".
+                        // Anda bisa juga redirect ke halaman login jika diinginkan:
+                        // window.location.href = 'login.html'; 
+                    } catch (error) {
+                        console.error('Error saat logout:', error);
+                        alert('Gagal logout: ' + error.message);
+                    }
+                });
+            }
+        } else {
+            // Pengguna logout atau belum login
+            console.log("Nav UI: Tidak ada pengguna yang login (Guest).");
+            if (userStatusTextSpan) {
+                userStatusTextSpan.textContent = 'Guest';
+                userStatusTextSpan.style.display = 'inline';
+            }
+            if (loginActionLink) loginActionLink.style.display = 'inline-block';
+            if (logoutActionBtn) logoutActionBtn.style.display = 'none';
+        }
+    });
+});
+
+
+
+
 //kirim ke Whatsapp
 function orderNow(buttonElement) {
   const packageCard = buttonElement.closest('.package-card');
@@ -228,4 +298,55 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+});
+
+
+// Slide In Navigation
+// Pastikan ini di dalam atau setelah DOMContentLoaded jika elemen belum tentu ada saat skrip pertama dieksekusi
+
+document.addEventListener("DOMContentLoaded", function () {
+    // ... (kode Anda yang lain seperti badge promo, add to cart generik, onAuthStateChanged) ...
+
+    const burgerBtn = document.getElementById('burgerBtn');
+    const slideInNav = document.getElementById('slideInNav');
+    const navCloseBtn = document.getElementById('navCloseBtn'); // Jika Anda menggunakan tombol close
+    const overlayScreen = document.getElementById('overlayScreen'); // Jika Anda menggunakan overlay
+
+    function toggleNav() {
+        slideInNav.classList.toggle('nav-active');
+        burgerBtn.classList.toggle('burger-active'); // Untuk animasi X pada burger
+        if (overlayScreen) {
+            overlayScreen.style.display = slideInNav.classList.contains('nav-active') ? 'block' : 'none';
+        }
+        // Opsional: Mencegah body scroll saat navigasi terbuka
+        // document.body.style.overflow = slideInNav.classList.contains('nav-active') ? 'hidden' : '';
+    }
+
+    if (burgerBtn && slideInNav) {
+        burgerBtn.addEventListener('click', toggleNav);
+    }
+
+    if (navCloseBtn && slideInNav) { // Listener untuk tombol close di dalam nav
+        navCloseBtn.addEventListener('click', toggleNav);
+    }
+
+    if (overlayScreen && slideInNav) { // Listener untuk overlay
+        overlayScreen.addEventListener('click', toggleNav);
+    }
+
+    // Opsional: Tutup navigasi saat salah satu link di dalamnya diklik
+    if (slideInNav) {
+        slideInNav.querySelectorAll('.nav-links a, .account-actions-nav a, .account-actions-nav button').forEach(link => {
+            link.addEventListener('click', () => {
+                // Cek apakah link adalah link navigasi biasa, bukan tombol aksi yang mungkin perlu nav tetap terbuka
+                // Untuk kesederhanaan, kita tutup untuk semua klik di dalam nav saat ini
+                if (slideInNav.classList.contains('nav-active')) {
+                    // Jangan tutup jika itu tombol logout karena logout sendiri akan redirect
+                    if (!link.id || link.id !== 'logoutBtn') {
+                         // toggleNav(); // Komentari jika tidak ingin menutup otomatis setelah klik link
+                    }
+                }
+            });
+        });
+    }
 });
