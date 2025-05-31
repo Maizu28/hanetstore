@@ -6,38 +6,70 @@ body {
     color: #333;
 }
 
-/* Header */
+/* Sesuaikan atau tambahkan pada CSS Header Anda yang sudah ada */
 header {
     background-color: #333;
     color: #fff;
-    padding: 20px 0;
-    text-align: center;
+    padding: 15px 20px; /* Padding atas/bawah dan kiri/kanan untuk header */
+    /* text-align: center; /* Hapus ini jika menggunakan flex untuk alignment */
+}
+
+/* Wrapper untuk konten header agar bisa menggunakan Flexbox */
+.header-content {
+    display: flex;              /* Mengaktifkan Flexbox */
+    justify-content: space-between; /* Mendorong item ke sisi berlawanan (logo kiri, login kanan) */
+    align-items: center;        /* Menyejajarkan item secara vertikal di tengah */
+    max-width: 1200px;          /* Samakan dengan .container Anda untuk konsistensi lebar */
+    margin: 0 auto;             /* Menengahkan .header-content jika lebar layar > max-width */
+}
+
+.logo-area {
+    text-align: left; /* Pastikan logo dan tagline rata kiri */
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 2.2em; /* Mungkin sedikit disesuaikan agar pas */
+    line-height: 1.1;
 }
 
 header p {
-    margin: 10px 0 0;
-    font-size: 1.2em;
+    margin: 4px 0 0;
+    font-size: 1em; /* Mungkin sedikit disesuaikan */
+    opacity: 0.9;
 }
 
+.account-actions .login-btn {
+    color: #ffffff;
+    background-color: #007bff; /* Warna biru sebagai contoh */
+    padding: 8px 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: 1px solid transparent; /* Untuk konsistensi jika ada state lain */
+}
+
+.account-actions .login-btn:hover {
+    background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+    color: #fff;
+}
+
+/* Styling Navigasi (tetap seperti yang Anda miliki atau sesuaikan) */
 nav {
     background-color: #444;
     padding: 10px;
     text-align: center;
 }
-
 nav a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     transition: color 0.3s;
     font-size: 1.1em;
+    padding: 5px 0;
 }
-
 nav a:hover {
     color: #00a3ff;
 }
