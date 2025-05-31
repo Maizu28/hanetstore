@@ -1,7 +1,10 @@
 // keranjang.js
 
+// Asumsi variabel global ini akan diinisialisasi dengan benar
 let cart = [];
-let currentAppliedPromo = null; // Format: { code, type, value, description, minPurchase, usageLimit?, validFrom?, validUntil?, perUser? }
+let currentAppliedPromo = null;
+// (Opsional) Untuk menyimpan nama pengguna jika sudah login/dimasukkan
+window.pimonjokiCurrentUserName = null; 
 
 const PROMO_CODES = {
     // Diskon kode promo yang tersedia
@@ -91,60 +94,10 @@ const PROMO_CODES = {
     }
 };
 
-// Fungsi untuk memuat keranjang dan status promo dari localStorage
-function loadCartAndPromo() {
-    const cartString = localStorage.getItem("pimonjoki_cart");
-    if (cartString) {
-        try {
-            const parsedCart = JSON.parse(cartString);
-            if (Array.isArray(parsedCart)) {
-                cart = parsedCart;
-            }
-        } catch (e) {
-            console.error("Gagal parse keranjang dari localStorage:", e);
-            cart = [];
-        }
-    } else {
-        cart = [];
-    }
-}
 
-function isPromoDateValid(code) {
-    const promo = PROMO_CODES[code];
-    if (!promo) return false;
-    if (promo.validFrom && promo.validUntil) {
-        const now = new Date();
-        const from = new Date(promo.validFrom);
-        const until = new Date(promo.validUntil);
-        // Pastikan tanggal dikonversi dan dibandingkan dengan benar (termasuk zona waktu jika relevan)
-        return now >= from && now <= until;
-    }
-    return true; // Jika tidak ada validFrom/validUntil, anggap selalu valid dari segi tanggal
-}
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec";
 
-function isPromoAvailable(code) { // Untuk global usageLimit
-    const promo = PROMO_CODES[code];
-    if (!promo) return false;
-    if (promo.usageLimit !== undefined) {
-        const usedCount = parseInt(localStorage.getItem(`promo_used_count_${code}`) || "0", 10);
-        return usedCount < promo.usageLimit;
-    }
-    return true; // Jika tidak ada usageLimit, anggap tersedia
-}
-
-// Catatan: Validasi perUserLimit memerlukan database pelanggan di sisi server.
-// Fungsi di bawah ini adalah contoh SANGAT SEDERHANA menggunakan localStorage,
-// TIDAK AMAN dan TIDAK ROBUST untuk pelacakan per pengguna yang sebenarnya.
-function isPromoPerUserAvailable(code, userName) {
-    const promo = PROMO_CODES[code];
-    if (!promo || promo.perUserLimit === undefined || !userName) return true; // Jika tidak ada batasan perUser atau tidak ada userName
-
-    const userPromoKey = `promo_user_${userName.trim().toLowerCase()}_${code}`;
-    const usedCountByUser = parseInt(localStorage.getItem(userPromoKey) || "0", 10);
-    return usedCountByUser < promo.perUserLimit;
-}
-
-
+// --- FUNGSI HELPER ---
 function formatRupiah(number) {
     return new Intl.NumberFormat("id-ID", {
         style: "currency",
@@ -154,40 +107,225 @@ function formatRupiah(number) {
     }).format(number);
 }
 
-function saveCart() {
-    localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+function isPromoDateValid(code) {
+    const promo = PROMO_CODES[code];
+    if (!promo) return false; // Kode promo tidak ditemukan di definisi klien
+    if (promo.validFrom && promo.validUntil) {
+        const now = new Date();
+        const from = new Date(promo.validFrom);
+        const until = new Date(promo.validUntil);
+        return now >= from && now <= until;
+    }
+    return true;
 }
 
-async function applyPromoCode() { // Dijadikan async jika validasi perUser memanggil server
+function isPromoAvailable(code) { // Untuk global usageLimit
+    const promo = PROMO_CODES[code];
+    if (!promo) return false;
+    if (promo.usageLimit !== undefined) {
+        const usedCount = parseInt(localStorage.getItem(`promo_used_count_${code}`) || "0", 10);
+        return usedCount < promo.usageLimit;
+    }
+    return true;
+}
+
+function isPromoPerUserAvailable(code, userName) {
+    const promo = PROMO_CODES[code];
+    if (!promo || promo.perUserLimit === undefined || !userName) return true;
+    const userPromoKey = `promo_user_${userName.trim().toLowerCase()}_${code}`;
+    const usedCountByUser = parseInt(localStorage.getItem(userPromoKey) || "0", 10);
+    return usedCountByUser < promo.perUserLimit;
+}
+
+// --- FUNGSI KERANJANG (localStorage) ---
+function getCart() {
+    let cartData = [];
+    try {
+        const cartString = localStorage.getItem("pimonjoki_cart");
+        if (cartString) {
+            cartData = JSON.parse(cartString);
+            if (!Array.isArray(cartData)) {
+                cartData = [];
+            }
+        }
+    } catch (error) {
+        console.error("Error parsing keranjang dari localStorage:", error);
+        cartData = [];
+    }
+    return cartData;
+}
+
+function saveCart(_cart) { // Parameter diganti nama agar tidak konflik dengan var global `cart`
+    try {
+        localStorage.setItem("pimonjoki_cart", JSON.stringify(_cart));
+    } catch (error) {
+        console.error("Error menyimpan keranjang ke localStorage:", error);
+    }
+}
+
+function loadCartAndPromo() {
+    const cartString = localStorage.getItem("pimonjoki_cart");
+    if (cartString) {
+        try {
+            const parsedCart = JSON.parse(cartString);
+            if (Array.isArray(parsedCart)) {
+                cart = parsedCart;
+            } else {
+                cart = [];
+            }
+        } catch (e) {
+            console.error("Gagal parse keranjang dari localStorage:", e);
+            cart = [];
+        }
+    } else {
+        cart = [];
+    }
+    // Di sini Anda juga bisa memuat `currentAppliedPromo` dari localStorage jika ingin persisten
+    // const savedPromo = localStorage.getItem("appliedPimonjokiPromo");
+    // if (savedPromo) { try { currentAppliedPromo = JSON.parse(savedPromo); } catch(e){ /* abaikan */ } }
+}
+
+// --- FUNGSI INTERAKSI KERANJANG ---
+function addToCart(item) {
+    let currentCart = getCart(); // Ambil cart dari localStorage
+    const existing = currentCart.find((i) => i.id === item.id);
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        currentCart.push({ ...item, qty: 1 });
+    }
+    saveCart(currentCart); // Simpan kembali ke localStorage
+    cart = currentCart; // Update variabel global cart
+    alert(`"${item.name}" berhasil ditambahkan ke keranjang.`);
+    // updateCartUI(); // Pertimbangkan fungsi untuk update ikon keranjang di header, dll.
+}
+
+function addSelectedItemsToCart(buttonElement) {
+    const packageCard = buttonElement.closest('.package-card');
+    if (!packageCard) {
+        alert("Kesalahan: Kartu paket tidak ditemukan.");
+        return;
+    }
+    const basePackageNameElement = packageCard.querySelector('h2');
+    const basePackageName = basePackageNameElement ? basePackageNameElement.textContent.trim() : "Paket Pilihan";
+
+    let selectedCheckboxes = packageCard.querySelectorAll('ul.selectable-item-list input.selectable-sub-item:checked');
+    if (selectedCheckboxes.length === 0) {
+        selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
+    }
+    if (selectedCheckboxes.length === 0) {
+        alert(`Silakan pilih minimal satu item dari ${basePackageName}.`);
+        return;
+    }
+
+    const selectedItemValues = [];
+    const selectedItemUniqueIds = [];
+    let totalPrice = 0;
+    let priceCalculationMode = "individual";
+    const pricePerActDiv = packageCard.querySelector('div[data-price-per-act]');
+    if (pricePerActDiv && pricePerActDiv.dataset.pricePerAct) {
+        const pricePerActFromCard = parseInt(pricePerActDiv.dataset.pricePerAct, 10);
+        if (!isNaN(pricePerActFromCard) && pricePerActFromCard > 0) {
+            priceCalculationMode = "perAct";
+            totalPrice = selectedCheckboxes.length * pricePerActFromCard;
+        }
+    }
+
+    if (priceCalculationMode === "perAct") {
+        selectedCheckboxes.forEach(checkbox => {
+            selectedItemValues.push(checkbox.value);
+            selectedItemUniqueIds.push(checkbox.value.toLowerCase().replace(/\s+/g, '-'));
+        });
+    } else {
+        selectedCheckboxes.forEach(checkbox => {
+            const itemPrice = parseInt(checkbox.dataset.price, 10);
+            if (!isNaN(itemPrice) && itemPrice >= 0) {
+                totalPrice += itemPrice;
+                selectedItemValues.push(checkbox.value);
+                selectedItemUniqueIds.push(checkbox.dataset.questId || checkbox.dataset.id || checkbox.value.toLowerCase().replace(/\s+/g, '-'));
+            } else {
+                console.warn(`Item "${checkbox.value}" tidak memiliki harga valid (data-price) dan dilewati.`);
+            }
+        });
+        if (selectedItemValues.length === 0 && selectedCheckboxes.length > 0) {
+            alert("Item yang dipilih tidak memiliki harga yang valid.");
+            return;
+        }
+    }
+    
+    if (selectedItemValues.length === 0) {
+        alert(`Tidak ada item valid yang dipilih dari ${basePackageName}.`);
+        return;
+    }
+
+    const sortedItemIds = [...selectedItemUniqueIds].sort();
+    const selectionIdentifier = sortedItemIds.join('-');
+    const idPrefix = basePackageName.toLowerCase().replace(/\s+/g, '-') || 'custom-package';
+    const itemId = `${idPrefix}-${selectionIdentifier}`; 
+    const itemName = `${basePackageName} (${selectedItemValues.join(", ")})`; 
+    const formattedTotalPrice = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+    const gameName = packageCard.dataset.game || "Genshin Impact";
+
+    const newItemForCart = { id: itemId, name: itemName, price: formattedTotalPrice, game: gameName };
+    addToCart(newItemForCart); // Memanggil fungsi addToCart inti
+}
+
+
+function updateQty(id, delta) {
+    let currentCart = getCart();
+    const itemIndex = currentCart.findIndex(i => i.id === id);
+    if (itemIndex > -1) {
+        currentCart[itemIndex].qty += delta;
+        if (currentCart[itemIndex].qty < 1) currentCart[itemIndex].qty = 1;
+        saveCart(currentCart);
+        cart = currentCart; // Update variabel global
+        renderCart();
+    }
+}
+
+function removeItem(id) {
+    let currentCart = getCart();
+    const initialLength = currentCart.length;
+    currentCart = currentCart.filter(i => i.id !== id);
+    if (currentCart.length < initialLength) {
+        saveCart(currentCart);
+        cart = currentCart; // Update variabel global
+        renderCart();
+    }
+}
+
+async function applyPromoCode() {
     const promoInput = document.getElementById('promo-code-input');
     const promoStatusDiv = document.getElementById('promo-status');
-    if (!promoInput || !promoStatusDiv) return;
-
+    if (!promoInput || !promoStatusDiv) {
+        console.error("Elemen promo (#promo-code-input atau #promo-status) tidak ditemukan.");
+        return;
+    }
     const promoCodeEntered = promoInput.value.trim().toUpperCase();
 
     let currentSubtotal = 0;
-    cart.forEach(item => {
+    getCart().forEach(item => { // Gunakan getCart() untuk subtotal terbaru
         const price = parseInt(item.price.replace(/\D/g, "")) || 0;
         currentSubtotal += item.qty * price;
     });
 
-    // Reset status sebelum validasi baru
-    promoStatusDiv.textContent = "";
-    currentAppliedPromo = null; // Selalu reset promo saat mencoba kode baru/kosong
+    currentAppliedPromo = null; // Reset dulu
+    promoStatusDiv.textContent = ""; // Bersihkan status lama
 
     if (promoCodeEntered === "") {
-        if (localStorage.getItem("appliedPimonjokiPromo")) { // Cek apakah ada promo yang dihapus
-            promoStatusDiv.textContent = "Kode promo dihapus.";
-            promoStatusDiv.style.color = "orange";
+        // Tidak perlu pesan khusus jika hanya mengosongkan, renderCart akan handle
+        // Jika sebelumnya ada promo, pesan "dihapus" bisa ditambahkan
+        if (localStorage.getItem("appliedPimonjokiPromo")) {
+             promoStatusDiv.textContent = "Kode promo dihapus.";
+             promoStatusDiv.style.color = "orange";
         } else {
             promoStatusDiv.textContent = "Masukkan kode promo.";
             promoStatusDiv.style.color = "red";
         }
-        localStorage.removeItem("appliedPimonjokiPromo"); // Hapus dari persistensi juga
+        localStorage.removeItem("appliedPimonjokiPromo");
     } else if (PROMO_CODES[promoCodeEntered]) {
         const promoDetails = PROMO_CODES[promoCodeEntered];
-
-        if (!promoDetails.isActive && promoDetails.isActive !== undefined) { // Cek jika ada flag isActive
+        if (promoDetails.isActive === false) {
              promoStatusDiv.textContent = "Kode promo sudah tidak aktif.";
              promoStatusDiv.style.color = "red";
         } else if (!isPromoDateValid(promoCodeEntered)) {
@@ -200,24 +338,23 @@ async function applyPromoCode() { // Dijadikan async jika validasi perUser meman
             promoStatusDiv.textContent = `Minimal belanja ${formatRupiah(promoDetails.minPurchase)} untuk kode "${promoCodeEntered}".`;
             promoStatusDiv.style.color = "red";
         } else if (promoDetails.perUserLimit !== undefined) {
-            // Untuk validasi perUser yang robust, idealnya panggil server.
-            // Untuk demo client-side (TIDAK AMAN):
-            const customerName = prompt("Masukkan nama Anda untuk validasi promo per pengguna:"); // Perlu nama pengguna
-            if (customerName && isPromoPerUserAvailable(promoCodeEntered, customerName)) {
-                currentAppliedPromo = { ...promoDetails, code: promoCodeEntered };
-                // localStorage.setItem("appliedPimonjokiPromo", JSON.stringify(currentAppliedPromo));
-            } else if (customerName) {
-                promoStatusDiv.textContent = `Anda sudah menggunakan kode promo "${promoCodeEntered}" secara maksimal.`;
-                promoStatusDiv.style.color = "red";
-            } else if (!customerName) {
-                promoStatusDiv.textContent = `Nama diperlukan untuk validasi promo ini.`;
-                promoStatusDiv.style.color = "red";
+            const customerName = prompt("Masukkan NAMA Anda untuk validasi promo ini (digunakan saat checkout):");
+            if (customerName && customerName.trim() !== "") {
+                if (isPromoPerUserAvailable(promoCodeEntered, customerName)) {
+                    currentAppliedPromo = { ...promoDetails, code: promoCodeEntered, customerNameForValidation: customerName.trim().toLowerCase() };
+                    // localStorage.setItem("appliedPimonjokiPromo", JSON.stringify(currentAppliedPromo));
+                    // Pesan sukses akan diatur oleh renderCart
+                } else {
+                    promoStatusDiv.textContent = `Anda sudah menggunakan kode promo "${promoCodeEntered}" secara maksimal.`;
+                    promoStatusDiv.style.color = "red";
+                }
+            } else {
+                promoStatusDiv.textContent = "Nama diperlukan untuk validasi promo ini. Klik 'Gunakan' lagi dan masukkan nama.";
+                promoStatusDiv.style.color = "orange";
             }
-        }
-        else { // Semua validasi client-side terpenuhi
+        } else {
             currentAppliedPromo = { ...promoDetails, code: promoCodeEntered };
             // localStorage.setItem("appliedPimonjokiPromo", JSON.stringify(currentAppliedPromo));
-            // Pesan sukses akan di-set oleh renderCart
         }
     } else {
         promoStatusDiv.textContent = "Kode promo tidak valid.";
@@ -228,6 +365,8 @@ async function applyPromoCode() { // Dijadikan async jika validasi perUser meman
 
 function renderCart() {
     const container = document.getElementById("cart-content");
+    if (!container) return; // Exit jika container tidak ada (misal di halaman lain)
+
     const promoSectionHTML = `
       <div class="promo-section">
         <h4>Kode Promo</h4>
@@ -238,35 +377,39 @@ function renderCart() {
         <div id="promo-status" style="font-size: 0.9em; margin-top: 8px; min-height: 1.2em;"></div>
       </div>`;
 
-    if (cart.length === 0) {
+    const currentDisplayCart = getCart(); // Selalu gunakan data terbaru dari localStorage untuk render
+
+    if (currentDisplayCart.length === 0) {
       container.innerHTML = `<div class="empty-cart">Keranjang Anda kosong.</div>` + promoSectionHTML;
       const promoStatusDivOnEmpty = document.getElementById('promo-status');
       const promoInputOnEmpty = document.getElementById('promo-code-input');
+      
       if (promoInputOnEmpty && currentAppliedPromo) promoInputOnEmpty.value = currentAppliedPromo.code;
 
       if (promoStatusDivOnEmpty) {
-        if (currentAppliedPromo) {
-            if (0 >= currentAppliedPromo.minPurchase && isPromoDateValid(currentAppliedPromo.code) && isPromoAvailable(currentAppliedPromo.code) /* && (await isPromoPerUserAvailableClientSide(currentAppliedPromo.code, 'some_user_identifier_if_any')) */) {
-                 promoStatusDivOnEmpty.textContent = `Kode promo "${currentAppliedPromo.code}" (${currentAppliedPromo.description}) diterapkan.`;
-                 promoStatusDivOnEmpty.style.color = "green";
-            } else {
-                 promoStatusDivOnEmpty.textContent = `Promo "${currentAppliedPromo.code}" aktif. Min. belanja ${formatRupiah(currentAppliedPromo.minPurchase)}.`;
-                 promoStatusDivOnEmpty.style.color = "orange";
-            }
-        } else if (promoStatusDivOnEmpty.textContent === "") { /* Biarkan jika applyPromoCode memberi pesan */ }
+          if (currentAppliedPromo) {
+               if (0 >= currentAppliedPromo.minPurchase && isPromoDateValid(currentAppliedPromo.code) && isPromoAvailable(currentAppliedPromo.code)) {
+                   promoStatusDivOnEmpty.textContent = `Kode promo "${currentAppliedPromo.code}" (${currentAppliedPromo.description}) diterapkan.`;
+                   promoStatusDivOnEmpty.style.color = "green";
+              } else {
+                   promoStatusDivOnEmpty.textContent = `Promo "${currentAppliedPromo.code}" aktif. Min. belanja ${formatRupiah(currentAppliedPromo.minPurchase)}.`;
+                   promoStatusDivOnEmpty.style.color = "orange";
+              }
+          } else if (promoStatusDivOnEmpty.textContent === "" && !promoStatusDivOnEmpty.dataset.transientMessage) {
+              promoStatusDivOnEmpty.textContent = ''; 
+          }
       }
       const applyBtnEmpty = document.getElementById('apply-promo-btn');
       if(applyBtnEmpty) applyBtnEmpty.addEventListener('click', applyPromoCode);
-      const promoInputForEnterEmpty = document.getElementById('promo-code-input');
-      if (promoInputForEnterEmpty && applyBtnEmpty) {
-        promoInputForEnterEmpty.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); applyBtnEmpty.click();}});
+      if (promoInputOnEmpty && applyBtnEmpty) {
+        promoInputOnEmpty.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); applyBtnEmpty.click();}});
       }
       return;
     }
 
     let subtotalAmount = 0;
     let cartHtml = "";
-    cart.forEach((item) => {
+    currentDisplayCart.forEach((item) => {
       const price = parseInt(item.price.replace(/\D/g, "")) || 0;
       const itemSubtotal = item.qty * price;
       subtotalAmount += itemSubtotal;
@@ -296,13 +439,19 @@ function renderCart() {
     let isPromoCurrentlyValidAndApplicable = false;
 
     if (currentAppliedPromo) {
-        // Validasi ulang semua kondisi promo saat render
         const isValidDate = isPromoDateValid(currentAppliedPromo.code);
         const isAvailableGlobal = isPromoAvailable(currentAppliedPromo.code);
-        // const isAvailablePerUser = await isPromoPerUserAvailableClientSide(currentAppliedPromo.code, 'some_user_identifier_if_any'); // Perlu cara dapatkan user
         const meetsMinPurchase = subtotalAmount >= currentAppliedPromo.minPurchase;
+        let isAvailablePerUser = true; // Default true, akan dicek jika ada perUserLimit
+        if (currentAppliedPromo.perUserLimit !== undefined) {
+            // Asumsi nama pelanggan untuk validasi perUser sudah ada di currentAppliedPromo.customerNameForValidation
+            // atau Anda perlu cara lain untuk mendapatkannya di sini.
+            // Ini tetap validasi client-side yang lemah.
+            isAvailablePerUser = isPromoPerUserAvailable(currentAppliedPromo.code, currentAppliedPromo.customerNameForValidation);
+        }
 
-        if (isValidDate && isAvailableGlobal /*&& isAvailablePerUser*/ && meetsMinPurchase) {
+
+        if (isValidDate && isAvailableGlobal && isAvailablePerUser && meetsMinPurchase) {
             if (currentAppliedPromo.type === "percentage") {
                 discountAmount = subtotalAmount * (currentAppliedPromo.value / 100);
             } else if (currentAppliedPromo.type === "fixed") {
@@ -311,26 +460,22 @@ function renderCart() {
             discountAmount = Math.floor(discountAmount);
             discountAmount = Math.min(discountAmount, subtotalAmount); 
             finalTotal = subtotalAmount - discountAmount;
-            discountDisplayHtml = `<div style="color: green; text-align: right; margin-top: 5px;">Diskon (${currentAppliedPromo.description}): -${formatRupiah(discountAmount)}</div>`;
+            discountDisplayHtml = `<div class="discount-display">Diskon (${currentAppliedPromo.description}): -${formatRupiah(discountAmount)}</div>`;
             promoStatusTextForRender = `Kode promo "${currentAppliedPromo.code}" (${currentAppliedPromo.description}) diterapkan.`;
             promoStatusColorForRender = "green";
             isPromoCurrentlyValidAndApplicable = true;
         } else { 
-            // Promo ada tapi salah satu kondisi tidak terpenuhi
             discountAmount = 0; finalTotal = subtotalAmount; discountDisplayHtml = "";
             if (!isValidDate) {
                 promoStatusTextForRender = `Promo "${currentAppliedPromo.code}" sudah kedaluwarsa atau belum berlaku.`;
-                promoStatusColorForRender = "red";
             } else if (!isAvailableGlobal) {
                 promoStatusTextForRender = `Promo "${currentAppliedPromo.code}" sudah habis digunakan (global).`;
-                promoStatusColorForRender = "red";
-            // } else if (!isAvailablePerUser) {
-            //     promoStatusTextForRender = `Anda sudah menggunakan promo "${currentAppliedPromo.code}" secara maksimal.`;
-            //     promoStatusColorForRender = "red";
+            } else if (!isAvailablePerUser && currentAppliedPromo.perUserLimit !== undefined) {
+                 promoStatusTextForRender = `Anda sudah menggunakan promo "${currentAppliedPromo.code}" secara maksimal.`;
             } else if (!meetsMinPurchase) {
                 promoStatusTextForRender = `Promo "${currentAppliedPromo.code}" aktif, tapi minimal belanja ${formatRupiah(currentAppliedPromo.minPurchase)} belum terpenuhi.`;
-                promoStatusColorForRender = "orange";
             }
+            promoStatusColorForRender = (isValidDate && isAvailableGlobal && isAvailablePerUser) ? "orange" : "red";
         }
     }
 
@@ -339,12 +484,13 @@ function renderCart() {
       <div class="total-section">
         <div>Subtotal: ${formatRupiah(subtotalAmount)}</div>
         ${discountDisplayHtml}
-        <div style="font-size: 1.2em; font-weight: bold; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">Total Akhir: ${formatRupiah(finalTotal)}</div>
+        <div class="final-total-amount">Total Akhir: ${formatRupiah(finalTotal)}</div>
       </div>
-      <button class="checkout-btn" onclick="checkout(${finalTotal}, ${subtotalAmount}, ${discountAmount}, isPromoCurrentlyValidAndApplicable ? currentAppliedPromo.code : null)">Checkout</button>
-    `;
+      <button class="checkout-btn" onclick="checkout(${finalTotal}, ${subtotalAmount}, ${discountAmount}, isPromoCurrentlyValidAndApplicable ? currentAppliedPromo.code : null, isPromoCurrentlyValidAndApplicable && currentAppliedPromo.customerNameForValidation ? currentAppliedPromo.customerNameForValidation : null)">Checkout</button>
+    `; // Menambahkan customerNameForValidation ke checkout jika ada
 
     container.innerHTML = cartHtml;
+    
     const applyBtn = document.getElementById('apply-promo-btn');
     const promoInputForEnter = document.getElementById('promo-code-input');
 
@@ -360,218 +506,213 @@ function renderCart() {
     
     const promoStatusDivRendered = document.getElementById('promo-status');
     if (promoStatusDivRendered) {
-        // Jika applyPromoCode (yang dipanggil user action) sudah mengisi text, jangan timpa kecuali ada update status dari render
-        // Jika promoStatusTextForRender ada isinya (dari validasi renderCart), itu yang ditampilkan
+        // Jika promoStatusDivRendered.textContent sudah diisi oleh applyPromoCode (misal dengan error)
+        // dan tidak ada status render baru (promoStatusTextForRender kosong), biarkan pesan error tersebut.
+        // Jika ada status render baru, timpa.
         if (promoStatusTextForRender) {
              promoStatusDivRendered.textContent = promoStatusTextForRender;
              promoStatusDivRendered.style.color = promoStatusColorForRender;
-        } else if (promoStatusDivRendered.textContent === "") { // Jika kosong dan tidak ada status dari render
+        } else if (promoStatusDivRendered.textContent === "") { 
              promoStatusDivRendered.textContent = ''; 
         }
-        // Jika applyPromoCode memberi pesan error, pesan itu akan ada di promoStatusDivRendered.textContent sebelum baris ini.
-        // Jika kemudian promoStatusTextForRender kosong (misalnya currentAppliedPromo null), pesan error itu tetap ada.
-        // Jika promoStatusTextForRender ada (misalnya promo diterapkan atau butuh min purchase), maka itu akan menimpa.
     }
 }
 
-function updateQty(id, delta) {
-    const item = cart.find(i => i.id === id);
-    if (item) {
-        item.qty += delta;
-        if (item.qty < 1) item.qty = 1;
-        saveCart();
-        renderCart();
-    }
-}
 
-function removeItem(id) {
-    const index = cart.findIndex(i => i.id === id);
-    if (index > -1) {
-        cart.splice(index, 1);
-        saveCart();
-        renderCart();
+async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed, customerNameForValidation) {
+    // Jika nama untuk validasi promo perUser ada, gunakan itu. Jika tidak, prompt nama utama.
+    let nama = customerNameForValidation; 
+    if (!nama) {
+        nama = prompt("Masukkan nama Anda untuk pesanan:");
+        if (!nama) return alert("Nama wajib diisi.");
+    } else {
+        // Jika nama sudah ada dari validasi promo, konfirmasi atau langsung gunakan
+        const confirmName = confirm(`Lanjutkan pesanan sebagai "${nama}"?`);
+        if (!confirmName) {
+            nama = prompt("Masukkan nama Anda untuk pesanan:");
+            if (!nama) return alert("Nama wajib diisi.");
+        }
     }
-}
+    nama = nama.trim(); // Pastikan nama di-trim
 
-async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed) {
+    // Validasi ulang promo sebelum mengirim ke server (sangat penting)
     if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
         const promoDetails = PROMO_CODES[promoCodeUsed];
+        let subtotalForValidation = 0; // Hitung ulang subtotal berdasarkan cart saat ini
+        getCart().forEach(item => {
+            subtotalForValidation += (parseInt(item.price.replace(/\D/g, "")) || 0) * item.qty;
+        });
+
         if (!isPromoDateValid(promoCodeUsed)) {
-            alert("Kode promo " + promoCodeUsed + " sudah kedaluwarsa atau belum berlaku. Pesanan tidak dapat dilanjutkan dengan promo ini.");
-            currentAppliedPromo = null; renderCart(); return;
+            alert(`Kode promo "${promoCodeUsed}" sudah kedaluwarsa. Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return;
         }
         if (promoDetails.usageLimit !== undefined && !isPromoAvailable(promoCodeUsed)) {
-            alert("Kode promo " + promoCodeUsed + " sudah habis digunakan (global). Pesanan tidak dapat dilanjutkan dengan promo ini.");
-            currentAppliedPromo = null; renderCart(); return;
+            alert(`Kode promo "${promoCodeUsed}" sudah habis (global). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return;
         }
-        // Validasi perUser SANGAT disarankan dilakukan di server. Ini hanya contoh client-side yang lemah.
-        if (promoDetails.perUserLimit !== undefined) {
-            const customerName = prompt("Verifikasi nama Anda untuk penggunaan promo terbatas:");
-            if (!customerName || !isPromoPerUserAvailable(promoCodeUsed, customerName)) {
-                 alert(`Promo "${promoCodeUsed}" tidak bisa digunakan atau sudah maksimal untuk Anda. Pesanan tidak dapat dilanjutkan dengan promo ini.`);
-                 currentAppliedPromo = null; renderCart(); return;
-            }
+        if (subtotalForValidation < promoDetails.minPurchase) {
+            alert(`Minimal belanja untuk kode promo "${promoCodeUsed}" tidak terpenuhi. Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return;
         }
-        // Re-check minimal purchase, karena cart bisa saja tidak berubah tapi checkout diklik
-        if (originalSubtotal < promoDetails.minPurchase) {
-            alert(`Minimal belanja ${formatRupiah(promoDetails.minPurchase)} untuk kode "${promoCodeUsed}" belum terpenuhi. Diskon dibatalkan.`);
-            currentAppliedPromo = null; renderCart(); return;
+        if (promoDetails.perUserLimit !== undefined && !isPromoPerUserAvailable(promoCodeUsed, nama)) { // Gunakan 'nama' yang sudah dikonfirmasi
+            alert(`Promo "${promoCodeUsed}" tidak bisa digunakan atau sudah maksimal untuk Anda ("${nama}"). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return;
         }
-    } else if (promoCodeUsed) { // Jika promoCodeUsed ada tapi tidak dikenali lagi (misal dihapus dari PROMO_CODES)
+    } else if (promoCodeUsed) { 
         alert(`Kode promo "${promoCodeUsed}" tidak lagi valid. Pesanan akan diproses tanpa diskon.`);
-        promoCodeUsed = null; // Jangan kirim kode promo yang tidak valid
-        discountValue = 0;
-        finalAmount = originalSubtotal;
-        currentAppliedPromo = null; renderCart(); // Update tampilan sebelum prompt nama
-        // Mungkin perlu konfirmasi user apakah mau lanjut tanpa promo
-        // Untuk sekarang, kita biarkan lanjut tanpa promo jika user klik OK pada prompt nama
+        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal;
+        currentAppliedPromo = null; renderCart(); 
     }
 
-
-    const nama = prompt("Masukkan nama Anda:");
-    if (!nama) return alert("Nama wajib diisi.");
-
-    const jenis = cart.map(i => i.name).join(", ");
-    const uniqueGames = [...new Set(cart.map(item => item.game).filter(g => g && g !== '-'))];
+    const jenis = getCart().map(i => i.name).join(", "); // Ambil dari getCart()
+    const uniqueGames = [...new Set(getCart().map(item => item.game).filter(g => g && g !== '-'))];
     const game = uniqueGames.length > 0 ? uniqueGames.join(", ") : "Genshin Impact";
 
     let dataToSend = {
-        nama: nama,
-        jenis: jenis,
-        game: game,
-        totalBayar: finalAmount,
-        subtotalAsli: originalSubtotal,
-        promoDigunakan: promoCodeUsed || "-",
-        jumlahDiskon: discountValue || 0
+        nama: nama, jenis: jenis, game: game, totalBayar: finalAmount,
+        subtotalAsli: originalSubtotal, promoDigunakan: promoCodeUsed || "-", jumlahDiskon: discountValue || 0
     };
 
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzr8IMeZG2ZGi6FTUeCLOpGnSeuxAFCo_q-lOnGgN1UR-_JXk8UG_mR7uWxOJSongsXBg/exec"; 
+    const checkoutButton = document.querySelector('.checkout-btn');
+    const originalCheckoutButtonText = checkoutButton ? checkoutButton.textContent : "Checkout";
+    if(checkoutButton) { checkoutButton.textContent = "Memproses..."; checkoutButton.disabled = true; }
 
     try {
         const res = await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+            method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
             body: JSON.stringify(dataToSend)
         });
-
-        if (!res.ok) {
-            const text = await res.text();
-            throw new Error(`Server merespons dengan error: ${res.status} (${text})`);
+        if (!res.ok && res.type !== 'opaque') {
+            const text = await res.text(); throw new Error(`Server error: ${res.status} (${text})`);
         }
-
-        const contentType = res.headers.get("content-type");
-        let data;
-        if (contentType && contentType.indexOf("application/json") !== -1) {
-            data = await res.json();
-        } else {
-            const text = await res.text();
-            throw new Error(`Format respons dari server tidak valid: ${text}`);
+        let data = { status: "sukses", kodePesanan: "GAS-" + new Date().getTime() }; 
+        if (res.type !== 'opaque') {
+            const contentType = res.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) { data = await res.json(); }
+            else { const text = await res.text(); if (text.toLowerCase().includes("sukses")) {} else { throw new Error(`Format respons server tidak valid.`); }}
         }
 
         if (typeof data === 'object' && data !== null && data.status === "sukses") {
             alert(`Pesanan berhasil!\nKode Pesanan: ${data.kodePesanan}`);
+            if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
+                const promoDetails = PROMO_CODES[promoCodeUsed];
+                if (promoDetails.usageLimit !== undefined) {
+                    let used = parseInt(localStorage.getItem(`promo_used_count_${promoCodeUsed}`) || "0", 10);
+                    localStorage.setItem(`promo_used_count_${promoCodeUsed}`, used + 1);
+                }
+                if (promoDetails.perUserLimit !== undefined && nama) {
+                    const userPromoKey = `promo_user_${nama.toLowerCase()}_${promoCodeUsed}`;
+                    let usedByUser = parseInt(localStorage.getItem(userPromoKey) || "0", 10);
+                    localStorage.setItem(userPromoKey, usedByUser + 1);
+                }
+            }
             localStorage.removeItem("pimonjoki_cart");
-            // localStorage.removeItem("appliedPimonjokiPromo"); 
-
-            // Increment usage count untuk promo global jika berhasil & digunakan
-            if (promoCodeUsed && PROMO_CODES[promoCodeUsed] && PROMO_CODES[promoCodeUsed].usageLimit !== undefined) {
-                let used = parseInt(localStorage.getItem(`promo_used_count_${promoCodeUsed}`) || "0", 10);
-                localStorage.setItem(`promo_used_count_${promoCodeUsed}`, used + 1);
-            }
-            // Increment usage count untuk promo perUser jika berhasil & digunakan (client-side lemah)
-            if (promoCodeUsed && PROMO_CODES[promoCodeUsed] && PROMO_CODES[promoCodeUsed].perUserLimit !== undefined && nama) {
-                const userPromoKey = `promo_user_${nama.trim().toLowerCase()}_${promoCodeUsed}`;
-                let usedByUser = parseInt(localStorage.getItem(userPromoKey) || "0", 10);
-                localStorage.setItem(userPromoKey, usedByUser + 1);
-            }
-
-            currentAppliedPromo = null;
-            cart = [];
-            location.reload(); 
+            // localStorage.removeItem("appliedPimonjokiPromo");
+            currentAppliedPromo = null; cart = [];
+            renderCart(); // Tampilkan keranjang kosong sebelum reload
+            setTimeout(() => location.reload(), 500); 
         } else {
             alert(`Gagal mengirim pesanan: ${data.message || data.error || "Format respons tidak diketahui"}`);
         }
     } catch (err) {
         console.error("Fetch Error:", err);
         alert(`Backend belum siap atau terjadi kesalahan jaringan. Detail: ${err.message}`);
+    } finally {
+        if(checkoutButton) { checkoutButton.textContent = originalCheckoutButtonText; checkoutButton.disabled = false; }
     }
 }
 
+// --- Event Listener DOM Utama ---
 document.addEventListener("DOMContentLoaded", () => {
-    loadCartAndPromo();
-    renderCart(); // renderCart akan memasang listener untuk promo button dan input enter
-});
+    loadCartAndPromo(); // Muat keranjang dan status promo tersimpan (jika ada)
+    renderCart();       // Render awal keranjang
 
-/**
- * Ambil keranjang dari Firestore (asumsi sudah ada Firebase SDK di halaman)
- * Ganti 'users' dan 'cart' sesuai struktur koleksi Firestore Anda.
- * userId bisa didapat dari auth, localStorage, atau input user.
- */
-async function fetchCartFromFirestore(userId) {
-    if (!window.firebase || !firebase.firestore) {
-        console.error("Firebase SDK belum dimuat.");
-        return;
-    }
-    if (!userId) {
-        alert("User ID tidak ditemukan. Tidak bisa mengambil keranjang.");
-        return;
-    }
-    try {
-        const docRef = firebase.firestore().collection("users").doc(userId).collection("cart");
-        const snapshot = await docRef.get();
-        const items = [];
-        snapshot.forEach(doc => {
-            items.push({ id: doc.id, ...doc.data() });
+    // --- Setup untuk UI Auth Header (jika ada dan Firebase diinisialisasi) ---
+    // Blok ini bisa dipindahkan ke file terpisah yang di-import jika 'auth' diinisialisasi di sana.
+    // Untuk sekarang, ini adalah contoh jika Anda ingin menyertakannya di sini dan 'auth' bisa diakses.
+    /*
+    if (typeof auth !== 'undefined' && auth) { // 'auth' harus diimpor atau diinisialisasi
+        const loginLink = document.getElementById('loginLink');
+        const userInfoDiv = document.getElementById('userInfo');
+        const userDisplayNameSpan = document.getElementById('userDisplayName');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if (loginLink) loginLink.style.display = 'none';
+                if (userInfoDiv) userInfoDiv.style.display = 'flex';
+                if (userDisplayNameSpan) userDisplayNameSpan.textContent = user.displayName || user.email;
+                if (logoutBtn) {
+                    const newLogoutBtn = logoutBtn.cloneNode(true);
+                    logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+                    newLogoutBtn.addEventListener('click', async () => {
+                        try { await signOut(auth); window.location.href = 'login.html'; } 
+                        catch (error) { console.error('Error logout:', error); }
+                    });
+                }
+            } else {
+                if (loginLink) loginLink.style.display = 'inline-block';
+                if (userInfoDiv) userInfoDiv.style.display = 'none';
+                if (userDisplayNameSpan) userDisplayNameSpan.textContent = '';
+            }
         });
-        cart = items;
-        saveCart();
-        renderCart();
-    } catch (err) {
-        console.error("Gagal mengambil keranjang dari Firestore:", err);
-        alert("Gagal mengambil keranjang dari server.");
+    } else {
+        // Fallback UI jika auth tidak ada
+        const loginLink = document.getElementById('loginLink');
+        const userInfoDiv = document.getElementById('userInfo');
+        if (loginLink) loginLink.style.display = 'inline-block';
+        if (userInfoDiv) userInfoDiv.style.display = 'none';
     }
-}
+    */
 
-// Contoh pemakaian (misal userId dari localStorage atau auth):
-// fetchCartFromFirestore(localStorage.getItem("userId"));
+    // --- Listener untuk tombol .add-to-cart generik ---
+    // (Ini akan menangani tombol yang tidak punya onclick spesifik)
+    document.querySelectorAll(".add-to-cart").forEach((btn) => {
+        if (!btn.onclick) { 
+            btn.addEventListener("click", () => {
+                const item = {
+                    id: btn.dataset.id, name: btn.dataset.name,
+                    price: btn.dataset.price, game: btn.dataset.game || "Genshin Impact",
+                };
+                if (item.id && item.name && item.price) { addToCart(item); }
+                else { console.warn("Tombol .add-to-cart kurang data-*:", btn); }
+            });
+        }
+    });
 
-/**
- * Fungsi sederhana untuk login (hanya simulasi, bukan autentikasi sebenarnya).
- * Anda bisa ganti dengan sistem login yang lebih aman (Firebase Auth, dsb).
- */
-function promptLoginIfNeeded() {
-    let userName = localStorage.getItem("pimonjoki_user_name");
-    if (!userName) {
-        userName = prompt("Silakan login/masukkan nama akun Anda untuk menggunakan kode promo:");
-        if (userName && userName.trim()) {
-            localStorage.setItem("pimonjoki_user_name", userName.trim());
-        } else {
-            alert("Anda harus login/isi nama akun untuk menggunakan kode promo.");
-            return null;
+    // --- Listener untuk Enter pada Search Input ---
+    const searchInputElement = document.getElementById("searchInput");
+    if (searchInputElement) {
+        searchInputElement.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); handleSearch();
+            }
+        });
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("query");
+        if (query) {
+            searchInputElement.value = query;
+            // filterProductCardsOnPage(); // Jika ingin filter otomatis
         }
     }
-    return userName.trim();
-}
 
-// Patch applyPromoCode agar wajib login sebelum redeem kode promo
-const originalApplyPromoCode = applyPromoCode;
-applyPromoCode = async function() {
-    const userName = promptLoginIfNeeded();
-    if (!userName) return; // Batalkan jika user tidak login
-    // Simpan userName ke global jika ingin dipakai di fungsi lain
-    window.pimonjokiCurrentUserName = userName;
-    // Panggil fungsi asli
-    await originalApplyPromoCode.apply(this, arguments);
-};
+}); // Akhir DOMContentLoaded
 
-// Patch checkout agar wajib login juga
-const originalCheckout = checkout;
-checkout = async function(finalAmount, originalSubtotal, discountValue, promoCodeUsed) {
-    let userName = localStorage.getItem("pimonjoki_user_name");
-    if (!userName) {
-        userName = promptLoginIfNeeded();
-        if (!userName) return;
-    }
-    window.pimonjokiCurrentUserName = userName;
-    await originalCheckout.apply(this, arguments);
-};
+
+// === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
+window.updateQty = updateQty;
+window.removeItem = removeItem;
+window.checkout = checkout; // checkout sekarang async
+window.applyPromoCode = applyPromoCode; // applyPromoCode sekarang async
+// Jika ada fungsi lain yang dipanggil dari onclick di HTML:
+// window.handleSearch = handleSearch;
+// window.addSelectedItemsToCart = addSelectedItemsToCart;
+// window.orderNow = orderNow;
+// window.filterProductCardsOnPage = filterProductCardsOnPage;
+
+// Catatan: Jika Anda memindahkan definisi fungsi seperti handleSearch, addSelectedItemsToCart, orderNow
+// ke dalam DOMContentLoaded, maka Anda tidak bisa menempelkannya ke window seperti ini.
+// Biarkan definisi fungsi utama di luar DOMContentLoaded jika ingin diakses global.
+// Untuk contoh ini, saya asumsikan definisi handleSearch, addSelectedItemsToCart, orderNow ada di luar DOMContentLoaded.
+// Karena kode Anda menempatkan banyak fungsi di luar, saya akan menempatkan window. assignments di bawahnya.
+if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
+if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
+if (typeof orderNow === 'function') window.orderNow = orderNow;
+if (typeof filterProductCardsOnPage === 'function') window.filterProductCardsOnPage = filterProductCardsOnPage;
