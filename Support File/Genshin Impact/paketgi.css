@@ -326,3 +326,59 @@ background-color: #0056b3;
     width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1);
 }
 
+/* Responsive untuk mobile */
+@media screen and (max-width: 480px) {
+  .search-bar {
+    flex-direction: row;
+    gap: 6px;
+    padding: 0 12px;
+  }
+
+  .search-bar input[type="text"] {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .icon-button {
+    padding: 8px;
+  }
+
+  .icon-button img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+
+/*Badge promo*/
+
+.badge-discount {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #dc3545; /* merah terang */
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* Keranjang */
+
+.cart-btn {
+  background-color: #007bff;
+  width: 18px;
+  height: 18px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.cart-btn:hover {
+  background-color: #0056b3;
+}
+
