@@ -285,3 +285,32 @@ footer p {
   background-color: #0056b3;
 }
 
+/* Wrapper untuk Tombol Aksi di Bawah Kartu */
+.package-card .card-actions {
+  margin-top: auto; 
+  padding-top: 15px; 
+}
+.package-card .card-actions button {
+  width: 100%;
+  display: block;
+  margin-top: 0; 
+}
+.package-card .card-actions button:not(:last-child) {
+  margin-bottom: 10px; 
+}
+
+/* Warna spesifik untuk tombol di .card-actions (Tidak diubah sesuai permintaan Anda untuk mempertahankan warna tombol default) */
+.package-card .card-actions button[onclick*="orderNow"] {
+background-color: #007bff;
+}
+.package-card .card-actions button[onclick*="orderNow"]:hover {
+background-color: #0056b3; 
+}
+.package-card .card-actions button[onclick*="addSelectedItemsToCart"],
+.package-card .card-actions button.add-to-cart { 
+   background-color: #007bff; 
+}
+.package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
+.package-card .card-actions button.add-to-cart:hover {
+background-color: #0056b3; 
+}
