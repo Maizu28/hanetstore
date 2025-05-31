@@ -393,3 +393,110 @@ nav a:hover {
         font-size: 0.85em;
     }
 }
+
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 20px; /* Memberi padding kiri-kanan pada header */
+    text-align: center; /* Untuk menengahkan tagline jika ia block */
+}
+
+.header-main-line {
+    display: flex;              /* Mengaktifkan Flexbox */
+    justify-content: space-between; /* Mendorong H1 ke kiri, Login ke kanan */
+    align-items: center;        /* Menyejajarkan H1 dan tombol Login secara vertikal */
+    max-width: 1200px;          /* Batas lebar konten header (konsisten dengan .container) */
+    margin: 0 auto;             /* Menengahkan .header-main-line di dalam <header> */
+}
+
+header h1 { /* Styling untuk PIMONJOKI.ID */
+    margin: 0; /* Hapus margin default H1 */
+    font-size: 2.2em; /* Sesuaikan ukuran jika perlu */
+    line-height: 1.2; /* Jarak baris */
+    text-align: left; /* Pastikan judul rata kiri */
+}
+
+
+.account-actions .login-btn {
+    color: #ffffff;
+    background-color: #007bff; /* Contoh warna tombol */
+    padding: 8px 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    white-space: nowrap; /* Mencegah teks login wrap jika namanya panjang */
+}
+
+.account-actions .login-btn:hover {
+    background-color: #0056b3;
+}
+
+p.tagline-header { /* Styling untuk tagline */
+    margin: 8px auto 0; /* Jarak dari baris H1/Login, dan tengahkan jika header tidak center */
+    font-size: 1em;
+    color: #ccc; /* Warna lebih lembut untuk tagline */
+    max-width: 1200px; /* Samakan dengan .header-main-line agar alignment terjaga */
+    /* text-align: center; /* Dihapus, akan mewarisi dari header atau bisa diatur spesifik */
+}
+
+/* Navigasi (biarkan seperti yang sudah ada atau sesuaikan) */
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+    font-size: 1.1em;
+    padding: 5px 0;
+}
+nav a:hover {
+    color: #00a3ff;
+}
+
+/* Responsive untuk Header */
+@media screen and (max-width: 768px) { /* Tablet dan mobile kecil */
+    .header-main-line {
+        flex-direction: column; /* H1 dan Login ditumpuk vertikal */
+        align-items: center;    /* Ditengahkan saat ditumpuk */
+        gap: 10px;              /* Jarak antara H1 dan Login saat ditumpuk */
+    }
+
+    header h1 {
+        font-size: 2em; 
+        text-align: center; /* Judul di tengah saat ditumpuk */
+    }
+
+    .account-actions {
+        margin-top: 10px; 
+    }
+    .account-actions {
+        margin-top: 10px; 
+    }
+}
+
+@media screen and (max-width: 480px) { /* Mobile sangat kecil */
+    header {
+        padding: 15px 10px;
+    }
+     header h1 {
+        font-size: 1.8em;
+    }
+    p.tagline-header {
+        font-size: 0.85em;
+    }
+    .account-actions .login-btn {
+        padding: 7px 15px;
+        font-size: 0.85em;
+    }
+    nav a {
+        margin: 0 8px;
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PIMONJOKI.ID</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+        .login-container {
+            width: 100%;
+            padding: 20px;
+        }
+        .login-box {
+            background-color: #ffffff;
+            padding: 35px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .login-box h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #454545;
+        }
+        .input-group input[type="text"],
+        .input-group input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .input-group input[type="text"]:focus,
+        .input-group input[type="password"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.85em;
+            color: #555;
+        }
+        .options .remember-me {
+            display: flex;
+            align-items: center;
+        }
+        .options .remember-me input[type="checkbox"] {
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        .options .forgot-password {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .options .forgot-password:hover {
+            text-decoration: underline;
+        }
+        .login-submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .login-submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        #loginErrorMessage { /* Style untuk pesan error */
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 1.2em; /* Mencegah layout shift */
+            font-size: 0.9em;
+        }
+        @media screen and (max-width: 480px) {
+            .login-box { padding: 25px 20px; margin: 20px; }
+            .login-box h2 { font-size: 1.6em; margin-bottom: 20px; }
+            .input-group input[type="text"],
+            .input-group input[type="password"],
+            .login-submit-btn { font-size: 0.95em; }
+            .options { font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login Akun</h2>
+            <form id="loginForm"> <div id="loginErrorMessage"></div> <div class="input-group">
+                    <label for="username">Email atau Username</label>
+                    <input type="text" id="username" name="username" placeholder="Masukkan email atau username Anda" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password Anda" required>
+                </div>
+                <div class="options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="remember"> Ingat Saya
+                    </label>
+                    <a href="#" class="forgot-password">Lupa Password?</a> </div>
+                <button type="submit" class="login-submit-btn">Login</button>
+                <div class="signup-link">
+                    <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+                    </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="login.js"></script> </body>
+</html>
