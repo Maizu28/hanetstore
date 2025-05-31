@@ -6,70 +6,38 @@ body {
     color: #333;
 }
 
-/* Sesuaikan atau tambahkan pada CSS Header Anda yang sudah ada */
+/* Header */
 header {
     background-color: #333;
     color: #fff;
-    padding: 15px 20px; /* Padding atas/bawah dan kiri/kanan untuk header */
-    /* text-align: center; /* Hapus ini jika menggunakan flex untuk alignment */
-}
-
-/* Wrapper untuk konten header agar bisa menggunakan Flexbox */
-.header-content {
-    display: flex;              /* Mengaktifkan Flexbox */
-    justify-content: space-between; /* Mendorong item ke sisi berlawanan (logo kiri, login kanan) */
-    align-items: center;        /* Menyejajarkan item secara vertikal di tengah */
-    max-width: 1200px;          /* Samakan dengan .container Anda untuk konsistensi lebar */
-    margin: 0 auto;             /* Menengahkan .header-content jika lebar layar > max-width */
-}
-
-.logo-area {
-    text-align: left; /* Pastikan logo dan tagline rata kiri */
+    padding: 20px 0;
+    text-align: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.2em; /* Mungkin sedikit disesuaikan agar pas */
-    line-height: 1.1;
+    font-size: 2.5em;
 }
 
 header p {
-    margin: 4px 0 0;
-    font-size: 1em; /* Mungkin sedikit disesuaikan */
-    opacity: 0.9;
+    margin: 10px 0 0;
+    font-size: 1.2em;
 }
 
-.account-actions .login-btn {
-    color: #ffffff;
-    background-color: #007bff; /* Warna biru sebagai contoh */
-    padding: 8px 18px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 0.9em;
-    font-weight: bold;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    border: 1px solid transparent; /* Untuk konsistensi jika ada state lain */
-}
-
-.account-actions .login-btn:hover {
-    background-color: #0056b3; /* Warna biru lebih gelap saat hover */
-    color: #fff;
-}
-
-/* Styling Navigasi (tetap seperti yang Anda miliki atau sesuaikan) */
 nav {
     background-color: #444;
     padding: 10px;
     text-align: center;
 }
+
 nav a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     transition: color 0.3s;
     font-size: 1.1em;
-    padding: 5px 0;
 }
+
 nav a:hover {
     color: #00a3ff;
 }
@@ -317,3 +285,111 @@ footer p {
   background-color: #0056b3;
 }
 
+/* Sesuaikan atau tambahkan pada CSS Header Anda yang sudah ada */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 20px; /* Padding atas/bawah dan kiri/kanan untuk header */
+    /* text-align: center; /* Hapus ini jika menggunakan flex untuk alignment */
+}
+
+/* Wrapper untuk konten header agar bisa menggunakan Flexbox */
+.header-content {
+    display: flex;              /* Mengaktifkan Flexbox */
+    justify-content: space-between; /* Mendorong item ke sisi berlawanan (logo kiri, login kanan) */
+    align-items: center;        /* Menyejajarkan item secara vertikal di tengah */
+    max-width: 1200px;          /* Samakan dengan .container Anda untuk konsistensi lebar */
+    margin: 0 auto;             /* Menengahkan .header-content jika lebar layar > max-width */
+}
+
+.logo-area {
+    text-align: left; /* Pastikan logo dan tagline rata kiri */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em; /* Mungkin sedikit disesuaikan agar pas */
+    line-height: 1.1;
+}
+
+header p {
+    margin: 4px 0 0;
+    font-size: 1em; /* Mungkin sedikit disesuaikan */
+    opacity: 0.9;
+}
+
+/* Styling untuk bagian aksi akun (Login) */
+
+.account-actions .login-btn {
+    color: #ffffff;
+    background-color: #007bff; /* Warna biru sebagai contoh */
+    padding: 8px 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: 1px solid transparent; /* Untuk konsistensi jika ada state lain */
+}
+
+.account-actions .login-btn:hover {
+    background-color: #0056b3; /* Warna biru lebih gelap saat hover */
+    color: #fff;
+}
+
+/* Styling Navigasi (tetap seperti yang Anda miliki atau sesuaikan) */
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+    font-size: 1.1em;
+    padding: 5px 0;
+}
+nav a:hover {
+    color: #00a3ff;
+}
+
+
+/* Responsif untuk Header */
+@media screen and (max-width: 768px) { /* Breakpoint untuk tablet/mobile */
+    .header-content {
+        flex-direction: column; /* Konten header ditumpuk secara vertikal */
+        gap: 10px; /* Jarak antara logo area dan tombol login saat ditumpuk */
+    }
+
+    .logo-area {
+        text-align: center; /* Logo dan tagline di tengah saat ditumpuk */
+    }
+
+    .account-actions {
+        margin-top: 10px; /* Beri jarak jika diperlukan saat ditumpuk */
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    header p {
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header {
+        padding: 15px 10px; /* Kurangi padding header di mobile */
+    }
+     header h1 {
+        font-size: 1.8em;
+    }
+    header p {
+        font-size: 0.85em;
+    }
+    .account-actions .login-btn {
+        padding: 7px 15px;
+        font-size: 0.85em;
+    }
+}
