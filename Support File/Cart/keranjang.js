@@ -501,3 +501,36 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCartAndPromo();
     renderCart(); // renderCart akan memasang listener untuk promo button dan input enter
 });
+
+/**
+ * Ambil keranjang dari Firestore (asumsi sudah ada Firebase SDK di halaman)
+ * Ganti 'users' dan 'cart' sesuai struktur koleksi Firestore Anda.
+ * userId bisa didapat dari auth, localStorage, atau input user.
+ */
+async function fetchCartFromFirestore(userId) {
+    if (!window.firebase || !firebase.firestore) {
+        console.error("Firebase SDK belum dimuat.");
+        return;
+    }
+    if (!userId) {
+        alert("User ID tidak ditemukan. Tidak bisa mengambil keranjang.");
+        return;
+    }
+    try {
+        const docRef = firebase.firestore().collection("users").doc(userId).collection("cart");
+        const snapshot = await docRef.get();
+        const items = [];
+        snapshot.forEach(doc => {
+            items.push({ id: doc.id, ...doc.data() });
+        });
+        cart = items;
+        saveCart();
+        renderCart();
+    } catch (err) {
+        console.error("Gagal mengambil keranjang dari Firestore:", err);
+        alert("Gagal mengambil keranjang dari server.");
+    }
+}
+
+// Contoh pemakaian (misal userId dari localStorage atau auth):
+// fetchCartFromFirestore(localStorage.getItem("userId"));

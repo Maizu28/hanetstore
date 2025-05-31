@@ -1,84 +1,110 @@
 // login.js
 
-// GANTI DENGAN URL GOOGLE APPS SCRIPT ANDA YANG SUDAH DI-DEPLOY UNTUK VERIFIKASI TOKEN
-const VERIFY_TOKEN_APPS_SCRIPT_URL = "URL_APPS_SCRIPT_ANDA_UNTUK_VERIFIKASI_TOKEN"; 
-// Contoh: https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxxxxx/exec
+// Import fungsi yang diperlukan dari SDK Firebase
+// Pastikan HTML Anda memuat SDK sebagai module atau Anda menggunakan bundler
+// Untuk penggunaan langsung di browser dengan <script type="module">, path CDN ini biasanya bekerja.
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"; // Sesuaikan versi jika perlu
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-// Fungsi ini akan dipanggil oleh Google setelah pengguna berhasil login
-// Responsnya berisi credential (JWT ID Token)
-async function handleCredentialResponse(response) {
-    const statusMessageDiv = document.getElementById('loginStatusMessage');
-    statusMessageDiv.textContent = 'Memproses login...';
-    statusMessageDiv.style.color = 'blue';
+// KONFIGURASI FIREBASE ANDA (dapatkan dari Firebase Console)
+// Pastikan ini sama dengan yang Anda gunakan di register.js atau file inisialisasi Firebase Anda
+const firebaseConfig = {
+  apiKey: "AIzaSyDrxaF4FPNlOLvjshhcXHNALD4nyNWQmQI", // GANTI JIKA INI HANYA CONTOH
+  authDomain: "pimonjoki-440c9.firebaseapp.com",
+  projectId: "pimonjoki-440c9",
+  storageBucket: "pimonjoki-440c9.appspot.com", // Perbaiki jika ada typo (firebasestorage -> appspot) atau gunakan yang benar dari console
+  messagingSenderId: "572593756351",
+  appId: "1:572593756351:web:c74fa9b4f5f50960da4e0a",
+  measurementId: "G-7FBBHTEVZH" // Opsional, untuk Google Analytics
+};
 
-    console.log("ID Token diterima dari Google: " + response.credential);
-
-    try {
-        // Kirim ID Token ke backend Anda (Google Apps Script) untuk verifikasi
-        const backendResponse = await fetch(VERIFY_TOKEN_APPS_SCRIPT_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded', // Apps Script lebih mudah menangani ini untuk parameter sederhana
-            },
-            // Mengirim token sebagai parameter POST
-            body: new URLSearchParams({
-                'idToken': response.credential 
-            })
-        });
-
-        const data = await backendResponse.json();
-
-        if (backendResponse.ok && data.success) {
-            statusMessageDiv.textContent = data.message || 'Login berhasil! Mengarahkan...';
-            statusMessageDiv.style.color = 'green';
-
-            // Simpan info pengguna atau token sesi jika backend mengembalikannya
-            if (data.user) {
-                localStorage.setItem('pimonjokiUser', JSON.stringify(data.user));
-            }
-            if (data.sessionToken) { // Jika backend Anda membuat token sesi kustom
-                localStorage.setItem('pimonjokiSessionToken', data.sessionToken);
-            }
-            
-            // Arahkan ke halaman yang diinginkan setelah login berhasil
-            // Ganti dengan halaman tujuan Anda
-            setTimeout(() => {
-                window.location.href = 'https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html'; 
-            }, 1000);
-
-        } else {
-            statusMessageDiv.textContent = data.message || 'Verifikasi login gagal. Silakan coba lagi.';
-            statusMessageDiv.style.color = 'red';
-        }
-    } catch (error) {
-        console.error('Kesalahan saat mengirim token ke backend:', error);
-        statusMessageDiv.textContent = 'Terjadi kesalahan koneksi. Silakan coba lagi nanti.';
-        statusMessageDiv.style.color = 'red';
-    }
+// Inisialisasi Firebase (jika belum diinisialisasi secara global)
+// Jika Anda sudah menginisialisasi 'app' di HTML atau file init terpisah, Anda bisa import 'app' tersebut.
+// Untuk contoh ini, kita inisialisasi di sini.
+let app;
+try {
+    app = initializeApp(firebaseConfig);
+} catch (e) {
+    console.error("Firebase initialization error:", e);
+    // Mungkin tampilkan pesan error ke pengguna bahwa layanan tidak tersedia
 }
 
-// Untuk Opsi 2: Tombol Kustom (jika digunakan)
-// document.addEventListener('DOMContentLoaded', () => {
-//     const customButton = document.getElementById('customGoogleLoginButton');
-//     if (customButton) {
-//         // Inisialisasi Google Sign-In client (jika menggunakan tombol kustom, inisialisasi mungkin diperlukan di sini)
-//         // google.accounts.id.initialize({
-//         //   client_id: "CLIENT_ID_ANDA_DISINI.apps.googleusercontent.com",
-//         //   callback: handleCredentialResponse
-//         // });
-//         // google.accounts.id.prompt(); // Menampilkan One Tap prompt atau
-//         // Untuk tombol render:
-//         // google.accounts.id.renderButton(
-//         //   document.getElementById("customGoogleLoginButton"), // Target elemen tombol kustom Anda
-//         //   { theme: "outline", size: "large", text: "signin_with", shape: "rectangular" } // Opsi tombol
-//         // );
+const auth = getAuth(app); // Dapatkan instance Auth
 
-//         // ATAU jika Anda ingin memicu popup login saat tombol kustom diklik (lebih kompleks)
-//         customButton.onclick = () => {
-//             // Logika untuk memicu Google Sign-In popup
-//             // Ini mungkin memerlukan google.accounts.id.prompt() atau alur yang sedikit berbeda
-//             // Untuk kesederhanaan, penggunaan tombol render bawaan Google lebih mudah.
-//             alert("Tombol kustom diklik - implementasi popup login Google diperlukan di sini.");
-//         };
-//     }
-// });
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('username'); // Di login.html, ID-nya adalah 'username' untuk input email/username
+    const passwordInput = document.getElementById('password');
+    const rememberMeCheckbox = document.getElementById('rememberMe'); // Pastikan ID ini ada di login.html
+    const errorMessageDiv = document.getElementById('loginErrorMessage'); // Pastikan ID ini ada di login.html
+    const submitButton = loginForm.querySelector('.login-submit-btn');
+
+    // Cek apakah ada username yang tersimpan jika "Ingat Saya" sebelumnya dicentang (untuk pre-fill email)
+    const rememberedUserEmail = localStorage.getItem('rememberedPimonjokiUserEmail');
+    if (rememberedUserEmail && emailInput) {
+        emailInput.value = rememberedUserEmail;
+        if (rememberMeCheckbox) {
+            rememberMeCheckbox.checked = true;
+        }
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            if(errorMessageDiv) errorMessageDiv.textContent = '';
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value; // Password tidak di-trim
+            const rememberMe = rememberMeCheckbox ? rememberMeCheckbox.checked : false;
+
+            if (!email || !password) {
+                if(errorMessageDiv) errorMessageDiv.textContent = 'Email dan password tidak boleh kosong.';
+                return;
+            }
+
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Memproses...';
+            submitButton.disabled = true;
+
+            try {
+                // Atur persistensi sesi berdasarkan checkbox "Ingat Saya"
+                const persistence = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+                await setPersistence(auth, persistence);
+
+                // Login dengan Firebase Authentication
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                console.log('Pengguna berhasil login:', user.uid, user.email);
+                alert(`Login berhasil! Selamat datang kembali, ${user.displayName || user.email}.`);
+
+                if (rememberMe) {
+                    localStorage.setItem('rememberedPimonjokiUserEmail', email);
+                } else {
+                    localStorage.removeItem('rememberedPimonjokiUserEmail');
+                }
+                
+                // Arahkan ke halaman utama atau dashboard setelah login
+                window.location.href = 'https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html'; // GANTI dengan halaman tujuan Anda
+
+            } catch (error) {
+                console.error('Kesalahan login Firebase:', error);
+                if(errorMessageDiv) {
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                        errorMessageDiv.textContent = 'Email atau password salah.';
+                    } else if (error.code === 'auth/invalid-email') {
+                        errorMessageDiv.textContent = 'Format email tidak valid.';
+                    } else if (error.code === 'auth/too-many-requests') {
+                        errorMessageDiv.textContent = 'Terlalu banyak percobaan login. Coba lagi nanti.';
+                    }
+                    else {
+                        errorMessageDiv.textContent = 'Login gagal. Terjadi kesalahan.';
+                    }
+                }
+            } finally {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            }
+        });
+    }
+});
