@@ -126,20 +126,41 @@
 
         /* Penyesuaian Responsif */
         @media screen and (max-width: 480px) {
+            body {
+            align-items: flex-start;
+            min-height: unset;
+            }
+            .register-container {
+            padding: 10px;
+            }
             .register-box {
-                padding: 25px 20px;
-                margin: 20px;
+            padding: 18px 8px;
+            margin: 16px 0;
+            max-width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             }
-
             .register-box h2 {
-                font-size: 1.6em;
+            font-size: 1.25em;
             }
-
             .input-group input[type="text"],
             .input-group input[type="email"],
             .input-group input[type="password"],
             .register-submit-btn {
-                font-size: 0.95em;
+            font-size: 0.95em;
+            padding: 10px 8px;
+            }
+            .login-link {
+            font-size: 0.85em;
+            }
+        }
+
+        @media screen and (max-width: 350px) {
+            .register-box {
+            padding: 8px 2px;
+            }
+            .register-box h2 {
+            font-size: 1em;
             }
         }
     </style>

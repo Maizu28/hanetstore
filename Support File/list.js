@@ -124,3 +124,64 @@ if (logoutBtn) {
         }
     });
 });
+
+// pimonjoki.js atau script-utama.js
+import { auth } from './firebase-init.js'; // Pastikan ini ada dan path-nya benar
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+console.log("PIMONJOKI.JS: Script loaded."); // Cek apakah file JS ini dimuat
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("PIMONJOKI.JS: DOMContentLoaded event fired.");
+
+    const loginLink = document.getElementById('loginLink');
+    const userInfoDiv = document.getElementById('userInfo');
+    const userDisplayNameSpan = document.getElementById('userDisplayName');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Cek apakah elemen HTML ditemukan
+    console.log("Login Link Element:", loginLink);
+    console.log("User Info Div Element:", userInfoDiv);
+
+    if (!auth) {
+        console.error("PIMONJOKI.JS: Firebase Auth instance is NOT available!");
+        // Jika auth tidak ada, tampilkan tombol login sebagai fallback
+        if(loginLink) loginLink.style.display = 'inline-block';
+        if(userInfoDiv) userInfoDiv.style.display = 'none';
+        return;
+    }
+    console.log("PIMONJOKI.JS: Firebase Auth instance IS available. Attaching onAuthStateChanged listener.");
+
+    onAuthStateChanged(auth, (user) => {
+        console.log("PIMONJOKI.JS: onAuthStateChanged callback fired. User object:", user); // Cek apakah callback ini berjalan
+        if (user) {
+            console.log("PIMONJOKI.JS: User is logged in.");
+            if (loginLink) loginLink.style.display = 'none';
+            if (userInfoDiv) userInfoDiv.style.display = 'flex';
+            if (userDisplayNameSpan) userDisplayNameSpan.textContent = user.displayName || user.email;
+
+            if (logoutBtn) {
+                // ... (logika logoutBtn seperti sebelumnya) ...
+                const newLogoutBtn = logoutBtn.cloneNode(true);
+                logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+
+                newLogoutBtn.addEventListener('click', async () => {
+                    // ... (try-catch untuk signOut) ...
+                    try {
+                        await signOut(auth);
+                        console.log('Pengguna berhasil logout');
+                        window.location.href = 'login.html'; 
+                    } catch (error) {
+                        console.error('Error saat logout:', error);
+                        alert('Gagal logout: ' + error.message);
+                    }
+                });
+            }
+        } else {
+            console.log("PIMONJOKI.JS: User is logged out.");
+            if (loginLink) loginLink.style.display = 'inline-block';
+            if (userInfoDiv) userInfoDiv.style.display = 'none';
+            if (userDisplayNameSpan) userDisplayNameSpan.textContent = '';
+        }
+    });
+});

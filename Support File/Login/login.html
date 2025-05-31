@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PIMONJOKI.ID</title>
     <style>
-        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -73,6 +72,8 @@
             margin-bottom: 25px;
             font-size: 0.85em;
             color: #555;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .options .remember-me {
             display: flex;
@@ -118,20 +119,60 @@
         .signup-link a:hover {
             text-decoration: underline;
         }
-        #loginErrorMessage { /* Style untuk pesan error */
+        #loginErrorMessage {
             color: red;
             text-align: center;
             margin-bottom: 15px;
-            min-height: 1.2em; /* Mencegah layout shift */
+            min-height: 1.2em;
             font-size: 0.9em;
         }
-        @media screen and (max-width: 480px) {
-            .login-box { padding: 25px 20px; margin: 20px; }
-            .login-box h2 { font-size: 1.6em; margin-bottom: 20px; }
+        /* Responsive styles for mobile */
+        @media screen and (max-width: 600px) {
+            body {
+                align-items: flex-start;
+                min-height: 100vh;
+            }
+            .login-container {
+                padding: 10px;
+            }
+            .login-box {
+                padding: 20px 8px;
+                margin: 16px 0;
+                max-width: 100%;
+                border-radius: 0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            }
+            .login-box h2 {
+                font-size: 1.3em;
+                margin-bottom: 18px;
+            }
             .input-group input[type="text"],
-            .input-group input[type="password"],
-            .login-submit-btn { font-size: 0.95em; }
-            .options { font-size: 0.8em; }
+            .input-group input[type="password"] {
+                font-size: 1em;
+                padding: 10px 10px;
+            }
+            .login-submit-btn {
+                font-size: 1em;
+                padding: 10px;
+            }
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                font-size: 0.95em;
+            }
+            .signup-link {
+                font-size: 0.95em;
+                margin-top: 18px;
+            }
+        }
+        @media screen and (max-width: 400px) {
+            .login-box {
+                padding: 10px 2px;
+            }
+            .login-box h2 {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
