@@ -1,132 +1,315 @@
-import { auth, db } from './firebase-init.js'; // db = Firestore instance
-import { doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+// list.js 
 
-// Ambil keranjang user dari Firestore
-async function getCartFromAccount(userId) {
-  try {
-    const cartRef = doc(db, "carts", userId);
-    const cartSnap = await getDoc(cartRef);
-    if (cartSnap.exists()) {
-      return cartSnap.data().items || [];
-    }
-    return [];
-  } catch (error) {
-    console.error("Gagal mengambil keranjang:", error);
-    return [];
-  }
-}
 
-// Simpan keranjang user ke Firestore
-async function saveCartToAccount(userId, cart) {
-  try {
-    const cartRef = doc(db, "carts", userId);
-    await setDoc(cartRef, { items: cart }, { merge: true });
-  } catch (error) {
-    console.error("Gagal menyimpan keranjang:", error);
-  }
-}
 
-// Tambah item ke keranjang user di Firestore
-async function addToCartAccount(item) {
-  const user = auth.currentUser;
-  if (!user) {
-    alert("Silakan login untuk menambahkan ke keranjang.");
-    return;
-  }
-  const userId = user.uid;
-  let cart = await getCartFromAccount(userId);
-  const existing = cart.find((i) => i.id === item.id);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ ...item, qty: 1 });
-  }
-  await saveCartToAccount(userId, cart);
-  alert(`"${item.name}" berhasil ditambahkan ke keranjang akun.`);
-}
+// Import fungsi inti initializeApp dari Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"; // Ganti dengan versi SDK terbaru jika perlu
 
-// Contoh penggunaan pada tombol:
-document.addEventListener("DOMContentLoaded", function () {
-  const genericAddToCartButtons = document.querySelectorAll(".add-to-cart");
-  genericAddToCartButtons.forEach((btn) => {
-    if (!btn.getAttribute('onclick')) {
-      btn.addEventListener("click", async () => {
-        const item = {
-          id: btn.dataset.id,
-          name: btn.dataset.name,
-          price: btn.dataset.price,
-          game: btn.dataset.game || "Genshin Impact",
-        };
-        if (item.id && item.name && item.price) {
-          await addToCartAccount(item);
-        } else {
-          alert("Detail produk tidak lengkap untuk ditambahkan ke keranjang.");
+// Import fungsi untuk mendapatkan instance layanan Firebase yang Anda butuhkan
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+// import { getStorage } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js"; // Jika Anda menggunakan Storage
+// import { getFunctions } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-functions.js"; // Jika Anda menggunakan Functions
+
+// TODO: GANTI DENGAN KONFIGURASI FIREBASE PROYEK ANDA YANG SEBENARNYA
+// Anda bisa mendapatkan ini dari Firebase Console:
+// Project settings > General > Your apps > Web app > Firebase SDK snippet > Config
+const firebaseConfig = {
+  apiKey: "AIzaSyDrxaF4FPNlOLvjshhcXHNALD4nyNWQmQI", // GANTI JIKA INI HANYA CONTOH
+  authDomain: "pimonjoki-440c9.firebaseapp.com",
+  projectId: "pimonjoki-440c9",
+  storageBucket: "pimonjoki-440c9.appspot.com", // Perbaiki jika ada typo (firebasestorage -> appspot) atau gunakan yang benar dari console
+  messagingSenderId: "572593756351",
+  appId: "1:572593756351:web:c74fa9b4f5f50960da4e0a",
+  measurementId: "G-7FBBHTEVZH" // Opsional, untuk Google Analytics
+};
+
+// Inisialisasi Firebase App sekali saja di sini
+const app = initializeApp(firebaseConfig);
+
+// Dapatkan instance layanan Firebase yang Anda butuhkan dan ekspor
+const auth = getAuth(app);
+const db = getFirestore(app); // Contoh jika Anda menggunakan Firestore
+// const storage = getStorage(app); // Contoh untuk Firebase Storage
+// const functions = getFunctions(app); // Contoh untuk Firebase Functions (sesuaikan region jika perlu)
+
+// Ekspor instance yang sudah diinisialisasi agar bisa digunakan di file JavaScript lain
+export { app, auth, db /*, storage, functions */ };
+
+// === FUNGSI UNTUK FILTER KARTU PRODUK DI HALAMAN INI ===
+function filterProductCardsOnPage() {
+    const inputElement = document.getElementById("searchInput");
+    if (!inputElement) return; // Pastikan elemen ada
+
+    const input = inputElement.value.toLowerCase();
+    const cards = document.querySelectorAll(".package-card"); // Menggunakan .package-card
+
+    cards.forEach(card => {
+        let cardTextContent = "";
+        const titleElement = card.querySelector("h2"); // Menggunakan h2
+        if (titleElement) {
+            cardTextContent += titleElement.textContent.toLowerCase();
         }
-      });
+        // Tambahkan pencarian berdasarkan data-title jika ada dan relevan
+        if (card.dataset.title) {
+            cardTextContent += " " + card.dataset.title.toLowerCase();
+        }
+        // Anda juga bisa menambahkan pencarian berdasarkan konten <li> jika perlu
+        // card.querySelectorAll("li").forEach(li => cardTextContent += " " + li.textContent.toLowerCase());
+
+        if (cardTextContent.includes(input)) {
+            card.style.display = ""; // Tampilkan kartu
+        } else {
+            card.style.display = "none"; // Sembunyikan kartu
+        }
+    });
+}
+
+// === FUNGSI UNTUK MENGARAHKAN PENCARIAN KE HALAMAN HASIL ===
+function handleSearch() {
+    const inputElement = document.getElementById("searchInput");
+    if (!inputElement) return;
+
+    const input = inputElement.value.trim();
+    if (input) {
+        window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html?query=${encodeURIComponent(input)}`;
+    } else {
+        alert("Masukkan kata kunci pencarian.");
     }
-  });
-});
+}
+
+// === FUNGSI KERANJANG (localStorage) ===
+function getCart() {
+    let cartData = [];
+    try {
+        const cartString = localStorage.getItem("pimonjoki_cart");
+        if (cartString) {
+            cartData = JSON.parse(cartString);
+            if (!Array.isArray(cartData)) {
+                console.warn("Data keranjang di localStorage bukan array, direset.");
+                cartData = [];
+            }
+        }
+    } catch (error) {
+        console.error("Error parsing keranjang dari localStorage:", error);
+        cartData = [];
+    }
+    return cartData;
+}
+
+function saveCart(cart) {
+    try {
+        localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+    } catch (error) {
+        console.error("Error menyimpan keranjang ke localStorage:", error);
+    }
+}
+
+function addToCart(item) {
+    let currentCart = getCart();
+    const existing = currentCart.find((i) => i.id === item.id);
+
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        currentCart.push({ ...item, qty: 1 });
+    }
+
+    saveCart(currentCart);
+    alert(`"${item.name}" berhasil ditambahkan ke keranjang.`);
+    // updateCartIconCount(); // Panggil fungsi untuk update ikon jumlah keranjang jika ada
+}
+
+// Fungsi untuk paket dengan item yang bisa dipilih via checkbox
+function addSelectedItemsToCart(buttonElement) {
+    const packageCard = buttonElement.closest('.package-card');
+    if (!packageCard) {
+        alert("Kesalahan: Kartu paket tidak ditemukan.");
+        return;
+    }
+
+    const basePackageNameElement = packageCard.querySelector('h2');
+    const basePackageName = basePackageNameElement ? basePackageNameElement.textContent.trim() : "Paket Pilihan";
+
+    let selectedCheckboxes = packageCard.querySelectorAll('ul.selectable-item-list input.selectable-sub-item:checked');
+    if (selectedCheckboxes.length === 0) {
+        selectedCheckboxes = packageCard.querySelectorAll('ul.quest-list input[type="checkbox"]:checked');
+    }
+
+    if (selectedCheckboxes.length === 0) {
+        alert(`Silakan pilih minimal satu item dari ${basePackageName}.`);
+        return;
+    }
+
+    const selectedItemValues = [];
+    const selectedItemUniqueIds = [];
+    let totalPrice = 0;
+    let priceCalculationMode = "individual"; // Default ke harga individual
+
+    const pricePerActDiv = packageCard.querySelector('div[data-price-per-act]');
+    let pricePerActFromCard = 0;
+
+    if (pricePerActDiv && pricePerActDiv.dataset.pricePerAct) {
+        pricePerActFromCard = parseInt(pricePerActDiv.dataset.pricePerAct, 10);
+        if (!isNaN(pricePerActFromCard) && pricePerActFromCard > 0) {
+            priceCalculationMode = "perAct";
+        }
+    }
+
+    if (priceCalculationMode === "perAct") {
+        totalPrice = selectedCheckboxes.length * pricePerActFromCard;
+        selectedCheckboxes.forEach(checkbox => {
+            selectedItemValues.push(checkbox.value);
+            selectedItemUniqueIds.push(checkbox.value.toLowerCase().replace(/\s+/g, '-'));
+        });
+    } else { // Mode "individual"
+        selectedCheckboxes.forEach(checkbox => {
+            const itemPrice = parseInt(checkbox.dataset.price, 10); // Ambil harga dari data-price checkbox
+            if (!isNaN(itemPrice) && itemPrice >= 0) { // Harga 0 mungkin valid untuk item gratis
+                totalPrice += itemPrice;
+                selectedItemValues.push(checkbox.value);
+                // Gunakan data-quest-id jika ada untuk ID yang lebih stabil, fallback ke value
+                selectedItemUniqueIds.push(checkbox.dataset.questId || checkbox.dataset.id || checkbox.value.toLowerCase().replace(/\s+/g, '-'));
+            } else {
+                console.warn(`Item "${checkbox.value}" tidak memiliki harga valid (data-price) dan dilewati.`);
+            }
+        });
+        if (selectedItemValues.length === 0 && selectedCheckboxes.length > 0) {
+            alert("Item yang dipilih tidak memiliki harga yang valid.");
+            return;
+        }
+    }
+    
+    if (selectedItemValues.length === 0) { // Double check jika semua item tidak valid harganya
+        alert(`Tidak ada item valid yang dipilih dari ${basePackageName}.`);
+        return;
+    }
+
+    const sortedItemIds = [...selectedItemUniqueIds].sort();
+    const selectionIdentifier = sortedItemIds.join('-');
+    
+    const idPrefix = basePackageName.toLowerCase().replace(/\s+/g, '-') || 'custom-package';
+    const itemId = `${idPrefix}-${selectionIdentifier}`; 
+    const itemName = `${basePackageName} (${selectedItemValues.join(", ")})`; 
+    const formattedTotalPrice = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+    const gameName = packageCard.dataset.game || "Genshin Impact";
+
+    const newItemForCart = {
+        id: itemId,
+        name: itemName,
+        price: formattedTotalPrice,
+        game: gameName,
+    };
+
+    addToCart(newItemForCart); // Panggil fungsi addToCart inti
+}
 
 
-// (Dihapus: Inisialisasi dan ekspor Firebase, karena sudah dilakukan di firebase-init.js)
+// === EVENT LISTENER UTAMA SETELAH DOM SIAP ===
+document.addEventListener("DOMContentLoaded", function () {
+    
+    // --- Inisialisasi Badge Promo ---
+    document.querySelectorAll(".package-card").forEach(card => {
+        if (card.querySelector(".price-discount")) {
+            if (!card.querySelector(".badge-discount")) { 
+                const badge = document.createElement("span");
+                badge.className = "badge-discount";
+                badge.innerText = "PROMO"; 
+                card.insertBefore(badge, card.firstChild); 
+            }
+        }
+    });
 
-// pimonjoki.js atau script-utama.js
+    // --- Listener untuk tombol .add-to-cart generik ---
+    const genericAddToCartButtons = document.querySelectorAll(".add-to-cart");
+    genericAddToCartButtons.forEach((btn) => {
+        if (!btn.onclick) { 
+            btn.addEventListener("click", () => {
+                const item = {
+                    id: btn.dataset.id,
+                    name: btn.dataset.name,
+                    price: btn.dataset.price,
+                    game: btn.dataset.game || "Genshin Impact",
+                };
+                if (item.id && item.name && item.price) {
+                    addToCart(item); 
+                } else {
+                    console.warn("Tombol .add-to-cart tanpa atribut data-* yang cukup:", btn);
+                    alert("Detail produk tidak lengkap untuk ditambahkan ke keranjang.");
+                }
+            });
+        }
+    });
 
-import { auth } from './firebase-init.js'; // Pastikan ini ada dan path-nya benar
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+    // --- Listener untuk Pencarian dengan Enter & Mengisi input dari URL query ---
+    const searchInputElement = document.getElementById("searchInput");
+    if (searchInputElement) {
+        searchInputElement.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Mencegah submit form jika input ada di dalam form
+                handleSearch(); // Panggil fungsi handleSearch yang mengarahkan ke halaman lain
+                // Jika Anda ingin filter di halaman ini: filterProductCardsOnPage();
+            }
+        });
 
-console.log("PIMONJOKI.JS: Script loaded."); // Cek apakah file JS ini dimuat
+        // Isi input pencarian jika ada query di URL
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("query");
+        if (query) {
+            searchInputElement.value = query;
+            // Jika Anda ingin filter otomatis saat halaman dimuat dengan query:
+            // filterProductCardsOnPage(); 
+        }
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("PIMONJOKI.JS: DOMContentLoaded event fired.");
-
+    // --- (OPSIONAL) Manajemen Status Login Pengguna (Update UI Header) ---
+    // Jika file ini juga bertanggung jawab untuk update header login/logout
+    // Anda perlu mengimpor 'auth', 'onAuthStateChanged', 'signOut' dari Firebase
+    // dan memastikan Firebase sudah diinisialisasi.
+    
     const loginLink = document.getElementById('loginLink');
     const userInfoDiv = document.getElementById('userInfo');
     const userDisplayNameSpan = document.getElementById('userDisplayName');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    // Cek apakah elemen HTML ditemukan
-    console.log("Login Link Element:", loginLink);
-    console.log("User Info Div Element:", userInfoDiv);
-
-    if (!auth) {
-        console.error("PIMONJOKI.JS: Firebase Auth instance is NOT available!");
-        // Jika auth tidak ada, tampilkan tombol login sebagai fallback
-        if(loginLink) loginLink.style.display = 'inline-block';
-        if(userInfoDiv) userInfoDiv.style.display = 'none';
-        return;
-    }
-    console.log("PIMONJOKI.JS: Firebase Auth instance IS available. Attaching onAuthStateChanged listener.");
-
-    onAuthStateChanged(auth, (user) => {
-        console.log("PIMONJOKI.JS: onAuthStateChanged callback fired. User object:", user); // Cek apakah callback ini berjalan
-        if (user) {
-            console.log("PIMONJOKI.JS: User is logged in.");
-            if (loginLink) loginLink.style.display = 'none';
-            if (userInfoDiv) userInfoDiv.style.display = 'flex';
-            if (userDisplayNameSpan) userDisplayNameSpan.textContent = user.displayName || user.email;
-
-            if (logoutBtn) {
-                // Remove old event listeners by replacing the button with its clone
-                const newLogoutBtn = logoutBtn.cloneNode(true);
-                logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
-
-                newLogoutBtn.addEventListener('click', async () => {
-                    try {
-                        await signOut(auth);
-                        console.log('Pengguna berhasil logout');
-                        window.location.href = 'login.html'; 
-                    } catch (error) {
-                        console.error('Error saat logout:', error);
-                        alert('Gagal logout: ' + error.message);
-                    }
-                });
+    if (typeof auth !== 'undefined' && auth) { // Cek apakah auth sudah diinisialisasi
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if (loginLink) loginLink.style.display = 'none';
+                if (userInfoDiv) userInfoDiv.style.display = 'flex';
+                if (userDisplayNameSpan) userDisplayNameSpan.textContent = user.displayName || user.email;
+                if (logoutBtn) {
+                    const newLogoutBtn = logoutBtn.cloneNode(true);
+                    logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+                    newLogoutBtn.addEventListener('click', async () => {
+                        try {
+                            await signOut(auth);
+                            window.location.href = 'login.html';
+                        } catch (error) { console.error('Error logout:', error); }
+                    });
+                }
+            } else {
+                if (loginLink) loginLink.style.display = 'inline-block';
+                if (userInfoDiv) userInfoDiv.style.display = 'none';
+                if (userDisplayNameSpan) userDisplayNameSpan.textContent = '';
             }
-        } else {
-            console.log("PIMONJOKI.JS: User is logged out.");
-            if (loginLink) loginLink.style.display = 'inline-block';
-            if (userInfoDiv) userInfoDiv.style.display = 'none';
-            if (userDisplayNameSpan) userDisplayNameSpan.textContent = '';
-        }
-    });
-});
+        });
+    } else {
+        console.warn("Firebase Auth tidak ditemukan/diinisialisasi di pimonjoki.js. UI Header mungkin tidak update.");
+        if (loginLink) loginLink.style.display = 'inline-block'; // Tampilkan login sebagai default
+        if (userInfoDiv) userInfoDiv.style.display = 'none';
+    }
+    
+
+}); // Akhir dari DOMContentLoaded
+
+
+// === FUNGSI YANG DIPANGGIL DARI ATRIBUT ONCLICK HTML ===
+// Agar fungsi ini bisa diakses dari HTML saat skrip dimuat sebagai module,
+// Anda perlu menempelkannya ke objek window.
+window.handleSearch = handleSearch;
+window.addSelectedItemsToCart = addSelectedItemsToCart;
+// Jika ada fungsi orderNow(this) yang dipanggil dari HTML, daftarkan juga:
+// window.orderNow = function(buttonElement) { /* ... implementasi Anda ... */ };
+
+// (Fungsi-fungsi lain yang mungkin Anda miliki atau akan tambahkan)
