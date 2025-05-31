@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Akun - PIMONJOKI.ID</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Registration Container dan Box */
+        .register-container {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .register-box {
+            background-color: #ffffff;
+            padding: 35px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px; /* Bisa sedikit lebih lebar dari login box jika perlu */
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .register-box h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        /* Grup Input */
+        .input-group {
+            margin-bottom: 18px; 
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #454545;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="email"],
+        .input-group input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-group input[type="text"]:focus,
+        .input-group input[type="email"]:focus,
+        .input-group input[type="password"]:focus {
+            border-color: #28a745; /* Warna hijau untuk fokus, beda dari login */
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+            outline: none;
+        }
+        
+        /* Pesan error untuk registrasi */
+        #registrationErrorMessage {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+            min-height: 1.2em; /* Mencegah layout shift */
+            font-size: 0.9em;
+        }
+
+        /* Tombol Submit Registrasi */
+        .register-submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745; /* Warna hijau untuk registrasi */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 10px; /* Jarak dari input terakhir */
+        }
+
+        .register-submit-btn:hover {
+            background-color: #218838; /* Warna hijau lebih gelap saat hover */
+        }
+
+        /* Link untuk Login */
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #007bff; /* Warna biru untuk link login */
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Penyesuaian Responsif */
+        @media screen and (max-width: 480px) {
+            .register-box {
+                padding: 25px 20px;
+                margin: 20px;
+            }
+
+            .register-box h2 {
+                font-size: 1.6em;
+            }
+
+            .input-group input[type="text"],
+            .input-group input[type="email"],
+            .input-group input[type="password"],
+            .register-submit-btn {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-box">
+            <h2>Buat Akun Baru</h2>
+            <form id="registrationForm"> <div id="registrationErrorMessage"></div> <div class="input-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" name="username" placeholder="Pilih username unik Anda" required>
+                </div>
+                <div class="input-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" name="email" placeholder="Masukkan alamat email valid" required>
+                </div>
+                <div class="input-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="password" placeholder="Minimal 8 karakter" required>
+                </div>
+                <div class="input-group">
+                    <label for="regConfirmPassword">Konfirmasi Password</label>
+                    <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Ulangi password Anda" required>
+                </div>
+                <button type="submit" class="register-submit-btn">Daftar Akun</button>
+                <div class="login-link">
+                    <p>Sudah punya akun? <a href="login.html">Login di sini</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="register.js"></script>
+    </body>
+</html>
