@@ -5,7 +5,6 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
-    line-height: 1.6;
 }
 
 /* Header */
@@ -15,42 +14,35 @@ header {
     padding: 20px 0;
     text-align: center;
 }
+
 header h1 {
     margin: 0;
     font-size: 2.5em;
 }
+
 header p {
     margin: 10px 0 0;
     font-size: 1.2em;
 }
 
-/* Navigation */
 nav {
     background-color: #444;
     padding: 10px;
     text-align: center;
 }
+
 nav a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
     transition: color 0.3s;
     font-size: 1.1em;
-    padding: 5px 0;
 }
+
 nav a:hover {
     color: #00a3ff;
 }
 
-/* Container Utama */
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.05);
-}
 
 /* Daftar Semua Paket Pesanan */
 .package-list {
@@ -62,14 +54,13 @@ nav a:hover {
 }
 .package-card {
     position: relative;
-    background-color: #ffffff; /* Mengambil #ffffff dari blok pertama, #f4f4f4 dari blok kedua diabaikan jika ini lebih spesifik */
+    background-color: #ffffff;
     border: 1px solid #ddd;
-    border-radius: 16px; /* Mengambil 16px dari blok pertama, 10px dari blok kedua diabaikan */
+    border-radius: 16px;
     padding: 20px;
     flex-basis: 280px;    
     flex-grow: 1;         
-    /* width: 300px; dari blok kedua diabaikan karena flex-basis dan flex-grow lebih fleksibel */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07); /* Mengambil shadow yang lebih halus dari blok pertama */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -77,7 +68,7 @@ nav a:hover {
 }
 .package-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); /* Efek hover dari blok pertama lebih detail */
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 .package-card h2 {
     font-size: 1.4em;
@@ -92,51 +83,36 @@ nav a:hover {
     margin: 8px 0;
     line-height: 1.5;
 }
+
+/* Styling umum untuk semua <li> di dalam kartu */
 .package-card li { 
     font-size: 0.9em;
     color: #555;
-    margin-bottom: 6px; 
-    list-style-type: none; 
-    padding-left: 0;       
+    margin-bottom: 6px; /* Default margin-bottom untuk semua li */
+    list-style-type: none; /* Menghilangkan bullet default */
+    padding-left: 0;       /* Menghilangkan padding kiri default */
     text-align: left;
 }
 
-/* Harga dan Diskon di dalam kartu paket (konsolidasi dari kedua blok) */
 .package-card .price { 
-    font-size: 1.3em; 
+    font-size: 1.3em;
     font-weight: bold;
     color: #28a745;
-    margin-top: 15px; 
+    margin-top: 15px;
 }
 .package-card .price-discount {
-    font-size: 0.9em; /* Blok pertama sedikit berbeda (0.95em), kita pilih salah satu atau sesuaikan */
+    font-size: 0.9em;
     color: #dc3545;
-    margin-bottom: 4px; /* Blok pertama 4px, blok kedua 5px. Dipilih 4px */
+    margin-bottom: 4px;
     font-weight: 500;
 }
 .package-card .price-discount s {
-    color: #777; /* Blok pertama #777, blok kedua #888. Dipilih #777 */
+    color: #777;
     margin-right: 6px;
     text-decoration: line-through;
 }
 
-/* Styling Tombol Umum (mengambil dasar dari blok kedua, lalu ditimpa oleh yang lebih spesifik jika ada) */
-.btn { /* Dari blok kedua */
-    background-color: #00a3ff;
-    color: #ffffff;
-    padding: 10px 10px; /* Ukuran padding lebih kecil dari .package-card button */
-    border: none;
-    border-radius: 5px; /* Radius lebih kecil */
-    cursor: pointer;
-    font-weight: bold;
-    margin: 15px; /* Margin ini mungkin perlu diperhatikan jika .btn dipakai di dalam .package-card */
-    transition: background-color 0.3s;
-}
-.btn:hover {
-    background-color: #0088cc;
-}
-
-/* Styling Tombol spesifik di dalam .package-card (dari blok pertama, lebih detail) */
+/* Styling Tombol Umum di dalam .package-card */
 .package-card button {
     padding: 10px 15px;
     background-color: #007bff; 
@@ -166,11 +142,13 @@ nav a:hover {
 .package-card .card-actions button:not(:last-child) {
   margin-bottom: 10px; 
 }
+
+/* Warna spesifik untuk tombol di .card-actions (Tidak diubah sesuai permintaan Anda untuk mempertahankan warna tombol default) */
 .package-card .card-actions button[onclick*="orderNow"] {
-   background-color: #007bff;
+background-color: #007bff;
 }
 .package-card .card-actions button[onclick*="orderNow"]:hover {
-   background-color: #0056b3; 
+background-color: #0056b3; 
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"],
 .package-card .card-actions button.add-to-cart { 
@@ -178,34 +156,40 @@ nav a:hover {
 }
 .package-card .card-actions button[onclick*="addSelectedItemsToCart"]:hover,
 .package-card .card-actions button.add-to-cart:hover {
-   background-color: #0056b3;
+background-color: #0056b3; 
 }
 
-/* STYLING UNTUK LIST DESKRIPTIF DENGAN EMOJI CHECKMARK */
-.package-card ul.fitur-deskriptif { /* Gunakan kelas spesifik jika ada */
+/* === STYLING UNTUK LIST DESKRIPTIF DENGAN EMOJI CHECKMARK === */
+/* Menggunakan kelas spesifik 'fitur-deskriptif' pada <ul> untuk target yang lebih aman */
+.package-card ul.fitur-deskriptif {
   list-style-type: none; 
   padding-left: 0;       
   margin-top: 10px;      
   margin-bottom: 15px;   
   text-align: left;      
 }
-/* Jika tidak ada kelas spesifik, dan ingin menerapkan ke semua ul kecuali checklist: */
-.package-card ul:not(.selectable-item-list):not(.quest-list) li {
+
+.package-card ul.fitur-deskriptif li {
   position: relative;      
-  padding-left: 28px;      
-  margin-bottom: 8px;      
+  padding-left: 28px;      /* Ruang untuk emoji ✔ */
+  margin-bottom: 8px;      /* Override margin-bottom dari .package-card li umum jika perlu */
   line-height: 1.4;   
+  /* font-size & color diwarisi dari .package-card li umum */
 }
-.package-card ul:not(.selectable-item-list):not(.quest-list) li::before {
+
+.package-card ul.fitur-deskriptif li::before {
   content: "✔";         
   color: #007bff;         
   font-weight: bold;       
   position: absolute;      
   left: 0;                 
-  top: 0px; 
+  top: 0px; /* Sesuaikan jika perlu untuk alignment vertikal */
 }
+/* === AKHIR STYLING LIST DESKRIPTIF DENGAN EMOJI === */
 
-/* STYLING KHUSUS UNTUK CHECKLIST INTERAKTIF */
+
+/* === STYLING KHUSUS UNTUK CHECKLIST INTERAKTIF (selectable-item-list / quest-list) === */
+/* Ini memastikan checklist interaktif tidak mendapat emoji dan paddingnya benar */
 .package-card ul.selectable-item-list,
 .package-card ul.quest-list {
     list-style-type: none; 
@@ -214,18 +198,23 @@ nav a:hover {
     margin-bottom: 15px;
     text-align: left;
 }
+
+/* Untuk <li> di dalam checklist interaktif, pastikan tidak ada styling emoji */
 .package-card ul.selectable-item-list li,
 .package-card ul.quest-list li {
-    padding-left: 0;    
-    position: static;   
-    margin: 0 0 8px 0;  
-    list-style-type: none; 
+    padding-left: 0;    /* Tidak ada padding kiri tambahan untuk emoji */
+    position: static;   /* Override jika ada dari aturan lain */
+    margin: 0 0 8px 0;  /* Margin spesifik untuk item checklist */
+    list-style-type: none; /* Tegaskan */
+    /* font-size & color diwarisi dari .package-card li umum */
 }
+/* Secara eksplisit menghapus ::before dari item checklist interaktif */
 .package-card ul.selectable-item-list li::before,
 .package-card ul.quest-list li::before {
-    content: "" !important; 
-    display: none !important; 
+    content: "" !important; /* Tidak ada konten emoji */
+    display: none !important; /* Tidak ditampilkan */
 }
+
 .package-card ul.selectable-item-list li label,
 .package-card ul.quest-list li label {
     display: flex;
@@ -245,6 +234,7 @@ nav a:hover {
     margin-left: 5px;
     font-weight: 500;
 }
+/* === AKHIR STYLING CHECKLIST === */
 
 /* Animasi */
 @keyframes fadeSlide {
@@ -253,42 +243,56 @@ nav a:hover {
 }
 .fade-slide { animation: fadeSlide 0.4s ease-out; }
 
-/* Daftar Halaman (Pagination) */
+/* Page List */
 .pagination {
-    display: flex; /* Diambil dari blok pertama, blok kedua tidak ada display:flex */
     overflow-x: auto;
     white-space: nowrap;
     gap: 10px;
     padding: 10px;
 }
-.pagination a { 
-    display: inline-block; 
-    flex-shrink: 0; /* Dari blok pertama */
-}
-.pagination img {
-    width: 100px; height: 56px; object-fit: contain; padding: 10px; 
-    margin: 0; /* Dihapus margin 5px karena sudah ada gap di parent */
-    background-color: #00a3ff; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border 0.3s;
-    /* max-width: auto; dari blok kedua diabaikan karena tidak perlu */
-}
-.pagination img:hover {
-    transform: translateY(-2px); border: 2px solid #3da7d8; background-color: #3ab7ff;
-    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
-}
-.pagination img.active {
-    transform: translateY(-1px); border: 2px solid #2a8bcc; background-color: #0092e0;
-    box-shadow: 0 5px 15px rgba(0, 146, 224, 0.3);
+
+.pagination a {
+    display: inline-block;
 }
 
-/* Badge Promo (Konsolidasi dari kedua blok, diambil yang lebih detail dari blok pertama) */
+.pagination img {
+    width: 100px;
+    height: 56px;
+    object-fit: contain;
+    max-width: auto;
+    padding: 10px;
+    margin: 5px;
+    background-color: #00a3ff;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.pagination img:hover {
+    transform: translateY(-2px);
+    border: 2px solid #3da7d8;
+    background-color: #3ab7ff;
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
+}
+
+.pagination img.active {
+    transform: translateY(-1px);
+    border: 2px solid #3da7d8;
+    background-color: #3ab7ff;
+    box-shadow: 0 5px 15px rgba(0, 163, 255, 0.2);
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Badge Promo */
 .badge-discount {
-    position: absolute; top: 10px; left: 10px; /* Blok kedua 10px, blok pertama 12px. Pilih 10px */
-    background-color: #dc3545; color: white;
-    padding: 4px 8px; /* Blok kedua 4px 8px, blok pertama 5px 10px. Pilih 4px 8px */
-    font-size: 0.75em; /* Blok kedua 0.75em, blok pertama 0.8em. Pilih 0.75em */
-    font-weight: bold; border-radius: 4px; /* Blok kedua 4px, blok pertama 6px. Pilih 4px */
+    position: absolute; top: 12px; left: 12px; background-color: #dc3545; color: white;
+    padding: 5px 10px; font-size: 0.8em; font-weight: bold; border-radius: 6px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 10;
 }
 
@@ -297,15 +301,13 @@ nav a:hover {
     font-size: 1.0em; text-align: right; font-weight: normal; color: #28a745;
 }
 
-/* Search Bar (Konsolidasi, diambil yang lebih detail dari blok pertama) */
+/* Search Bar */
 .search-bar {
     display: flex; align-items: center; gap: 10px; max-width: 600px;
     margin: 25px auto; padding: 0 16px;
-    /* justify-content: center; dari blok kedua diabaikan, flex:1 pada input sudah cukup */
 }
 .search-bar input[type="text"] {
-    flex: 1; padding: 10px 15px; font-size: 1em; /* Blok pertama lebih detail */
-    border: 1px solid #ced4da; /* Blok pertama lebih detail */
+    flex: 1; padding: 10px 15px; font-size: 1em; border: 1px solid #ced4da;
     border-radius: 8px; outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -313,7 +315,7 @@ nav a:hover {
     border-color: #007bff; box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* Tombol Ikon (Search & Cart) (Konsolidasi, diambil yang lebih detail dari blok pertama) */
+/* Tombol Ikon (Search & Cart) */
 .icon-button {
     background-color: #007bff; border: none; padding: 10px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center; cursor: pointer;
@@ -321,62 +323,7 @@ nav a:hover {
 }
 .icon-button:hover { background-color: #0056b3; }
 .icon-button img {
-    width: 20px; height: 20px; object-fit: contain; 
-    filter: brightness(0) invert(1); /* Filter dari blok pertama dipertahankan */
-}
-
-/* Elemen Unik dari Blok Kedua */
-.Elm {
-    background-color: #00a3ff;
-    color: #0a192f;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    margin: 15px;
-    height: max-content;
-}
-.Elm-Text {
-    padding: 0px 5px;
-    margin: 15px;
-    height: max-content;
-}
-.elm-img {
-    max-width: 10%; /* Ini mungkin terlalu kecil, perlu diperhatikan konteksnya */
-    padding-right: 5%;
-    height: max-content;
-}
-.Elm-list {
-    background-color: #4abdff;
-    color: #0a192f;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    margin: 15px;
-}
-.cart-btn { /* Styling untuk tombol/ikon keranjang dari blok kedua */
-    background-color: #007bff;
-    width: 18px; /* Ukuran spesifik, mungkin untuk ikon, bukan tombol teks */
-    height: 18px;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    /* Jika ini tombol, perlu display, padding, dll. jika ingin seperti .icon-button */
-}
-.cart-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Footer dari Blok Kedua */
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 40px;
-}
-footer p {
-    margin: 0;
+    width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1);
 }
 
 /* Responsive untuk mobile */
