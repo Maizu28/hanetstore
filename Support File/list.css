@@ -25,95 +25,23 @@ header p {
     font-size: 1.2em;
 }
 
-/* Navigation (DIMODIFIKASI untuk menampung tombol login/logout) */
 nav {
     background-color: #444;
-    padding: 10px 20px; /* Beri padding kiri/kanan untuk ruang */
-    display: flex;            /* Mengaktifkan Flexbox */
-    justify-content: space-between; /* Mendorong .nav-links dan .account-actions-nav ke ujung */
-    align-items: center;      /* Menyejajarkan item secara vertikal di tengah */
-    /* text-align: center; /* Tidak lagi diperlukan karena flex mengatur alignment */
-    /* Jika Anda ingin nav juga dibatasi lebarnya: */
-    /* max-width: 1200px; */
-    /* margin: 0 auto; */
+    padding: 10px;
+    text-align: center;
 }
 
-
-.nav-links a {
+nav a {
     color: white;
     text-decoration: none;
-    margin: 0 10px; /* Jarak antar link navigasi */
+    margin: 0 15px;
     transition: color 0.3s;
-    font-size: 1.1em; /* Ukuran font asli Anda */
-    padding: 5px 0;
+    font-size: 1.1em;
 }
-.nav-links a:first-child {
-    margin-left: 0; /* Hapus margin kiri untuk link pertama */
-}
-.nav-links a:hover {
+
+nav a:hover {
     color: #00a3ff;
 }
-
-
-.account-actions-nav .nav-auth-button { /* Kelas baru atau sesuaikan .header-auth-button */
-    color: #ffffff;
-    background-color: #007bff;
-    padding: 7px 15px; /* Sedikit lebih kecil untuk di nav */
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 0.9em; /* Sesuaikan dengan ukuran font nav link */
-    font-weight: 500; /* Tidak terlalu tebal */
-    transition: background-color 0.2s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    white-space: nowrap;
-}
-
-.account-actions-nav .nav-auth-button.logout-btn {
-    background-color: #dc3545; /* Warna merah untuk logout */
-}
-
-.account-actions-nav .nav-auth-button:hover {
-    background-color: #0056b3;
-}
-.account-actions-nav .nav-auth-button.logout-btn:hover {
-    background-color: #c82333;
-}
-
-/* Info pengguna di dalam navigasi */
-.account-actions-nav #userInfo { /* ID tetap sama, display:flex diatur oleh JS */
-    align-items: center; /* Pastikan ini ada jika JS tidak set display:flex */
-}
-.account-actions-nav #userDisplayName {
-    margin-right: 10px;
-    color: #e0e0e0; /* Warna mungkin perlu disesuaikan agar kontras dengan bg nav */
-    font-size: 0.9em;
-}
-
-
-/* RESPONSIVE untuk Navigasi */
-@media screen and (max-width: 768px) { /* Contoh breakpoint, sesuaikan */
-    nav {
-        
-        gap: 15px; /* Jarak antara grup link dan grup akun */
-        padding: 15px 10px;
-    }
-    .nav-links {
-        display: flex;
-        
-        align-items: center;
-        gap: 10px; /* Jarak antar link navigasi */
-    }
-    .nav-links a {
-        margin: 0; /* Hapus margin horizontal saat ditumpuk */
-    }
-    .account-actions-nav {
-        margin-top: 0; /* Tidak perlu margin atas jika gap sudah mengatur */
-        /* Mungkin ingin tombol login/logout juga di tengah */
-        /* display: flex; justify-content: center; */
-    }
-} 
 
 
 /* Daftar Semua Paket Pesanan */
@@ -453,3 +381,4 @@ background-color: #0056b3;
 .cart-btn:hover {
   background-color: #0056b3;
 }
+
