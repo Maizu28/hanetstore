@@ -97,3 +97,102 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// register.js (menggunakan Firebase SDK v9+ modular)
+
+// Import fungsi yang diperlukan dari SDK Firebase
+// Pastikan HTML Anda memuat SDK sebagai module atau Anda menggunakan bundler
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"; // Gunakan versi terbaru dari CDN jika perlu
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+// KONFIGURASI FIREBASE ANDA (dapatkan dari Firebase Console)
+const firebaseConfig = {
+  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXX", // GANTI DENGAN API KEY ANDA
+  authDomain: "nama-proyek-anda.firebaseapp.com", // GANTI
+  projectId: "nama-proyek-anda", // GANTI
+  storageBucket: "nama-proyek-anda.appspot.com", // GANTI
+  messagingSenderId: "xxxxxxxxxxxx", // GANTI
+  appId: "1:xxxxxxxxxxxx:web:xxxxxxxxxxxxxxxxxxxxxx" // GANTI
+};
+
+// Inisialisasi Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app); // Dapatkan instance Auth
+
+document.addEventListener('DOMContentLoaded', () => {
+    const registrationForm = document.getElementById('registrationForm');
+    const usernameInput = document.getElementById('regUsername'); // Anda mungkin ingin menyimpan username di database terpisah (Firestore)
+    const emailInput = document.getElementById('regEmail');
+    const passwordInput = document.getElementById('regPassword');
+    const confirmPasswordInput = document.getElementById('regConfirmPassword');
+    const errorMessageDiv = document.getElementById('registrationErrorMessage');
+    const submitButton = registrationForm.querySelector('.register-submit-btn');
+
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            errorMessageDiv.textContent = '';
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Memproses...';
+
+            const username = usernameInput.value.trim(); // Firebase Auth menggunakan email sebagai identifier utama
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (!username || !email || !password || !confirmPassword) {
+                errorMessageDiv.textContent = 'Semua field wajib diisi.';
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                return;
+            }
+            if (password !== confirmPassword) {
+                errorMessageDiv.textContent = 'Password dan konfirmasi password tidak cocok.';
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                return;
+            }
+            if (password.length < 8) { // Firebase memiliki aturan default (biasanya min 6)
+                errorMessageDiv.textContent = 'Password minimal harus 8 karakter.';
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+                return;
+            }
+            
+            try {
+                // Menggunakan fungsi Firebase Authentication untuk membuat pengguna baru
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                
+                // Pengguna berhasil dibuat dan otomatis login
+                const user = userCredential.user;
+                console.log('Pengguna berhasil terdaftar:', user);
+                alert(`Registrasi berhasil untuk ${user.email}! Anda akan diarahkan ke halaman login.`);
+
+                // Di sini Anda bisa menyimpan informasi tambahan pengguna (seperti username)
+                // ke database lain seperti Firestore atau Realtime Database jika diperlukan,
+                // karena Firebase Authentication secara default hanya menyimpan email, uid, dll.
+                // Contoh: await saveUserProfile(user.uid, username, email);
+
+                window.location.href = 'login.html'; // Arahkan ke halaman login
+
+            } catch (error) {
+                // Tangani error dari Firebase
+                console.error('Kesalahan registrasi Firebase:', error);
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessageDiv.textContent = 'Alamat email ini sudah terdaftar.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessageDiv.textContent = 'Password terlalu lemah. Gunakan minimal 6 karakter.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessageDiv.textContent = 'Format email tidak valid.';
+                }
+                else {
+                    errorMessageDiv.textContent = 'Registrasi gagal: ' + error.message;
+                }
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        });
+    }
+});
