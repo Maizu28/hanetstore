@@ -229,3 +229,66 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+// Data quest karakter
+const characterQuestsData = {
+    Mondstadt: [
+        { id: "cq_mon_diluc1", name: "Diluc - Act 1: Darknight Hero's Alibi", price: 10000 },
+        { id: "cq_mon_razor1", name: "Razor - Act 1: The Meaning of Lupical", price: 10000 },
+        
+    ],
+    Liyue: [
+        { id: "cq_liy_xingqiu1", name: "Xingqiu - Act 1: Bookworm Swordsman", price: 10000 },
+        { id: "cq_liy_xiangling1", name: "Xiangling - Act 1: Mondstadt Gastronomy Trip", price: 10000 },
+        
+    ],
+    Inazuma: [
+        { id: "cq_ina_yoimiya1", name: "Yoimiya - Act 1: Dreamlike Timelessness", price: 10000 },
+        // ... quest Inazuma lainnya
+    ],
+    Sumeru: [
+        { id: "cq_ina_yoimiya1", name: "Yoimiya - Act 1: Dreamlike Timelessness", price: 10000 },
+        // ... quest Inazuma lainnya
+    ],
+    Fontaine: [
+        { id: "cq_ina_yoimiya1", name: "Yoimiya - Act 1: Dreamlike Timelessness", price: 10000 },
+        // ... quest Inazuma lainnya
+    ],
+    Natlan: [
+        { id: "cq_ina_yoimiya1", name: "Yoimiya - Act 1: Dreamlike Timelessness", price: 10000 },
+        // ... quest Inazuma lainnya
+    ],
+    // ... region lainnya
+};
+
+function populateCharacterQuests() {
+    for (const region in characterQuestsData) {
+        const questListElement = document.getElementById(`character-quest-${region.toLowerCase()}`);
+        if (questListElement) {
+            characterQuestsData[region].forEach(quest => {
+                const listItem = document.createElement('li');
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'selectable-sub-item';
+                checkbox.value = quest.name;
+                checkbox.dataset.price = quest.price; // Menyimpan harga individual
+                // checkbox.dataset.questId = quest.id; // Jika Anda punya ID unik untuk internal
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${quest.name} (Rp ${quest.price.toLocaleString('id-ID')})`));
+                listItem.appendChild(label);
+                questListElement.appendChild(listItem);
+            });
+        }
+    }
+}
+
+// Panggil fungsi ini setelah DOM dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (kode Anda yang lain di DOMContentLoaded) ...
+    if (document.getElementById('character-quest-mondstadt')) { // Cek apakah kita di halaman yang benar
+         populateCharacterQuests();
+    }
+});
