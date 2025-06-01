@@ -1,14 +1,8 @@
 // keranjang.js
 
-// Variabel global
+// Variabel global untuk keranjang dan promo
 let cart = [];
 let currentAppliedPromo = null;
-// window.pimonjokiCurrentUserName = null; // Opsional, jika digunakan untuk validasi promo per pengguna
-
-// (SANGAT DIREKOMENDASIKAN) Impor instance 'auth' dari file inisialisasi Firebase terpusat Anda
-// Sesuaikan path './Login/firebase-init.js' jika lokasi file Anda berbeda.
-import { auth } from './Login/firebase-init.js'; 
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 // Definisi PROMO_CODES Anda
 const PROMO_CODES = {
@@ -19,10 +13,10 @@ const PROMO_CODES = {
     "10TERCEPAT": { type: "fixed", value: 10000, description: "Potongan Rp 10.000 (10 tercepat)", minPurchase: 50000, usageLimit: 10 },
     "20TERCEPAT": { type: "fixed", value: 8000, description: "Potongan Rp 8.000 (20 tercepat)", minPurchase: 40000, usageLimit: 20 },
     "50TERCEPAT": { type: "fixed", value: 5000, description: "Potongan Rp 5.000 (50 tercepat)", minPurchase: 25000, usageLimit: 50 },
-    "FLASHSALE": { type: "percentage", value: 20, description: "Flash Sale 20%", minPurchase: 30000, validFrom: "2024-07-01T00:00:00+07:00", validUntil: "2024-07-02T23:59:59+07:00" },
-    "HARIJADI": { type: "fixed", value: 10000, description: "Diskon Ulang Tahun", minPurchase: 50000, validFrom: "2024-07-10T00:00:00+07:00", validUntil: "2024-07-15T23:59:59+07:00" },
-    "LIMIT1USER": { type: "percentage", value: 25, description: "Diskon 25% (1x per user)", minPurchase: 60000, validFrom: "2024-07-03T00:00:00+07:00", validUntil: "2024-07-05T23:59:59+07:00", perUserLimit: 1 },
-    "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 }
+    "FLASHSALE": { type: "percentage", value: 20, description: "Flash Sale 20%", minPurchase: 30000, validFrom: "2024-07-01T00:00:00+07:00", validUntil: "2024-07-02T23:59:59+07:00" }, // Ganti tanggal
+    "HARIJADI": { type: "fixed", value: 10000, description: "Diskon Ulang Tahun", minPurchase: 50000, validFrom: "2024-07-10T00:00:00+07:00", validUntil: "2024-07-15T23:59:59+07:00" }, // Ganti tanggal
+    "LIMIT1USER": { type: "percentage", value: 25, description: "Diskon 25% (1x per user)", minPurchase: 60000, validFrom: "2024-07-03T00:00:00+07:00", validUntil: "2024-07-05T23:59:59+07:00", perUserLimit: 1 }, // Ganti tanggal
+    "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 } // Ganti tanggal
 };
 
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec";
@@ -83,6 +77,9 @@ function loadCartAndPromo() {
     } else {
         cart = [];
     }
+    // Anda bisa memuat currentAppliedPromo dari localStorage di sini jika ingin persisten
+    // const savedPromo = localStorage.getItem("appliedPimonjokiPromo");
+    // if (savedPromo) { try { currentAppliedPromo = JSON.parse(savedPromo); } catch(e){ /* abaikan */ } }
 }
 
 // --- FUNGSI INTERAKSI KERANJANG ---
@@ -421,7 +418,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
         }
         if (typeof data === 'object' && data !== null && data.status === "sukses") {
             const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`;
-            alert(alertMessage); // Alert ditampilkan SEBELUM WhatsApp dibuka
+            alert(alertMessage); 
 
             const whatsappNumber = "6285150893694"; 
             let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan dengan detail berikut:\n`;
@@ -437,7 +434,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             whatsappMessage += `Total Bayar: ${formatRupiah(finalAmount)}\n\n`;
             whatsappMessage += `Mohon segera diproses. Terima kasih!`;
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappLink, '_blank'); // WhatsApp dibuka SETELAH alert di-OK
+            window.open(whatsappLink, '_blank'); 
 
             if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
                 const promoDetails = PROMO_CODES[promoCodeUsed];
@@ -454,7 +451,6 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             localStorage.removeItem("pimonjoki_cart");
             currentAppliedPromo = null; cart = [];
             if (typeof renderCart === "function") renderCart(); 
-            // Tidak langsung reload, biarkan pengguna melihat tab WhatsApp terbuka
             // setTimeout(() => location.reload(), 500); 
         } else {
             alert(`Gagal mengirim pesanan: ${data.message || data.error || "Format respons tidak diketahui"}`);
@@ -474,8 +470,8 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCart();
     }
 
+    // HAPUS BLOK UI AUTH HEADER KARENA FIREBASE DIHAPUS DARI FILE INI
     // --- Setup untuk UI Auth Header (jika ada dan Firebase diinisialisasi) ---
-    // Bagian ini dikomentari karena permintaan adalah untuk menghapus fungsi Firebase dari file ini.
     /*
     if (typeof auth !== "undefined" && auth) { 
         const loginLink = document.getElementById("loginLink");
@@ -519,8 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- Listener untuk Navigasi Slide-in (jika elemen burger ada di halaman ini) ---
-    // Bagian ini dikomentari karena permintaan adalah untuk menghapus fitur navigasi slide-in
+    // --- HAPUS LISTENER UNTUK NAVIGASI SLIDE-IN ---
     /*
     const burgerBtn = document.getElementById('burgerBtn');
     // ... (sisa logika navigasi slide-in) ...
@@ -533,7 +528,6 @@ if (typeof removeItem === "function") window.removeItem = removeItem;
 if (typeof checkout === "function") window.checkout = checkout;
 if (typeof applyPromoCode === "function") window.applyPromoCode = applyPromoCode;
 
-// Pastikan fungsi-fungsi ini didefinisikan di scope global jika dipanggil dari HTML onclick
 if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
 if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
 if (typeof orderNow === 'function') window.orderNow = orderNow;
