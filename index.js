@@ -16,7 +16,7 @@ function updateProgress() {
 }
 
 completedButton.addEventListener('click', () => {
-    window.location.href = 'Support File/Login/login.html';
+    window.location.href = 'Support File/PimonJoki.html';
 });
 
 updateProgress();

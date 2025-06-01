@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Keranjang Belanja</title>
   <style>
-    /* Global Styles (dari CSS lengkap sebelumnya, disesuaikan untuk keranjang) */
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -56,7 +59,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    .cart-container h1 {
+    .cart-container h1 { /* Judul "Keranjang Belanja" */
       text-align: center;
       margin-bottom: 25px;
       font-size: 1.8em;
@@ -85,16 +88,16 @@
       font-size: 0.9em;
       margin-bottom: 8px;
     }
-    .cart-card .price {
+    .cart-card .price { /* Harga per item di kartu */
       font-weight: 500;
       color: #555;
     }
-    .cart-card .subtotal {
-      font-weight: bold;
-      margin-top: 10px;
-      text-align: right;
-      color: #333;
-      font-size: 1em;
+    .cart-card .subtotal { /* Subtotal per item */
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: right;
+        color: #333;
+        font-size: 1em;
     }
     .qty-controls {
       display: flex;
@@ -109,21 +112,21 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
-      line-height: 1;
+      line-height: 1; /* Untuk alignment teks tombol vertikal */
       transition: background-color 0.2s ease;
     }
     .qty-controls button:hover {
-      background-color: #e0e0e0;
+        background-color: #e0e0e0;
     }
     .qty-controls span {
       margin: 0 12px;
       font-size: 1em;
-      min-width: 20px;
+      min-width: 20px; /* Agar angka tidak geser-geser */
       text-align: center;
     }
     .remove-btn {
       margin-top: 12px;
-      background: #dc3545;
+      background: #dc3545; /* Warna merah untuk hapus */
       color: #fff;
       border: none;
       padding: 7px 14px;
@@ -133,20 +136,20 @@
       transition: background-color 0.2s ease;
     }
     .remove-btn:hover {
-      background-color: #c82333;
+        background-color: #c82333;
     }
     /* Bagian Kode Promo */
     .promo-section {
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid #eee;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
     }
     .promo-section h4 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 1.1em;
-      color: #333;
-      font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        color: #333;
+        font-weight: 600;
     }
     .promo-input-group { /* Wrapper untuk input dan tombol promo */
       display: flex;
@@ -154,22 +157,22 @@
       align-items: stretch; /* Membuat input dan tombol sama tinggi */
     }
     .promo-section input[type="text"]#promo-code-input {
-      flex-grow: 1;
-      padding: 13px 12px; /* Ditinggikan dari 9px ke 13px */
+      flex-grow: 1; /* Input mengambil ruang yang tersedia */
+      padding: 10px 12px; /* Sesuaikan padding agar tinggi serasi dengan tombol */
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 0.95em;
-      height: 46px; /* Ditinggikan dari 38px ke 46px */
+      /* height: 46px; Dihapus, biarkan padding menentukan tinggi */
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      box-sizing: border-box;
+      box-sizing: border-box; /* Pastikan padding dan border termasuk dalam width/height */
     }
     .promo-section input[type="text"]#promo-code-input:focus {
       border-color: #007bff;
       box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
     }
     .promo-section button#apply-promo-btn {
-      padding: 9px 15px;
+      padding: 10px 15px; /* Sesuaikan padding agar tinggi serasi dengan input */
       background-color: #28a745;
       color: white;
       border: none;
@@ -177,9 +180,9 @@
       cursor: pointer;
       font-size: 0.95em;
       white-space: nowrap;
-      height: 38px; /* Tetap 38px agar lebih pendek dari input */
+      /* height: 38px; Dihapus, biarkan padding menentukan tinggi */
       transition: background-color 0.2s ease;
-      align-self: center;
+      /* align-self: center; Dihapus, align-items: stretch pada parent akan bekerja */
     }
     .promo-section button#apply-promo-btn:hover {
       background-color: #218838;
@@ -187,7 +190,7 @@
     #promo-status {
       font-size: 0.9em;
       margin-top: 10px;
-      min-height: 1.2em;
+      min-height: 1.2em; /* Mencegah layout shift */
     }
     /* Bagian Total Keseluruhan */
     .total-section {
@@ -202,19 +205,19 @@
       color: #555;
     }
     .total-section div.final-total-amount { /* Kelas khusus untuk Total Akhir */
-      font-size: 1.25em;
-      font-weight: bold;
-      color: #28a745;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px dashed #ccc;
+      font-size: 1.25em !important; 
+      font-weight: bold !important;
+      color: #28a745 !important; 
+      margin-top: 10px !important;
+      padding-top: 10px !important;
+      border-top: 1px dashed #ccc !important;
     }
-    .total-section div.discount-display { /* Kelas khusus untuk tampilan diskon */
+     .total-section div.discount-display { /* Kelas khusus untuk tampilan diskon */
       color: green;
       text-align: right;
       margin-top: 5px;
       font-size: 0.95rem;
-    }
+     }
     /* Tombol Checkout */
     .checkout-btn {
       display: block;
@@ -237,7 +240,7 @@
     .empty-cart {
       text-align: center;
       font-size: 1.1rem;
-      margin: 40px 0; /* Margin atas bawah jika keranjang kosong */
+      margin: 40px 0; 
       padding: 20px;
       color: #777;
       background-color: #f9f9f9;
@@ -252,8 +255,8 @@
       nav { padding: 8px 5px; }
       nav a { margin: 0 5px; font-size: 0.9em; }
       .promo-input-group { flex-direction: column; gap: 10px; align-items: stretch; }
-      .promo-section input[type="text"]#promo-code-input { width: 100%; margin-right: 0; margin-bottom: 10px; height: 46px; }
-      .promo-section button#apply-promo-btn { width: 100%; height: 38px; }
+      .promo-section input[type="text"]#promo-code-input { width: 100%; margin-right: 0; margin-bottom: 10px; /* height: 46px; Dihapus */ }
+      .promo-section button#apply-promo-btn { width: 100%; /* height: 38px; Dihapus */ }
       .cart-info { font-size: 0.85em; }
       .cart-card h3 { font-size: 1em; }
       .total-section div { font-size: 0.95rem; }
@@ -273,15 +276,14 @@
     <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Tentang%20Kami.html">Tentang Kami</a>
     <a href="https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html">Produk</a>
     <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Kontak.html">Kontak</a>
+    <a href="https://maizu28.github.io/pimonjokiid/Support%20File/Login/login.html">Login</a>
   </nav>
 
   <div class="cart-container">
-    <h1>tempat Belanja</h1>
-    <div id="cart-content">
+    <h1>Keranjang Belanja</h1> <div id="cart-content">
       </div>
   </div>
 
- 
   <script src="keranjang.js"></script>
 
 </body>
