@@ -1,8 +1,14 @@
 // keranjang.js
 
-// Asumsi variabel global ini akan diinisialisasi dengan benar
+// Variabel global
 let cart = [];
 let currentAppliedPromo = null;
+// window.pimonjokiCurrentUserName = null; // Opsional, jika digunakan untuk validasi promo per pengguna
+
+// (SANGAT DIREKOMENDASIKAN) Impor instance 'auth' dari file inisialisasi Firebase terpusat Anda
+// Sesuaikan path './Login/firebase-init.js' jika lokasi file Anda berbeda.
+import { auth } from './Login/firebase-init.js'; 
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 // Definisi PROMO_CODES Anda
 const PROMO_CODES = {
@@ -19,8 +25,7 @@ const PROMO_CODES = {
     "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 }
 };
 
-// GANTI DENGAN URL GOOGLE APPS SCRIPT ANDA YANG AKTIF!
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec"; 
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec";
 
 // --- FUNGSI HELPER PROMO ---
 function formatRupiah(number) {
@@ -362,7 +367,6 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
     }
     nama = nama.trim();
 
-    // Validasi ulang promo sebelum mengirim (penting)
     if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
         const promoDetails = PROMO_CODES[promoCodeUsed];
         let subtotalForValidation = 0; 
@@ -417,21 +421,23 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
         }
         if (typeof data === 'object' && data !== null && data.status === "sukses") {
             const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`;
-            alert(alertMessage);
+            alert(alertMessage); // Alert ditampilkan SEBELUM WhatsApp dibuka
 
-            // === TAMBAHAN: KIRIM KE WHATSAPP ===
-            const whatsappNumber = "6285850131912"; // Ganti dengan nomor WhatsApp Admin Anda
-            let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan, berikut adalah Kode Pesanan:\n`;
-            whatsappMessage += `Nama: ${nama}\n`;
+            const whatsappNumber = "6285150893694"; 
+            let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan dengan detail berikut:\n`;
+            whatsappMessage += `Nama Pemesan: ${nama}\n`;
             whatsappMessage += `Kode Pesanan: ${data.kodePesanan}\n`;
             whatsappMessage += `Game: ${game}\n\n`;
             whatsappMessage += `Item Dipesan:\n${jenisPesananString}\n\n`;
-            whatsappMessage += `Total Tunai: ${formatRupiah(finalAmount)}\n\n`;
+            whatsappMessage += `Subtotal: ${formatRupiah(originalSubtotal)}\n`;
+            if (promoCodeUsed && promoCodeUsed !== "-") {
+                whatsappMessage += `Promo Digunakan: ${promoCodeUsed}\n`;
+                whatsappMessage += `Jumlah Diskon: -${formatRupiah(discountValue)}\n`;
+            }
+            whatsappMessage += `Total Bayar: ${formatRupiah(finalAmount)}\n\n`;
             whatsappMessage += `Mohon segera diproses. Terima kasih!`;
-
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-            window.open(whatsappLink, '_blank'); // Buka WhatsApp di tab baru
-            // === AKHIR TAMBAHAN WHATSAPP ===
+            window.open(whatsappLink, '_blank'); // WhatsApp dibuka SETELAH alert di-OK
 
             if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
                 const promoDetails = PROMO_CODES[promoCodeUsed];
@@ -449,7 +455,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             currentAppliedPromo = null; cart = [];
             if (typeof renderCart === "function") renderCart(); 
             // Tidak langsung reload, biarkan pengguna melihat tab WhatsApp terbuka
-            // setTimeout(() => location.reload(), 3000); // Reload setelah beberapa detik jika perlu
+            // setTimeout(() => location.reload(), 500); 
         } else {
             alert(`Gagal mengirim pesanan: ${data.message || data.error || "Format respons tidak diketahui"}`);
         }
@@ -467,6 +473,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof renderCart === "function" && document.getElementById("cart-content")) {
         renderCart();
     }
+
+    // --- Setup untuk UI Auth Header (jika ada dan Firebase diinisialisasi) ---
+    // Bagian ini dikomentari karena permintaan adalah untuk menghapus fungsi Firebase dari file ini.
+    /*
+    if (typeof auth !== "undefined" && auth) { 
+        const loginLink = document.getElementById("loginLink");
+        // ... (sisa logika UI Auth Header) ...
+    } else {
+        const loginLink = document.getElementById("loginLink");
+        const userInfoDiv = document.getElementById("userInfo");
+        if (loginLink) loginLink.style.display = "inline-block";
+        if (userInfoDiv) userInfoDiv.style.display = "none";
+        console.warn("Firebase Auth instance tidak ditemukan atau belum diinisialisasi. UI Header mungkin tidak update dengan benar.");
+    }
+    */
 
     // --- Listener untuk tombol .add-to-cart generik ---
     document.querySelectorAll(".add-to-cart").forEach((btn) => {
@@ -497,6 +518,13 @@ document.addEventListener("DOMContentLoaded", () => {
             searchInputElement.value = query;
         }
     }
+
+    // --- Listener untuk Navigasi Slide-in (jika elemen burger ada di halaman ini) ---
+    // Bagian ini dikomentari karena permintaan adalah untuk menghapus fitur navigasi slide-in
+    /*
+    const burgerBtn = document.getElementById('burgerBtn');
+    // ... (sisa logika navigasi slide-in) ...
+    */
 });
 
 // === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
@@ -506,8 +534,6 @@ if (typeof checkout === "function") window.checkout = checkout;
 if (typeof applyPromoCode === "function") window.applyPromoCode = applyPromoCode;
 
 // Pastikan fungsi-fungsi ini didefinisikan di scope global jika dipanggil dari HTML onclick
-// Jika mereka sudah di scope atas (seperti di file ini), mereka sudah global jika file ini tidak type="module"
-// Jika type="module", maka perlu ditempelkan ke window.
 if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
 if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
 if (typeof orderNow === 'function') window.orderNow = orderNow;
