@@ -1,15 +1,9 @@
 // keranjang.js
 
-// (SANGAT DIREKOMENDASIKAN) Impor instance 'auth' dari file inisialisasi Firebase terpusat Anda
-// Sesuaikan path './Login/firebase-init.js' jika lokasi file Anda berbeda.
-// Jika Anda tidak menggunakan Firebase Auth sama sekali di file ini, Anda bisa menghapus impor ini.
-// import { auth } from './Login/firebase-init.js'; 
-// Hapus impor onAuthStateChanged dan signOut karena fitur UI header dinamis dihapus
-// import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-
-// Variabel global untuk keranjang dan promo
+// Asumsi variabel global ini akan diinisialisasi dengan benar
 let cart = [];
 let currentAppliedPromo = null;
+// window.pimonjokiCurrentUserName = null; // Jika Anda menggunakan ini untuk validasi promo perUser client-side
 
 // Definisi PROMO_CODES Anda
 const PROMO_CODES = {
@@ -84,9 +78,6 @@ function loadCartAndPromo() {
     } else {
         cart = [];
     }
-    // Anda bisa memuat currentAppliedPromo dari localStorage di sini jika ingin persisten
-    // const savedPromo = localStorage.getItem("appliedPimonjokiPromo");
-    // if (savedPromo) { try { currentAppliedPromo = JSON.parse(savedPromo); } catch(e){ /* abaikan */ } }
 }
 
 // --- FUNGSI INTERAKSI KERANJANG ---
@@ -356,6 +347,7 @@ function renderCart() {
     }
 }
 
+// --- FUNGSI CHECKOUT ---
 async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed, customerNameForValidation) {
     let nama = customerNameForValidation; 
     if (!nama) {
@@ -370,26 +362,55 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
     }
     nama = nama.trim();
 
+    // Validasi ulang promo sebelum mengirim (penting)
     if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
         const promoDetails = PROMO_CODES[promoCodeUsed];
         let subtotalForValidation = 0; 
         getCart().forEach(item => { subtotalForValidation += (parseInt(item.price.replace(/\D/g, "")) || 0) * item.qty; });
+
         if (!isPromoDateValid(promoCodeUsed)) { alert(`Kode promo "${promoCodeUsed}" sudah kedaluwarsa. Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
         if (promoDetails.usageLimit !== undefined && !isPromoAvailable(promoCodeUsed)) { alert(`Kode promo "${promoCodeUsed}" sudah habis (global). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
         if (subtotalForValidation < promoDetails.minPurchase) { alert(`Minimal belanja untuk kode promo "${promoCodeUsed}" tidak terpenuhi. Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
         if (promoDetails.perUserLimit !== undefined && !isPromoPerUserAvailable(promoCodeUsed, nama)) { alert(`Promo "${promoCodeUsed}" tidak bisa digunakan atau sudah maksimal untuk Anda ("${nama}"). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
     } else if (promoCodeUsed) { 
         alert(`Kode promo "${promoCodeUsed}" tidak lagi valid. Pesanan akan diproses tanpa diskon.`);
-        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal; currentAppliedPromo = null; renderCart(); 
+        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal;
+        currentAppliedPromo = null; renderCart(); 
     }
 
-    const jenis = getCart().map(i => i.name).join(", ");
+    // === MODIFIKASI BAGIAN INI UNTUK FORMAT JENIS PESANAN ===
+    let jenisPesananString = "";
+    getCart().forEach(item => {
+        const bundleMatch = item.name.match(/^(.*?)\s\((.*?)\)$/);
+        if (bundleMatch && bundleMatch[1] && bundleMatch[2]) {
+            const baseName = bundleMatch[1];
+            const subItemsString = bundleMatch[2];
+            const subItemsArray = subItemsString.split(', ');
+
+            jenisPesananString += `- ${baseName}\n`;
+            subItemsArray.forEach(subItem => {
+                jenisPesananString += `    - ${subItem}\n`; // Indentasi untuk sub-item
+            });
+        } else {
+            jenisPesananString += `- ${item.name}\n`;
+        }
+    });
+    jenisPesananString = jenisPesananString.trimEnd(); // Hapus newline terakhir jika ada
+    // === AKHIR MODIFIKASI ===
+
     const uniqueGames = [...new Set(getCart().map(item => item.game).filter(g => g && g !== '-'))];
     const game = uniqueGames.length > 0 ? uniqueGames.join(", ") : "Genshin Impact";
+
     let dataToSend = {
-        nama: nama, jenis: jenis, game: game, totalBayar: finalAmount,
-        subtotalAsli: originalSubtotal, promoDigunakan: promoCodeUsed || "-", jumlahDiskon: discountValue || 0
+        nama: nama, 
+        jenis: jenisPesananString, // Menggunakan string yang sudah diformat
+        game: game, 
+        totalBayar: finalAmount,
+        subtotalAsli: originalSubtotal, 
+        promoDigunakan: promoCodeUsed || "-", 
+        jumlahDiskon: discountValue || 0
     };
+
     const checkoutButton = document.querySelector('.checkout-btn');
     const originalCheckoutButtonText = checkoutButton ? checkoutButton.textContent : "Checkout";
     if(checkoutButton) { checkoutButton.textContent = "Memproses..."; checkoutButton.disabled = true; }
@@ -437,13 +458,27 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
 // --- EVENT LISTENER DOM UTAMA ---
 document.addEventListener("DOMContentLoaded", () => {
     loadCartAndPromo();
-    // Panggil renderCart hanya jika elemen #cart-content ada di halaman ini
-    if (document.getElementById("cart-content") && typeof renderCart === "function") {
+    if (typeof renderCart === "function" && document.getElementById("cart-content")) {
         renderCart();
     }
 
+    // --- Setup untuk UI Auth Header (jika ada dan Firebase diinisialisasi) ---
+    // Bagian ini dikomentari karena permintaan adalah untuk menghapus fungsi Firebase dari file ini.
+    // Jika Anda ingin mengaktifkannya kembali, pastikan 'auth', 'onAuthStateChanged', 'signOut' diimpor dengan benar.
+    /*
+    if (typeof auth !== "undefined" && auth) { 
+        const loginLink = document.getElementById("loginLink");
+        // ... (sisa logika UI Auth Header) ...
+    } else {
+        const loginLink = document.getElementById("loginLink");
+        const userInfoDiv = document.getElementById("userInfo");
+        if (loginLink) loginLink.style.display = "inline-block";
+        if (userInfoDiv) userInfoDiv.style.display = "none";
+        console.warn("Firebase Auth instance tidak ditemukan atau belum diinisialisasi. UI Header mungkin tidak update dengan benar.");
+    }
+    */
+
     // --- Listener untuk tombol .add-to-cart generik ---
-    // Ini akan berjalan di semua halaman yang memuat skrip ini
     document.querySelectorAll(".add-to-cart").forEach((btn) => {
         if (!btn.onclick) { 
             btn.addEventListener("click", () => {
@@ -466,92 +501,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (typeof handleSearch === 'function') handleSearch();
             }
         });
-        // Isi input pencarian jika ada query di URL
         const params = new URLSearchParams(window.location.search);
         const query = params.get("query");
         if (query) {
             searchInputElement.value = query;
-            // if (typeof filterProductCardsOnPage === 'function') filterProductCardsOnPage(); // Jika ingin filter otomatis
         }
     }
 
     // --- Listener untuk Navigasi Slide-in (jika elemen burger ada di halaman ini) ---
+    // Bagian ini juga dikomentari karena permintaan adalah untuk menghapus fitur navigasi slide-in
+    /*
     const burgerBtn = document.getElementById('burgerBtn');
-    const slideInNav = document.getElementById('slideInNav');
-    const navCloseBtn = document.getElementById('navCloseBtn');
-    const overlayScreen = document.getElementById('overlayScreen');
-
-    function toggleNav() {
-        if (slideInNav) slideInNav.classList.toggle('nav-active');
-        if (burgerBtn) burgerBtn.classList.toggle('burger-active');
-        if (overlayScreen) {
-            const isActive = slideInNav && slideInNav.classList.contains('nav-active');
-            overlayScreen.style.display = isActive ? 'block' : 'none';
-            if (isActive) { setTimeout(() => overlayScreen.classList.add('overlay-active'), 10); }
-            else { overlayScreen.classList.remove('overlay-active'); }
-        }
-    }
-    if (burgerBtn && slideInNav) burgerBtn.addEventListener('click', toggleNav);
-    if (navCloseBtn && slideInNav) navCloseBtn.addEventListener('click', toggleNav);
-    if (overlayScreen && slideInNav) overlayScreen.addEventListener('click', toggleNav);
-    if (slideInNav) {
-        slideInNav.querySelectorAll('.nav-links a, .account-actions-nav a, .account-actions-nav button').forEach(link => {
-            link.addEventListener('click', (event) => {
-                if (slideInNav.classList.contains('nav-active')) {
-                    if (event.currentTarget.id !== 'logoutBtn' && (!event.currentTarget.href || !event.currentTarget.href.endsWith('#'))) {
-                        // toggleNav(); // Nonaktifkan penutupan otomatis agar pengguna bisa lihat status login/logout
-                    }
-                }
-            });
-        });
-    }
-
-    // --- Setup untuk UI Auth Header (jika elemennya ada dan Firebase diinisialisasi) ---
-    // Pastikan 'auth', 'onAuthStateChanged', 'signOut' diimpor jika blok ini diaktifkan
-    if (typeof auth !== "undefined" && auth) { 
-        const loginLink = document.getElementById("loginLink");
-        const userInfoDiv = document.getElementById("userInfo");
-        const userDisplayNameSpan = document.getElementById("userDisplayName");
-        const logoutBtn = document.getElementById("logoutBtn");
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                if (loginLink) loginLink.style.display = "none";
-                if (userInfoDiv) userInfoDiv.style.display = "flex";
-                if (userDisplayNameSpan) userDisplayNameSpan.textContent = user.displayName || user.email;
-                if (logoutBtn) {
-                    const newLogoutBtn = logoutBtn.cloneNode(true);
-                    if (logoutBtn.parentNode) { 
-                        logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
-                        newLogoutBtn.addEventListener("click", async () => {
-                            try { await signOut(auth); window.location.href = "login.html"; } 
-                            catch (error) { console.error('Error logout:', error); }
-                        });
-                    }
-                }
-            } else {
-                if (loginLink) loginLink.style.display = "inline-block";
-                if (userInfoDiv) userInfoDiv.style.display = "none";
-                if (userDisplayNameSpan) userDisplayNameSpan.textContent = "";
-            }
-        });
-    } else {
-        // Fallback UI jika auth tidak ada (misal di halaman yang tidak perlu auth atau init gagal)
-        const loginLink = document.getElementById("loginLink");
-        const userInfoDiv = document.getElementById("userInfo");
-        if (loginLink) loginLink.style.display = "inline-block"; // Tampilkan login secara default
-        if (userInfoDiv) userInfoDiv.style.display = "none";
-        console.warn("Firebase Auth instance tidak ditemukan atau belum diinisialisasi. UI Header mungkin tidak update dengan benar.");
-    }
-}); // Akhir DOMContentLoaded
-
+    // ... (sisa logika navigasi slide-in) ...
+    */
+});
 
 // === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
 if (typeof updateQty === "function") window.updateQty = updateQty;
 if (typeof removeItem === "function") window.removeItem = removeItem;
 if (typeof checkout === "function") window.checkout = checkout;
 if (typeof applyPromoCode === "function") window.applyPromoCode = applyPromoCode;
-if (typeof handleSearch === "function") window.handleSearch = handleSearch;
-if (typeof addSelectedItemsToCart === "function") window.addSelectedItemsToCart = addSelectedItemsToCart;
-if (typeof orderNow === "function") window.orderNow = orderNow;
-// if (typeof filterProductCardsOnPage === 'function') window.filterProductCardsOnPage = filterProductCardsOnPage; // Jika Anda memiliki fungsi ini
+// Fungsi handleSearch, addSelectedItemsToCart, orderNow perlu didefinisikan di luar DOMContentLoaded
+// atau dipastikan ada di scope global jika dipanggil dari HTML onclick.
+// Untuk contoh ini, saya asumsikan mereka sudah global atau akan dibuat global.
+
+// Pastikan fungsi yang dipanggil dari HTML onclick ada di scope global
+// Jika fungsi-fungsi ini didefinisikan di luar DOMContentLoaded, mereka sudah global.
+// Jika tidak, dan file ini adalah module, Anda perlu:
+// window.handleSearch = handleSearch; // Jika handleSearch didefinisikan di file ini
+// window.addSelectedItemsToCart = addSelectedItemsToCart; // Jika addSelectedItemsToCart didefinisikan di file ini
+// window.orderNow = orderNow; // Jika orderNow didefinisikan di file ini
