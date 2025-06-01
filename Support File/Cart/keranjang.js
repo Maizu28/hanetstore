@@ -420,7 +420,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`;
             alert(alertMessage); 
 
-            const whatsappNumber = "6285150893694"; 
+            const whatsappNumber = "6285850131912"; 
             let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan dengan detail berikut:\n`;
             whatsappMessage += `Nama Pemesan: ${nama}\n`;
             whatsappMessage += `Kode Pesanan: ${data.kodePesanan}\n`;
