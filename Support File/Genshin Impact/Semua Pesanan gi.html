@@ -124,33 +124,39 @@
         <!--Event Genshin-->
         <div class="package-card" data-title="Event; Lantern Rite">
           <h2>Event Latenrt Rite</h2>
-          <li>Quest Event</li>
-          <li>Undangan</li>
-          <li>Tantangan</li>
-          <li>Arcade Game</li>
-          <br>
-          <div class="price-discount"><s>Rp 75.000</s> 35%</div>
-          <div class="price">Rp 45.000</div>
-          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <ul class="fitur-deskriptif">
+            <li>Quest Event</li>
+            <li>Undangan</li>
+            <li>Tantangan</li>
+            <li>Arcade Game</li>
+          </ul>
 
-          <button class="btn add-to-cart" data-id="genshin-event-lantern-rite"
-          data-name="LIMITED EVENT - Latern Rite" data-price="Rp 45.000" data-game="Genshin Impact">+ Keranjang</button>
+          <div class="card-actions">
+            <div class="price-discount"><s>Rp 75.000</s> 35%</div>
+            <div class="price">Rp 45.000</div>
+            <button onclick="orderNow(this)">Pesan Sekarang</button>
 
+            <button class="btn add-to-cart" data-id="genshin-event-lantern-rite" 
+            data-name="LIMITED EVENT - Latern Rite" data-price="Rp 45.000" data-game="Genshin Impact">+ Keranjang</button>
+          </div>
         </div>
 
         <div class="package-card" data-title="Event; Aniversary">
           <h2>Event Aniversary</h2>
-          <li>Quest Event</li>
-          <li>Undangan</li>
-          <li>Tantangan</li>
-          <li>Arcade Game</li>
-          <br>
-          <div class="price-discount"><s>Rp 75.000</s> 10%</div>
-          <div class="price">Rp 60.000</div>
-          <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <ul class="fitur-deskriptif">
+            <li>Quest Event</li>
+            <li>Undangan</li>
+            <li>Tantangan</li>
+            <li>Arcade Game</li>
+          </ul>
+          <div class="card-actions">
+            <div class="price-discount"><s>Rp 75.000</s> 10%</div>
+            <div class="price">Rp 60.000</div>
+            <button onclick="orderNow(this)">Pesan Sekarang</button>
 
-          <button class="btn add-to-cart" data-id="genshin-event-aniversary"
-          data-name="LIMITED EVENT - Aniversary" data-price="Rp 60.000" data-game="Genshin Impact">+ Keranjang</button>
+            <button class="btn add-to-cart" data-id="genshin-event-aniversary"
+            data-name="LIMITED EVENT - Aniversary" data-price="Rp 60.000" data-game="Genshin Impact">+ Keranjang</button>
+          </div>
         </div>
 
         <!--Quest Genshin-->
@@ -223,14 +229,15 @@
               </label>
             </li>
           </ul>
-              
+
+          <div class="card-actions">   
             <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
               <h4>Pricelist all 100% Mondstadt</h4>
               <div class="price">Rp 155.000</div> 
             </div>
-              
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>  
 
         <!-- Explore Liyue -->    
@@ -262,12 +269,15 @@
               </label>
             </li>
           </ul>
+
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Liyue</h4>
             <div class="price">Rp 300.000</div> 
           </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!-- Explore Inazuma -->
@@ -311,12 +321,15 @@
               </label>
             </li>
           </ul>
+
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Inazuma</h4>
             <div class="price">Rp 455.000</div> 
           </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!--Explore Sumeru (Green Land)-->
@@ -366,11 +379,14 @@
               </label>
             </li>
           </ul>
+
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Sumeru Green Land</h4>
             <div class="price">Rp 340.000</div> </div>
-         <button onclick="orderNow(this)">Pesan Sekarang</button>
+          <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
             
         <!-- Explore Sumeru (Desert) -->
@@ -414,10 +430,13 @@
               </label>
             </li>
           </ul>
+
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Sumeru Desert</h4> <div class="price">Rp 480.000</div> </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!-- Explore Fontaine -->
@@ -467,11 +486,14 @@
               </label>
             </li>
           </ul>
+
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Fontaine</h4> <div class="price">Rp 530.000</div> 
           </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!-- Explore Natlan -->
@@ -533,15 +555,18 @@
               </label>
             </li>
           </ul>
+          
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Pricelist all 100% Natlan</h4> <div class="price">Rp 505.000</div> </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!-- Other Genshin Impact -->
         <!-- Ascension Character dan Up Talent -->  
-        <div class="package-card" data-game="Genshin Impact" data-title="Ascension Character; Level Up Character; Level Up Karakter; Up Talent; Karakter"> <h2>Ascension Character</h2>
+        <div class="package-card" data-game="Genshin Impact" data-title="Other; Ascension Character; Level Up Character; Level Up Karakter; Up Talent; Karakter"> <h2>Ascension Character</h2>
             
           <ul class="selectable-item-list">
             <li>
@@ -593,18 +618,20 @@
               </label>
             </li>
           </ul>
-              
+
+          <div class="card-actions">    
             <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
               <h4>PAKET Ascension Character + Up Talent 3 Crown</h4>
               <div class="price">Rp 115.000</div> 
             </div>
-              
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
+          
         </div>  
 
         <!-- Upgrade Senjata -->    
-        <div class="package-card" data-game="Genshin Impact" data-title="Upgrade Senjata; Upgrade Weapon; Level Up Senjata; Level Up Weapon">
+        <div class="package-card" data-game="Genshin Impact" data-title="Other; Upgrade Senjata; Upgrade Weapon; Level Up Senjata; Level Up Weapon">
           <h2>Upgrade Senjata</h2>
           <ul class="selectable-item-list">
             <li>
@@ -650,13 +677,15 @@
               </label>
             </li>
           </ul>
-          
+
+          <div class="card-actions">
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!-- Material -->
-        <div class="package-card" data-game="Genshin Impact" data-title="Material">
+        <div class="package-card" data-game="Genshin Impact" data-title="Other; Material">
           <h2>Material</h2>
           <ul class="selectable-item-list">
             <li>
@@ -684,13 +713,15 @@
               </label>
             </li>
           </ul>
-          
+
+          <div class="card-actions">
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
 
         <!--Spiral Abyss-->
-        <div class="package-card" data-game="Genshin Impact" data-title="Spiral Abyss">
+        <div class="package-card" data-game="Genshin Impact" data-title="Other; Spiral Abyss">
           <h2>Spiral Abyss</h2>
           <ul class="selectable-item-list">
             <li>
@@ -712,15 +743,19 @@
               </label>
             </li>
           </ul>
+
+          <div class="card-actions">
           <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
             <h4>Sebelum memesan tanyakan pada admin karakter yang dipunya sanggup atau tidak untuk menjalankan Spiral Abyss</h4>
           </div>
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
+          
         </div>
             
         <!-- Mancing -->
-        <div class="package-card" data-game="Genshin Impact" data-title="Mancing/lain buat senjata">
+        <div class="package-card" data-game="Genshin Impact" data-title="Other; Mancing/lain buat senjata">
           <h2>Mancing/lain buat senjata</h2>
           <ul class="selectable-item-list">
             <li>
@@ -760,10 +795,11 @@
               </label>
             </li>
           </ul>
-          <div class="info-all-price" style="margin-top:15px; border-top: 1px solid #eee; padding-top:10px;">
-            <h4>Pricelist all 100% Sumeru Desert</h4> <div class="price">Rp 480.000</div> </div>
+          
+          <div class="card-actions">
           <button onclick="orderNow(this)">Pesan Sekarang</button>
           <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
         </div>
     </div>
 
