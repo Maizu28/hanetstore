@@ -420,7 +420,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             alert(alertMessage);
 
             // === TAMBAHAN: KIRIM KE WHATSAPP ===
-            const whatsappNumber = "6285150893694"; // Ganti dengan nomor WhatsApp Admin Anda
+            const whatsappNumber = "6285850131912"; // Ganti dengan nomor WhatsApp Admin Anda
             let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan, berikut adalah Kode Pesanan:\n`;
             whatsappMessage += `Nama: ${nama}\n`;
             whatsappMessage += `Kode Pesanan: ${data.kodePesanan}\n`;
