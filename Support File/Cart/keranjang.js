@@ -3,7 +3,6 @@
 // Asumsi variabel global ini akan diinisialisasi dengan benar
 let cart = [];
 let currentAppliedPromo = null;
-// window.pimonjokiCurrentUserName = null; // Jika Anda menggunakan ini untuk validasi promo perUser client-side
 
 // Definisi PROMO_CODES Anda
 const PROMO_CODES = {
@@ -20,7 +19,8 @@ const PROMO_CODES = {
     "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 }
 };
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec";
+// GANTI DENGAN URL GOOGLE APPS SCRIPT ANDA YANG AKTIF!
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec"; 
 
 // --- FUNGSI HELPER PROMO ---
 function formatRupiah(number) {
@@ -362,6 +362,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
     }
     nama = nama.trim();
 
+    // Validasi ulang promo sebelum mengirim (penting)
     if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
         const promoDetails = PROMO_CODES[promoCodeUsed];
         let subtotalForValidation = 0; 
@@ -372,7 +373,8 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
         if (promoDetails.perUserLimit !== undefined && !isPromoPerUserAvailable(promoCodeUsed, nama)) { alert(`Promo "${promoCodeUsed}" tidak bisa digunakan atau sudah maksimal untuk Anda ("${nama}"). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
     } else if (promoCodeUsed) { 
         alert(`Kode promo "${promoCodeUsed}" tidak lagi valid. Pesanan akan diproses tanpa diskon.`);
-        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal; currentAppliedPromo = null; renderCart(); 
+        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal;
+        currentAppliedPromo = null; renderCart(); 
     }
 
     let jenisPesananString = "";
@@ -384,7 +386,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             const subItemsArray = subItemsString.split(', ');
             jenisPesananString += `- ${baseName}\n`;
             subItemsArray.forEach(subItem => {
-                jenisPesananString += `  - ${subItem}\n`; // 2 spasi untuk indentasi
+                jenisPesananString += `  - ${subItem}\n`;
             });
         } else {
             jenisPesananString += `- ${item.name}\n`;
@@ -414,7 +416,23 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             else { const text = await res.text(); if (text.toLowerCase().includes("sukses")) {} else { throw new Error(`Format respons server tidak valid.`); }}
         }
         if (typeof data === 'object' && data !== null && data.status === "sukses") {
-            alert(`Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`);
+            const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`;
+            alert(alertMessage);
+
+            // === TAMBAHAN: KIRIM KE WHATSAPP ===
+            const whatsappNumber = "6285150893694"; // Ganti dengan nomor WhatsApp Admin Anda
+            let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan, berikut adalah Kode Pesanan:\n`;
+            whatsappMessage += `Nama: ${nama}\n`;
+            whatsappMessage += `Kode Pesanan: ${data.kodePesanan}\n`;
+            whatsappMessage += `Game: ${game}\n\n`;
+            whatsappMessage += `Item Dipesan:\n${jenisPesananString}\n\n`;
+            whatsappMessage += `Total Tunai: ${formatRupiah(finalAmount)}\n\n`;
+            whatsappMessage += `Mohon segera diproses. Terima kasih!`;
+
+            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            window.open(whatsappLink, '_blank'); // Buka WhatsApp di tab baru
+            // === AKHIR TAMBAHAN WHATSAPP ===
+
             if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
                 const promoDetails = PROMO_CODES[promoCodeUsed];
                 if (promoDetails.usageLimit !== undefined) {
@@ -430,7 +448,8 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             localStorage.removeItem("pimonjoki_cart");
             currentAppliedPromo = null; cart = [];
             if (typeof renderCart === "function") renderCart(); 
-            setTimeout(() => location.reload(), 500); 
+            // Tidak langsung reload, biarkan pengguna melihat tab WhatsApp terbuka
+            // setTimeout(() => location.reload(), 3000); // Reload setelah beberapa detik jika perlu
         } else {
             alert(`Gagal mengirim pesanan: ${data.message || data.error || "Format respons tidak diketahui"}`);
         }
@@ -489,9 +508,6 @@ if (typeof applyPromoCode === "function") window.applyPromoCode = applyPromoCode
 // Pastikan fungsi-fungsi ini didefinisikan di scope global jika dipanggil dari HTML onclick
 // Jika mereka sudah di scope atas (seperti di file ini), mereka sudah global jika file ini tidak type="module"
 // Jika type="module", maka perlu ditempelkan ke window.
-// Untuk handleSearch, addSelectedItemsToCart, orderNow, karena mereka tidak ada di snippet ini,
-// Anda perlu memastikan mereka didefinisikan dan diekspos ke window jika file ini adalah module.
-// Contoh:
-// if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
-// if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
-// if (typeof orderNow === 'function') window.orderNow = orderNow;
+if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
+if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
+if (typeof orderNow === 'function') window.orderNow = orderNow;
