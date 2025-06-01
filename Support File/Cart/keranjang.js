@@ -414,7 +414,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             else { const text = await res.text(); if (text.toLowerCase().includes("sukses")) {} else { throw new Error(`Format respons server tidak valid.`); }}
         }
         if (typeof data === 'object' && data !== null && data.status === "sukses") {
-            alert(`Pesanan berhasil!\nKode Pesanan: ${data.kodePesanan}`);
+            alert(`Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`);
             if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
                 const promoDetails = PROMO_CODES[promoCodeUsed];
                 if (promoDetails.usageLimit !== undefined) {
