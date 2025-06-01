@@ -362,23 +362,19 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
     }
     nama = nama.trim();
 
-    // Validasi ulang promo sebelum mengirim (penting)
     if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
         const promoDetails = PROMO_CODES[promoCodeUsed];
         let subtotalForValidation = 0; 
         getCart().forEach(item => { subtotalForValidation += (parseInt(item.price.replace(/\D/g, "")) || 0) * item.qty; });
-
         if (!isPromoDateValid(promoCodeUsed)) { alert(`Kode promo "${promoCodeUsed}" sudah kedaluwarsa. Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
         if (promoDetails.usageLimit !== undefined && !isPromoAvailable(promoCodeUsed)) { alert(`Kode promo "${promoCodeUsed}" sudah habis (global). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
         if (subtotalForValidation < promoDetails.minPurchase) { alert(`Minimal belanja untuk kode promo "${promoCodeUsed}" tidak terpenuhi. Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
         if (promoDetails.perUserLimit !== undefined && !isPromoPerUserAvailable(promoCodeUsed, nama)) { alert(`Promo "${promoCodeUsed}" tidak bisa digunakan atau sudah maksimal untuk Anda ("${nama}"). Diskon dibatalkan.`); currentAppliedPromo = null; renderCart(); return; }
     } else if (promoCodeUsed) { 
         alert(`Kode promo "${promoCodeUsed}" tidak lagi valid. Pesanan akan diproses tanpa diskon.`);
-        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal;
-        currentAppliedPromo = null; renderCart(); 
+        promoCodeUsed = null; discountValue = 0; finalAmount = originalSubtotal; currentAppliedPromo = null; renderCart(); 
     }
 
-    // === MODIFIKASI BAGIAN INI UNTUK FORMAT JENIS PESANAN ===
     let jenisPesananString = "";
     getCart().forEach(item => {
         const bundleMatch = item.name.match(/^(.*?)\s\((.*?)\)$/);
@@ -386,31 +382,22 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             const baseName = bundleMatch[1];
             const subItemsString = bundleMatch[2];
             const subItemsArray = subItemsString.split(', ');
-
             jenisPesananString += `- ${baseName}\n`;
             subItemsArray.forEach(subItem => {
-                jenisPesananString += `    - ${subItem}\n`; // Indentasi untuk sub-item
+                jenisPesananString += `  - ${subItem}\n`; // 2 spasi untuk indentasi
             });
         } else {
             jenisPesananString += `- ${item.name}\n`;
         }
     });
-    jenisPesananString = jenisPesananString.trimEnd(); // Hapus newline terakhir jika ada
-    // === AKHIR MODIFIKASI ===
+    jenisPesananString = jenisPesananString.trimEnd();
 
     const uniqueGames = [...new Set(getCart().map(item => item.game).filter(g => g && g !== '-'))];
     const game = uniqueGames.length > 0 ? uniqueGames.join(", ") : "Genshin Impact";
-
     let dataToSend = {
-        nama: nama, 
-        jenis: jenisPesananString, // Menggunakan string yang sudah diformat
-        game: game, 
-        totalBayar: finalAmount,
-        subtotalAsli: originalSubtotal, 
-        promoDigunakan: promoCodeUsed || "-", 
-        jumlahDiskon: discountValue || 0
+        nama: nama, jenis: jenisPesananString, game: game, totalBayar: finalAmount,
+        subtotalAsli: originalSubtotal, promoDigunakan: promoCodeUsed || "-", jumlahDiskon: discountValue || 0
     };
-
     const checkoutButton = document.querySelector('.checkout-btn');
     const originalCheckoutButtonText = checkoutButton ? checkoutButton.textContent : "Checkout";
     if(checkoutButton) { checkoutButton.textContent = "Memproses..."; checkoutButton.disabled = true; }
@@ -462,22 +449,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderCart();
     }
 
-    // --- Setup untuk UI Auth Header (jika ada dan Firebase diinisialisasi) ---
-    // Bagian ini dikomentari karena permintaan adalah untuk menghapus fungsi Firebase dari file ini.
-    // Jika Anda ingin mengaktifkannya kembali, pastikan 'auth', 'onAuthStateChanged', 'signOut' diimpor dengan benar.
-    /*
-    if (typeof auth !== "undefined" && auth) { 
-        const loginLink = document.getElementById("loginLink");
-        // ... (sisa logika UI Auth Header) ...
-    } else {
-        const loginLink = document.getElementById("loginLink");
-        const userInfoDiv = document.getElementById("userInfo");
-        if (loginLink) loginLink.style.display = "inline-block";
-        if (userInfoDiv) userInfoDiv.style.display = "none";
-        console.warn("Firebase Auth instance tidak ditemukan atau belum diinisialisasi. UI Header mungkin tidak update dengan benar.");
-    }
-    */
-
     // --- Listener untuk tombol .add-to-cart generik ---
     document.querySelectorAll(".add-to-cart").forEach((btn) => {
         if (!btn.onclick) { 
@@ -507,13 +478,6 @@ document.addEventListener("DOMContentLoaded", () => {
             searchInputElement.value = query;
         }
     }
-
-    // --- Listener untuk Navigasi Slide-in (jika elemen burger ada di halaman ini) ---
-    // Bagian ini juga dikomentari karena permintaan adalah untuk menghapus fitur navigasi slide-in
-    /*
-    const burgerBtn = document.getElementById('burgerBtn');
-    // ... (sisa logika navigasi slide-in) ...
-    */
 });
 
 // === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
@@ -521,13 +485,13 @@ if (typeof updateQty === "function") window.updateQty = updateQty;
 if (typeof removeItem === "function") window.removeItem = removeItem;
 if (typeof checkout === "function") window.checkout = checkout;
 if (typeof applyPromoCode === "function") window.applyPromoCode = applyPromoCode;
-// Fungsi handleSearch, addSelectedItemsToCart, orderNow perlu didefinisikan di luar DOMContentLoaded
-// atau dipastikan ada di scope global jika dipanggil dari HTML onclick.
-// Untuk contoh ini, saya asumsikan mereka sudah global atau akan dibuat global.
 
-// Pastikan fungsi yang dipanggil dari HTML onclick ada di scope global
-// Jika fungsi-fungsi ini didefinisikan di luar DOMContentLoaded, mereka sudah global.
-// Jika tidak, dan file ini adalah module, Anda perlu:
-// window.handleSearch = handleSearch; // Jika handleSearch didefinisikan di file ini
-// window.addSelectedItemsToCart = addSelectedItemsToCart; // Jika addSelectedItemsToCart didefinisikan di file ini
-// window.orderNow = orderNow; // Jika orderNow didefinisikan di file ini
+// Pastikan fungsi-fungsi ini didefinisikan di scope global jika dipanggil dari HTML onclick
+// Jika mereka sudah di scope atas (seperti di file ini), mereka sudah global jika file ini tidak type="module"
+// Jika type="module", maka perlu ditempelkan ke window.
+// Untuk handleSearch, addSelectedItemsToCart, orderNow, karena mereka tidak ada di snippet ini,
+// Anda perlu memastikan mereka didefinisikan dan diekspos ke window jika file ini adalah module.
+// Contoh:
+// if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
+// if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
+// if (typeof orderNow === 'function') window.orderNow = orderNow;
