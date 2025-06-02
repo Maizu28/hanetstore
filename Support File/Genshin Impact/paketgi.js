@@ -288,6 +288,7 @@ const characterQuestsData = {
         { id: "cq_sum_Tighnari1", name: "Tighnari - Act 1: The Unanswerable Problems", price: 10000 },
         { id: "cq_sum_Tighnari1", name: "Tighnari - Act 1: The Unanswerable Problems", price: 10000 },
     ],
+    
     Fontaine: [
         { id: "cq_fon_Lyney1", name: "Lyney - Act 1: The Forgotten Thief", price: 10000 },
         { id: "cq_fon_Wriothesley1", name: "Wriothesley - Act 1: Reborn in the Land of Grievances", price: 10000 },
