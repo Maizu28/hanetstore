@@ -134,7 +134,7 @@ const archonQuestsData = {
         { id: "aq_int_cha1_act3", name: "Interlude Chapter (Sumeru) - Act 3 Subquests", price: 15000 },
         { id: "aq_int_cha1_act4", name: "Interlude Chapter (Mondstads) - Act 4 Subquests ", price: 15000 },
     ],
-}
+};
 
 //Data World Quests
 const worldQuestsData = {
@@ -188,7 +188,7 @@ const worldQuestsData = {
         
         
     ],
-}
+};
 
 function populateQuestsList(dataObject, idPrefix, listElementClass = 'selectable-sub-item', displayPriceInLabel = true) {
     for (const categoryKey in dataObject) {
@@ -221,7 +221,7 @@ function populateQuestsList(dataObject, idPrefix, listElementClass = 'selectable
             // console.warn(`Elemen UL dengan ID '${targetElementId}' tidak ditemukan untuk kategori '${categoryKey}'.`);
         }
     }
-}
+};
 
 
 // --- EVENT LISTENER DOM UTAMA ---
