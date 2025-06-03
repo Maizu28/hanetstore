@@ -209,7 +209,7 @@ button[type="submit"]:hover {
 
 button[type="submit"]:disabled {
     background: #ced4da;
-    color: #6c757d;
+    color: #ffffff;
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
