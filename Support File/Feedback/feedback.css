@@ -1,0 +1,325 @@
+/* === CSS LENGKAP BERDASARKAN REFERENSI GAMBAR PIMONJOKI.ID === */
+
+/* 1. Variabel Warna (Custom Properties) */
+:root {
+  --pimonjoki-blue-primary: #007bff; /* Biru utama untuk banner, tombol, aksen */
+  --pimonjoki-white: #ffffff;
+  --pimonjoki-text-dark: #212529; /* Untuk teks utama, logo, item navigasi */
+  --pimonjoki-text-light: var(--pimonjoki-white);
+  --pimonjoki-text-muted: #6c757d; /* Untuk teks sekunder atau deskripsi */
+
+  --pimonjoki-bg-light: var(--pimonjoki-white); /* Background navigasi, body */
+  --pimonjoki-bg-banner: var(--pimonjoki-blue-primary);
+  --pimonjoki-bg-card: var(--pimonjoki-white); /* Background untuk card produk */
+
+  --pimonjoki-border-light: #dee2e6; /* Border umum atau pemisah */
+  --pimonjoki-border-card: #e9ecef; /* Border untuk card */
+
+  --pimonjoki-button-primary-bg: var(--pimonjoki-blue-primary);
+  --pimonjoki-button-primary-text: var(--pimonjoki-text-light);
+
+  --pimonjoki-button-secondary-bg: var(--pimonjoki-white);
+  --pimonjoki-button-secondary-text: var(--pimonjoki-blue-primary);
+  --pimonjoki-button-secondary-border: var(--pimonjoki-blue-primary); /* Untuk tombol "Joki Sekarang" */
+
+  --pimonjoki-button-nav-bg: var(--pimonjoki-white); /* Tombol "Login" */
+  --pimonjoki-button-nav-text: var(--pimonjoki-text-dark);
+  --pimonjoki-button-nav-border: var(--pimonjoki-border-light);
+
+  --pimonjoki-font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* 2. Reset Dasar & Gaya Global */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2em;
+}
+
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+    font-size: 1.1em;
+}
+
+nav a:hover {
+    color: #00a3ff;
+}
+
+/* 3. Gaya Header & Navigasi */
+.site-header {
+  background-color: var(--pimonjoki-navbar-bg, var(--pimonjoki-bg-light));
+  padding: 15px 0;
+  border-bottom: 1px solid var(--pimonjoki-border-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo a {
+  font-size: 1.8rem; /* Ukuran font logo */
+  font-weight: bold;
+  color: var(--pimonjoki-text-dark);
+  text-decoration: none;
+}
+
+.site-logo-subtitle {
+  font-size: 0.85rem;
+  color: var(--pimonjoki-text-muted);
+  display: block; /* Agar berada di bawah logo utama jika diinginkan */
+  margin-top: -5px; /* Sesuaikan jika perlu */
+}
+
+.main-navigation ul {
+  list-style: none;
+  display: flex;
+  gap: 20px; /* Jarak antar item navigasi */
+}
+
+.main-navigation ul li a {
+  color: var(--pimonjoki-navbar-text, var(--pimonjoki-text-dark));
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.main-navigation ul li a:hover,
+.main-navigation ul li a.active { /* Untuk menandai halaman aktif */
+  color: var(--pimonjoki-blue-primary);
+  background-color: rgba(0, 123, 255, 0.05); /* Warna hover lembut */
+  text-decoration: none;
+}
+
+/* Tombol di Navigasi (misal: Login) */
+.btn-nav {
+  padding: 8px 18px;
+  background-color: var(--pimonjoki-button-nav-bg);
+  color: var(--pimonjoki-button-nav-text);
+  border: 1px solid var(--pimonjoki-button-nav-border);
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-nav:hover {
+  background-color: #f8f9fa; /* Sedikit lebih gelap saat hover */
+  border-color: darken(var(--pimonjoki-button-nav-border), 10%);
+  text-decoration: none;
+}
+
+
+/* 4. Gaya Hero Banner (Selamat Datang) */
+.hero-banner {
+  background-color: var(--pimonjoki-bg-banner);
+  color: var(--pimonjoki-text-light);
+  padding: 60px 0; /* Padding atas-bawah yang cukup besar */
+  text-align: center;
+}
+
+.hero-banner h1 {
+  font-size: 2.8rem; /* Ukuran font judul besar */
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero-banner p {
+  font-size: 1.2rem; /* Ukuran font subjudul */
+  margin-bottom: 30px;
+  opacity: 0.9; /* Sedikit transparan untuk subjudul */
+}
+
+/* Tombol di Hero Banner (Joki Sekarang) */
+.btn-hero {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: var(--pimonjoki-button-secondary-bg);
+  color: var(--pimonjoki-button-secondary-text);
+  border: 2px solid var(--pimonjoki-button-secondary-border); /* Border yang lebih tebal agar terlihat */
+  border-radius: 50px; /* Bentuk pil */
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  text-transform: uppercase; /* Sesuai screenshot */
+  letter-spacing: 0.5px;
+}
+
+.btn-hero:hover {
+  background-color: var(--pimonjoki-blue-primary); /* Warna bertukar saat hover */
+  color: var(--pimonjoki-white);
+  transform: translateY(-2px); /* Efek hover sedikit naik */
+  text-decoration: none;
+}
+
+
+/* 5. Gaya Konten Umum & Card (Placeholder) */
+.content-section {
+  padding: 50px 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--pimonjoki-text-dark);
+  margin-bottom: 40px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid responsif */
+  gap: 30px; /* Jarak antar card */
+}
+
+.product-card {
+  background-color: var(--pimonjoki-bg-card);
+  border: 1px solid var(--pimonjoki-border-card);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+  overflow: hidden; /* Untuk memastikan gambar tidak keluar dari border-radius */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img { /* Gambar di dalam card */
+  width: 100%;
+  height: 200px; /* Atur tinggi gambar card atau gunakan aspect-ratio */
+  object-fit: cover; /* Agar gambar mengisi area tanpa distorsi */
+}
+
+.product-card-content {
+  padding: 20px;
+}
+
+.product-card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--pimonjoki-text-dark);
+}
+
+.product-card-description {
+  font-size: 0.95rem;
+  color: var(--pimonjoki-text-muted);
+  margin-bottom: 15px;
+}
+
+.btn-card { /* Tombol di dalam card */
+  display: inline-block;
+  padding: 8px 18px;
+  background-color: var(--pimonjoki-button-primary-bg);
+  color: var(--pimonjoki-button-primary-text);
+  border-radius: 5px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.btn-card:hover {
+  background-color: darken(var(--pimonjoki-button-primary-bg), 10%);
+  text-decoration: none;
+}
+
+/* 6. Gaya Footer (Placeholder Sederhana) */
+.site-footer {
+  background-color: #343a40; /* Warna footer yang sedikit gelap */
+  color: var(--pimonjoki-text-light);
+  padding: 40px 0;
+  text-align: center;
+  margin-top: 50px; /* Jarak dari konten terakhir */
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.site-footer a {
+  color: var(--pimonjoki-blue-primary);
+}
+
+/* 7. Utilitas Responsif Sederhana */
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column; /* Logo dan nav menjadi tumpuk */
+    gap: 15px;
+  }
+  .main-navigation ul {
+    flex-direction: column; /* Item nav menjadi tumpuk */
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-banner h1 {
+    font-size: 2.2rem;
+  }
+  .hero-banner p {
+    font-size: 1rem;
+  }
+  .btn-hero {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+    .site-logo a {
+        font-size: 1.5rem;
+    }
+    .hero-banner h1 {
+        font-size: 1.8rem;
+    }
+    .hero-banner p {
+        font-size: 0.9rem;
+    }
+}

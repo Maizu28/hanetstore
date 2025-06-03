@@ -8,6 +8,10 @@ body {
     line-height: 1.6;
 }
 
+a {
+    text-decoration: none;
+}
+
 .container { /* Kontainer utama untuk membatasi lebar konten */
     max-width: 1200px;
     margin: 20px auto;
