@@ -1,10 +1,10 @@
 // keranjang.js
 
-// Variabel global untuk keranjang dan promo
+// === VARIABEL GLOBAL ===
 let cart = [];
 let currentAppliedPromo = null;
 
-// Definisi PROMO_CODES Anda
+// === KONFIGURASI PROMO & ENDPOINT ===
 const PROMO_CODES = {
     "HEMAT10": { type: "percentage", value: 10, description: "Diskon 10%", minPurchase: 50000 },
     "PIMONJOKIYES": { type: "percentage", value: 15, description: "Diskon Spesial 15%", minPurchase: 100000 },
@@ -13,15 +13,15 @@ const PROMO_CODES = {
     "10TERCEPAT": { type: "fixed", value: 10000, description: "Potongan Rp 10.000 (10 tercepat)", minPurchase: 50000, usageLimit: 10 },
     "20TERCEPAT": { type: "fixed", value: 8000, description: "Potongan Rp 8.000 (20 tercepat)", minPurchase: 40000, usageLimit: 20 },
     "50TERCEPAT": { type: "fixed", value: 5000, description: "Potongan Rp 5.000 (50 tercepat)", minPurchase: 25000, usageLimit: 50 },
-    "FLASHSALE": { type: "percentage", value: 20, description: "Flash Sale 20%", minPurchase: 30000, validFrom: "2024-07-01T00:00:00+07:00", validUntil: "2024-07-02T23:59:59+07:00" }, // Ganti tanggal
-    "HARIJADI": { type: "fixed", value: 10000, description: "Diskon Ulang Tahun", minPurchase: 50000, validFrom: "2024-07-10T00:00:00+07:00", validUntil: "2024-07-15T23:59:59+07:00" }, // Ganti tanggal
-    "LIMIT1USER": { type: "percentage", value: 25, description: "Diskon 25% (1x per user)", minPurchase: 60000, validFrom: "2024-07-03T00:00:00+07:00", validUntil: "2024-07-05T23:59:59+07:00", perUserLimit: 1 }, // Ganti tanggal
-    "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 } // Ganti tanggal
+    "FLASHSALE": { type: "percentage", value: 20, description: "Flash Sale 20%", minPurchase: 30000, validFrom: "2024-07-01T00:00:00+07:00", validUntil: "2024-07-02T23:59:59+07:00" },
+    "HARIJADI": { type: "fixed", value: 10000, description: "Diskon Ulang Tahun", minPurchase: 50000, validFrom: "2024-07-10T00:00:00+07:00", validUntil: "2024-07-15T23:59:59+07:00" },
+    "LIMIT1USER": { type: "percentage", value: 25, description: "Diskon 25% (1x per user)", minPurchase: 60000, validFrom: "2024-07-03T00:00:00+07:00", validUntil: "2024-07-05T23:59:59+07:00", perUserLimit: 1 },
+    "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 }
 };
-
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec";
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1379468686347341894/qOP1Jpep2bpDg1zXxZo3gbkgooCEq24TOGNEoKHdVvBhaQfnrn1ZztFejjEQ3dKJwp8S";
 
-// --- FUNGSI HELPER PROMO ---
+// === HELPER PROMO ===
 function formatRupiah(number) {
     return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(number);
 }
@@ -51,7 +51,7 @@ function isPromoPerUserAvailable(code, userName) {
     return usedCountByUser < promo.perUserLimit;
 }
 
-// --- FUNGSI KERANJANG (localStorage) ---
+// === KERANJANG (localStorage) ===
 function getCart() {
     let cartData = [];
     try {
@@ -82,7 +82,7 @@ function loadCartAndPromo() {
     // if (savedPromo) { try { currentAppliedPromo = JSON.parse(savedPromo); } catch(e){ /* abaikan */ } }
 }
 
-// --- FUNGSI INTERAKSI KERANJANG ---
+// === INTERAKSI KERANJANG ===
 function addToCart(item, quantityToAdd = 1) {
     let currentCart = getCart();
     const existingItem = currentCart.find((i) => i.id === item.id);
@@ -98,7 +98,6 @@ function addToCart(item, quantityToAdd = 1) {
     alert(`"${item.name}" (x${numQuantityToAdd}) berhasil ditambahkan ke keranjang.`);
     if (typeof renderCart === "function" && document.getElementById("cart-content")) renderCart();
 }
-
 function addSelectedItemsToCart(buttonElement) {
     const packageCard = buttonElement.closest('.package-card');
     if (!packageCard) { alert("Kesalahan: Kartu paket tidak ditemukan."); return; }
@@ -154,7 +153,6 @@ function addSelectedItemsToCart(buttonElement) {
     const newItemData = { id: itemId, name: itemName, price: formattedTotalPrice, game: gameName };
     addToCart(newItemData, desiredQty);
 }
-
 function updateQty(id, delta) {
     let currentCart = getCart();
     const itemIndex = currentCart.findIndex(i => i.id === id);
@@ -165,7 +163,6 @@ function updateQty(id, delta) {
         if (typeof renderCart === "function") renderCart();
     }
 }
-
 function removeItem(id) {
     let currentCart = getCart();
     const initialLength = currentCart.length;
@@ -176,6 +173,7 @@ function removeItem(id) {
     }
 }
 
+// === PROMO (applyPromoCode, renderCart) ===
 async function applyPromoCode() {
     const promoInput = document.getElementById('promo-code-input');
     const promoStatusDiv = document.getElementById('promo-status');
@@ -222,7 +220,6 @@ async function applyPromoCode() {
     }
     if (typeof renderCart === "function") renderCart();
 }
-
 function renderCart() {
     const container = document.getElementById("cart-content");
     if (!container) { return; }
@@ -349,7 +346,48 @@ function renderCart() {
     }
 }
 
-// --- FUNGSI CHECKOUT ---
+// === NOTIFIKASI DISCORD ===
+async function sendOrderToDiscordWebhook(orderDetails) {
+    if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/1379468686347341894/qOP1Jpep2bpDg1zXxZo3gbkgooCEq24TOGNEoKHdVvBhaQfnrn1ZztFejjEQ3dKJwp8S") {
+        console.warn("URL Webhook Discord belum dikonfigurasi. Notifikasi tidak dikirim.");
+        return { success: false, message: "Konfigurasi webhook Discord hilang." };
+    }
+    const embed = {
+        title: `🔔 Pesanan Baru Diterima! (Kode: ${orderDetails.kodePesanan})`,
+        color: 0x00AAFF,
+        fields: [
+            { name: "Nama Pemesan", value: orderDetails.nama, inline: true },
+            { name: "Game", value: orderDetails.game, inline: true },
+            { name: "Subtotal Asli", value: formatRupiah(orderDetails.subtotalAsli), inline: true },
+            { name: "Promo Digunakan", value: orderDetails.promoDigunakan || "-", inline: true },
+            { name: "Jumlah Diskon", value: formatRupiah(orderDetails.jumlahDiskon || 0), inline: true },
+            { name: "Total Bayar", value: `**${formatRupiah(orderDetails.totalBayar)}**`, inline: true },
+            { name: "Detail Item Dipesan", value: "```\n" + orderDetails.jenis + "\n```" }
+        ],
+        timestamp: new Date().toISOString(),
+        footer: { text: "Pimonjoki.id Order System" }
+    };
+    try {
+        const response = await fetch(DISCORD_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ embeds: [embed] }),
+        });
+        if (response.ok) {
+            console.log("Notifikasi pesanan berhasil dikirim ke Discord.");
+            return { success: true, message: "Notifikasi Discord terkirim." };
+        } else {
+            const errorData = await response.text();
+            console.error("Gagal mengirim notifikasi ke Discord:", response.status, errorData);
+            return { success: false, message: `Gagal kirim notifikasi Discord: ${response.status} - ${errorData}` };
+        }
+    } catch (error) {
+        console.error("Error saat mengirim ke webhook Discord:", error);
+        return { success: false, message: "Error koneksi ke Discord." };
+    }
+}
+
+// === CHECKOUT ===
 async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeUsed, customerNameForValidation) {
     let nama = customerNameForValidation; 
     if (!nama) {
@@ -364,6 +402,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
     }
     nama = nama.trim();
 
+    // Validasi ulang promo sebelum mengirim (penting)
     if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
         const promoDetails = PROMO_CODES[promoCodeUsed];
         let subtotalForValidation = 0; 
@@ -397,33 +436,67 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
 
     const uniqueGames = [...new Set(getCart().map(item => item.game).filter(g => g && g !== '-'))];
     const game = uniqueGames.length > 0 ? uniqueGames.join(", ") : "Genshin Impact";
-    let dataToSend = {
-        nama: nama, jenis: jenisPesananString, game: game, totalBayar: finalAmount,
-        subtotalAsli: originalSubtotal, promoDigunakan: promoCodeUsed || "-", jumlahDiskon: discountValue || 0
+    const kodePesananCustom = "PIMON-" + new Date().getFullYear() +
+                           ("0" + (new Date().getMonth() + 1)).slice(-2) +
+                           ("0" + new Date().getDate()).slice(-2) + "-" +
+                           Math.floor(1000 + Math.random() * 9000);
+
+    let dataToSendToAppsScript = {
+        nama: nama, 
+        jenis: jenisPesananString, 
+        game: game, 
+        totalBayar: finalAmount,
+        subtotalAsli: originalSubtotal, 
+        promoDigunakan: promoCodeUsed || "-", 
+        jumlahDiskon: discountValue || 0,
+        kodePesanan: kodePesananCustom
     };
+
     const checkoutButton = document.querySelector('.checkout-btn');
     const originalCheckoutButtonText = checkoutButton ? checkoutButton.textContent : "Checkout";
     if(checkoutButton) { checkoutButton.textContent = "Memproses..."; checkoutButton.disabled = true; }
 
+    // Kirim ke Discord dulu atau paralel
+    const discordNotificationResult = await sendOrderToDiscordWebhook({
+        nama: nama,
+        game: game,
+        jenis: jenisPesananString,
+        subtotalAsli: originalSubtotal,
+        promoDigunakan: promoCodeUsed || "-",
+        jumlahDiskon: discountValue || 0,
+        totalBayar: finalAmount,
+        kodePesanan: kodePesananCustom
+    });
+
+    if (!discordNotificationResult.success) {
+        // Pertimbangkan apakah ingin menghentikan proses jika Discord gagal, atau tetap lanjut
+        console.warn("Gagal mengirim notifikasi Discord, tapi pesanan tetap diproses ke Spreadsheet:", discordNotificationResult.message);
+    }
+
+    // Lanjutkan mengirim ke Google Apps Script
     try {
         const res = await fetch(APPS_SCRIPT_URL, {
-            method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(dataToSend)
+            method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, 
+            body: JSON.stringify(dataToSendToAppsScript)
         });
-        if (!res.ok && res.type !== 'opaque') { const text = await res.text(); throw new Error(`Server error: ${res.status} (${text})`); }
-        let data = { status: "sukses", kodePesanan: "GAS-" + new Date().getTime() }; 
+        if (!res.ok && res.type !== 'opaque') { const text = await res.text(); throw new Error(`Server error (Apps Script): ${res.status} (${text})`); }
+        
+        let dataAppsScript = { status: "sukses", kodePesanan: kodePesananCustom }; 
         if (res.type !== 'opaque') {
             const contentType = res.headers.get("content-type");
-            if (contentType && contentType.indexOf("application/json") !== -1) { data = await res.json(); }
-            else { const text = await res.text(); if (text.toLowerCase().includes("sukses")) {} else { throw new Error(`Format respons server tidak valid.`); }}
+            if (contentType && contentType.indexOf("application/json") !== -1) { dataAppsScript = await res.json(); }
+            else { const text = await res.text(); if (!text.toLowerCase().includes("sukses")) { throw new Error(`Format respons Apps Script tidak valid.`); }}
         }
-        if (typeof data === 'object' && data !== null && data.status === "sukses") {
-            const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin\nKode Pesanan: ${data.kodePesanan}`;
+
+        if (typeof dataAppsScript === 'object' && dataAppsScript !== null && dataAppsScript.status === "sukses") {
+            const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan Ke admin (085150893694)\nKode Pesanan: ${dataAppsScript.kodePesanan || kodePesananCustom}`;
             alert(alertMessage); 
 
+            // WhatsApp
             const whatsappNumber = "6285150893694"; 
             let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan dengan detail berikut:\n`;
             whatsappMessage += `Nama Pemesan: ${nama}\n`;
-            whatsappMessage += `Kode Pesanan: ${data.kodePesanan}\n`;
+            whatsappMessage += `Kode Pesanan: ${dataAppsScript.kodePesanan || kodePesananCustom}\n`;
             whatsappMessage += `Game: ${game}\n\n`;
             whatsappMessage += `Item Dipesan:\n${jenisPesananString}\n\n`;
             whatsappMessage += `Subtotal: ${formatRupiah(originalSubtotal)}\n`;
@@ -436,6 +509,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappLink, '_blank'); 
 
+            // Increment usage count promo
             if (promoCodeUsed && PROMO_CODES[promoCodeUsed]) {
                 const promoDetails = PROMO_CODES[promoCodeUsed];
                 if (promoDetails.usageLimit !== undefined) {
@@ -451,41 +525,24 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
             localStorage.removeItem("pimonjoki_cart");
             currentAppliedPromo = null; cart = [];
             if (typeof renderCart === "function") renderCart(); 
-            // setTimeout(() => location.reload(), 500); 
         } else {
-            alert(`Gagal mengirim pesanan: ${data.message || data.error || "Format respons tidak diketahui"}`);
+            alert(`Gagal mengirim pesanan ke Spreadsheet: ${dataAppsScript.message || dataAppsScript.error || "Format respons tidak diketahui"}`);
         }
     } catch (err) {
-        console.error("Fetch Error:", err);
-        alert(`Backend belum siap atau terjadi kesalahan jaringan. Detail: ${err.message}`);
+        console.error("Fetch Error (Apps Script):", err);
+        alert(`Gagal mengirim pesanan ke Spreadsheet. Detail: ${err.message}\nNotifikasi Discord mungkin sudah terkirim.`);
     } finally {
         if(checkoutButton) { checkoutButton.textContent = originalCheckoutButtonText; checkoutButton.disabled = false; }
     }
 }
 
-// --- EVENT LISTENER DOM UTAMA ---
+// === EVENT LISTENER DOM UTAMA ===
 document.addEventListener("DOMContentLoaded", () => {
     loadCartAndPromo();
     if (typeof renderCart === "function" && document.getElementById("cart-content")) {
         renderCart();
     }
 
-    // HAPUS BLOK UI AUTH HEADER KARENA FIREBASE DIHAPUS DARI FILE INI
-    // --- Setup untuk UI Auth Header (jika ada dan Firebase diinisialisasi) ---
-    /*
-    if (typeof auth !== "undefined" && auth) { 
-        const loginLink = document.getElementById("loginLink");
-        // ... (sisa logika UI Auth Header) ...
-    } else {
-        const loginLink = document.getElementById("loginLink");
-        const userInfoDiv = document.getElementById("userInfo");
-        if (loginLink) loginLink.style.display = "inline-block";
-        if (userInfoDiv) userInfoDiv.style.display = "none";
-        console.warn("Firebase Auth instance tidak ditemukan atau belum diinisialisasi. UI Header mungkin tidak update dengan benar.");
-    }
-    */
-
-    // --- Listener untuk tombol .add-to-cart generik ---
     document.querySelectorAll(".add-to-cart").forEach((btn) => {
         if (!btn.onclick) { 
             btn.addEventListener("click", () => {
@@ -499,7 +556,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- Listener untuk Enter pada Search Input (jika ada di halaman ini) ---
     const searchInputElement = document.getElementById("searchInput");
     if (searchInputElement) {
         searchInputElement.addEventListener("keydown", function (event) {
@@ -514,20 +570,13 @@ document.addEventListener("DOMContentLoaded", () => {
             searchInputElement.value = query;
         }
     }
-
-    // --- HAPUS LISTENER UNTUK NAVIGASI SLIDE-IN ---
-    /*
-    const burgerBtn = document.getElementById('burgerBtn');
-    // ... (sisa logika navigasi slide-in) ...
-    */
 });
 
-// === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
+// === GLOBAL FUNGSI ===
 if (typeof updateQty === "function") window.updateQty = updateQty;
 if (typeof removeItem === "function") window.removeItem = removeItem;
 if (typeof checkout === "function") window.checkout = checkout;
 if (typeof applyPromoCode === "function") window.applyPromoCode = applyPromoCode;
-
 if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
 if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
 if (typeof orderNow === 'function') window.orderNow = orderNow;
