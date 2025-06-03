@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stars = ratingStarsContainer.querySelectorAll('.star');
 
     // GANTI DENGAN URL WEBHOOK DISCORD ANDA YANG SEBENARNYA
-    const DISCORD_WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL_HERE";
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1379482846934073374/s_M8tKLA0wWoBhQ0_qSsxeYZV0-xe-eicVgxQjyOhkjgIsEC9GBt9u2HUbA6IP4DEeYy";
 
     // Logika untuk rating bintang
     stars.forEach(star => {
