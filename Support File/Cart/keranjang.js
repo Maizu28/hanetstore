@@ -19,7 +19,7 @@ const PROMO_CODES = {
     "LIMIT3USER": { type: "fixed", value: 12000, description: "Diskon Rp 12.000 (3x per user)", minPurchase: 70000, validFrom: "2024-07-06T00:00:00+07:00", validUntil: "2024-07-10T23:59:59+07:00", perUserLimit: 3 }
 };
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxrrPdTGbpfvpYG_QMqzBdN6nmUKJuPrMFglMAn4GcJSo66z0P5hSucRrPKlX7gO5sDhg/exec";
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1379468686347341894/qOP1Jpep2bpDg1zXxZo3gbkgooCEq24TOGNEoKHdVvBhaQfnrn1ZztFejjEQ3dKJwp8S"; // Ganti dengan URL Webhook Discord Anda yang sebenarnya
+const DISCORD_WEBHOOK_URL = "MASUKAN_URL_WEBHOOK_DISINI"; // Ganti dengan URL Webhook Discord Anda yang sebenarnya
 
 // === HELPER PROMO ===
 function formatRupiah(number) {
