@@ -35,6 +35,42 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 1.2em;
+}
+
+/* Navigation */
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1em;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
 /* Kontainer untuk Formulir Feedback */
 /* Pastikan div pembungkus form di HTML Anda memiliki kelas "container feedback-form-container" */
 .container.feedback-form-container {
