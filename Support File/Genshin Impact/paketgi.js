@@ -312,7 +312,6 @@ const characterQuestsData = {
         { id: "cq_nat_Varesa1", name: "Varesa - Act 1: Mushroom Realm's Mystery", price: 10000 },
         { id: "cq_nat_Skirk1", name: "Skirik - Comingsoon", price: 10000 },
     ],
-    
 };
 
 function populateCharacterQuests() {
@@ -320,6 +319,86 @@ function populateCharacterQuests() {
         const questListElement = document.getElementById(`character-quest-${region.toLowerCase()}`);
         if (questListElement) {
             characterQuestsData[region].forEach(quest => {
+                const listItem = document.createElement('li');
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'selectable-sub-item';
+                checkbox.value = quest.name;
+                checkbox.dataset.price = quest.price; // Menyimpan harga individual
+                // checkbox.dataset.questId = quest.id; // Jika Anda punya ID unik untuk internal
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(` ${quest.name} (Rp ${quest.price.toLocaleString('id-ID')})`));
+                listItem.appendChild(label);
+                questListElement.appendChild(listItem);
+            });
+        }
+    }
+}
+
+// Data quest karakter
+const archonQuestsData = {
+    Mondstadt: [
+        { id: "aq_mon_pro_cha_act1", name: "Prologue Chapter - Act 1 Subquests", price: 15000 },
+        { id: "aq_mon_pro_cha_act2", name: "Prologue Chapter - Act 2 Subquests", price: 15000 },
+        { id: "aq_mon_pro_cha_act3", name: "Prologue Chapter - Act 3 Subquests", price: 15000 },
+        
+    ],
+    Liyue: [
+        { id: "aq_liy_cha1_act1", name: "Chapter 1 - Act 1 Subquests", price: 15000 },
+        { id: "aq_liy_cha1_act2", name: "Chapter 1 - Act 2 Subquests", price: 15000 },
+        { id: "aq_liy_cha1_act3", name: "Chapter 1 - Act 3 Subquests", price: 15000 },
+        { id: "aq_liy_cha1_act4", name: "Chapter 1 - Act 4 Subquests", price: 15000 },
+    ],
+
+    Inazuma: [
+        { id: "aq_ina_cha2_act1", name: "Chapter 2 - Act 1 Subquests", price: 15000 },
+        { id: "aq_ina_cha2_act2", name: "Chapter 2 - Act 2 Subquests", price: 15000 },
+        { id: "aq_ina_cha2_act3", name: "Chapter 2 - Act 3 Subquests", price: 15000 },
+        { id: "aq_ina_cha2_act4", name: "Chapter 2 - Act 4 Subquests", price: 15000 },
+    ],
+
+    Sumeru: [
+        { id: "aq_sum_cha3_act1", name: "Chapter 3 - Act 1 Subquests", price: 15000 },
+        { id: "aq_sum_cha3_act2", name: "Chapter 3 - Act 2 Subquests", price: 15000 },
+        { id: "aq_sum_cha3_act3", name: "Chapter 3 - Act 3 Subquests", price: 15000 },
+        { id: "aq_sum_cha3_act4", name: "Chapter 3 - Act 4 Subquests", price: 15000 },
+        { id: "aq_sum_cha3_act5", name: "Chapter 3 - Act 5 Subquests", price: 15000 },
+        { id: "aq_sum_cha3_act6", name: "Chapter 3 - Act 6 Subquests", price: 15000 },
+    ],
+
+    Fontaine: [
+        { id: "aq_fon_cha4_act1", name: "Chapter 4 - Act 1 Subquests", price: 15000 },
+        { id: "aq_fon_cha4_act2", name: "Chapter 4 - Act 2 Subquests", price: 15000 },
+        { id: "aq_fon_cha4_act3", name: "Chapter 4 - Act 3 Subquests", price: 15000 },
+        { id: "aq_fon_cha4_act4", name: "Chapter 4 - Act 4 Subquests", price: 15000 },
+        { id: "aq_fon_cha4_act5", name: "Chapter 4 - Act 5 Subquests", price: 15000 },
+        { id: "aq_fon_cha4_act6", name: "Chapter 4 - Act 6 Subquests", price: 15000 },
+    ],
+
+    Natlan: [
+        { id: "aq_nat_cha5_act1", name: "Chapter 5 - Act 1 Subquests", price: 15000 },
+        { id: "aq_nat_cha5_act2", name: "Chapter 5 - Act 2 Subquests", price: 15000 },
+        { id: "aq_nat_cha5_act3", name: "Chapter 5 - Act 3 Subquests", price: 15000 },
+        { id: "aq_nat_cha5_act4", name: "Chapter 5 - Act 4 Subquests", price: 15000 },
+        { id: "aq_nat_cha5_int1", name: "Chapter 5 - Interlude Subquests", price: 15000 },
+        { id: "aq_nat_cha5_act5", name: "Chapter 5 - Act 5 Subquests", price: 15000 },
+    ],
+
+    InterludeChapter: [
+        { id: "aq_int_cha1_act1", name: "Interlude Chapter (Liyue) - Act 1 Subquests ", price: 15000 },
+        { id: "aq_int_cha1_act2", name: "Interlude Chapter (The Chasm) - Act 2 Subquests", price: 15000 },
+        { id: "aq_int_cha1_act3", name: "Interlude Chapter (Sumeru) - Act 3 Subquests", price: 15000 },
+        { id: "aq_int_cha1_act4", name: "Interlude Chapter (Mondstads) - Act 4 Subquests ", price: 15000 },
+    ],
+}
+
+function populatearchonQuests() {
+    for (const chapter in archonQuestsData) {
+        const questListElement = document.getElementById(`archon-quest-${chapter.toLowerCase()}`);
+        if (questListElement) {
+            archonQuestsData[chapter].forEach(quest => {
                 const listItem = document.createElement('li');
                 const label = document.createElement('label');
                 const checkbox = document.createElement('input');
