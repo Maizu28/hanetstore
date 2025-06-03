@@ -1,309 +1,318 @@
-/* === CSS LENGKAP BERDASARKAN REFERENSI GAMBAR PIMONJOKI.ID === */
+/* feedback.css - Versi Diperbarui dengan Header & Nav */
 
-/* 1. Variabel Warna (Custom Properties) */
+/* Impor Font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+
 :root {
-  --pimonjoki-blue-primary: #007bff; /* Biru utama untuk banner, tombol, aksen */
-  --pimonjoki-white: #ffffff;
-  --pimonjoki-text-dark: #212529; /* Untuk teks utama, logo, item navigasi */
-  --pimonjoki-text-light: var(--pimonjoki-white);
-  --pimonjoki-text-muted: #6c757d; /* Untuk teks sekunder atau deskripsi */
+    /* Warna Branding PIMONJOKI (untuk header/nav) */
+    --pimonjoki-brand-blue: #007bff;
+    --pimonjoki-brand-dark-text: #212529;
+    --pimonjoki-brand-white: #ffffff;
+    --pimonjoki-brand-light-gray-bg: #f8f9fa; /* Background halaman umum */
+    --pimonjoki-brand-border: #dee2e6;
+    --pimonjoki-nav-bg: #343a40; /* Background navigasi (gelap) */
+    --pimonjoki-nav-link: #e9ecef; /* Warna link navigasi */
+    --pimonjoki-nav-link-hover: var(--pimonjoki-brand-blue);
 
-  --pimonjoki-bg-light: var(--pimonjoki-white); /* Background navigasi, body */
-  --pimonjoki-bg-banner: var(--pimonjoki-blue-primary);
-  --pimonjoki-bg-card: var(--pimonjoki-white); /* Background untuk card produk */
+    /* Warna Spesifik Formulir Feedback (bisa menggunakan warna brand untuk konsistensi) */
+    --feedback-primary-accent: var(--pimonjoki-brand-blue);
+    --feedback-primary-darker: #0056b3;
+    --feedback-text-dark: #333d48;
+    --feedback-text-medium: #5a6b7b;
+    --feedback-text-light: var(--pimonjoki-brand-white);
+    --feedback-bg-container: var(--pimonjoki-brand-white); /* Background kontainer form */
+    --feedback-border-input: #dde2e7;
+    --feedback-star-color: #ffc107;
+    --feedback-success-color: #28a745;
+    --feedback-error-color: #dc3545;
+    --feedback-input-focus-shadow: rgba(0, 123, 255, 0.25);
 
-  --pimonjoki-border-light: #dee2e6; /* Border umum atau pemisah */
-  --pimonjoki-border-card: #e9ecef; /* Border untuk card */
-
-  --pimonjoki-button-primary-bg: var(--pimonjoki-blue-primary);
-  --pimonjoki-button-primary-text: var(--pimonjoki-text-light);
-
-  --pimonjoki-button-secondary-bg: var(--pimonjoki-white);
-  --pimonjoki-button-secondary-text: var(--pimonjoki-blue-primary);
-  --pimonjoki-button-secondary-border: var(--pimonjoki-blue-primary); /* Untuk tombol "Joki Sekarang" */
-
-  --pimonjoki-button-nav-bg: var(--pimonjoki-white); /* Tombol "Login" */
-  --pimonjoki-button-nav-text: var(--pimonjoki-text-dark);
-  --pimonjoki-button-nav-border: var(--pimonjoki-border-light);
-
-  --pimonjoki-font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-/* 2. Reset Dasar & Gaya Global */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto', sans-serif;
 }
 
 body {
-  font-family: var(--pimonjoki-font-family-sans-serif);
-  line-height: 1.6;
-  background-color: var(--pimonjoki-bg-light);
-  color: var(--pimonjoki-text-dark);
-  font-size: 16px; /* Ukuran font dasar */
+    font-family: var(--font-body);
+    background-color: var(--pimonjoki-brand-light-gray-bg); /* Background halaman utama */
+    margin: 0;
+    padding: 0; /* Hapus padding body jika header/nav full-width */
+    color: var(--feedback-text-dark);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* Gaya untuk Header PIMONJOKI.ID */
+header.site-branding { /* Tambahkan kelas .site-branding pada <header> di HTML Anda */
+    background-color: var(--pimonjoki-brand-white);
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--pimonjoki-brand-border);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-a {
-  text-decoration: none;
-  color: var(--pimonjoki-blue-primary);
+header.site-branding h1 {
+    font-family: var(--font-heading);
+    color: var(--pimonjoki-brand-dark-text);
+    margin: 0;
+    font-size: 2.5em; /* Ukuran sesuai PIMONJOKI.ID */
+    font-weight: 700;
 }
 
-a:hover {
-  text-decoration: underline;
-  color: darken(var(--pimonjoki-blue-primary), 10%);
+header.site-branding p {
+    margin: 5px 0 0;
+    font-size: 1em; /* Ukuran subjudul */
+    color: var(--feedback-text-medium);
 }
 
-.container {
-  width: 90%;
-  max-width: 1140px; /* Lebar maksimum umum untuk container */
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+/* Gaya untuk Navigasi */
+nav.main-navigation { /* Tambahkan kelas .main-navigation pada <nav> di HTML Anda */
+    background-color: var(--pimonjoki-nav-bg);
+    padding: 12px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* 3. Gaya Header & Navigasi */
-.site-header {
-  background-color: var(--pimonjoki-navbar-bg, var(--pimonjoki-bg-light));
-  padding: 15px 0;
-  border-bottom: 1px solid var(--pimonjoki-border-light);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+nav.main-navigation a {
+    color: var(--pimonjoki-nav-link);
+    text-decoration: none;
+    margin: 0 18px;
+    font-size: 1.05em;
+    font-weight: 500;
+    padding: 8px 10px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.site-header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+nav.main-navigation a:hover {
+    color: var(--pimonjoki-brand-white);
+    background-color: var(--pimonjoki-nav-link-hover); /* Biru saat hover */
+    text-decoration: none;
 }
 
-.site-logo a {
-  font-size: 1.8rem; /* Ukuran font logo */
-  font-weight: bold;
-  color: var(--pimonjoki-text-dark);
-  text-decoration: none;
+/* Kontainer untuk Formulir Feedback */
+.container.feedback-form-container { /* Tambahkan kelas .feedback-form-container pada <div> dengan class .container */
+    background-color: var(--feedback-bg-container);
+    padding: 35px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    width: 90%; /* Agar responsif */
+    max-width: 680px;
+    margin: 40px auto; /* Jarak dari navigasi dan agar terpusat */
 }
 
-.site-logo-subtitle {
-  font-size: 0.85rem;
-  color: var(--pimonjoki-text-muted);
-  display: block; /* Agar berada di bawah logo utama jika diinginkan */
-  margin-top: -5px; /* Sesuaikan jika perlu */
+.container.feedback-form-container h1 { /* Judul di dalam kontainer form */
+    font-family: var(--font-heading);
+    color: var(--feedback-primary-darker); /* Warna judul form */
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2em;
+    font-weight: 700;
 }
 
-.main-navigation ul {
-  list-style: none;
-  display: flex;
-  gap: 20px; /* Jarak antar item navigasi */
+.container.feedback-form-container p.subtitle { /* Subjudul di dalam kontainer form */
+    text-align: center;
+    margin-bottom: 35px;
+    color: var(--feedback-text-medium);
+    font-size: 1.05em;
 }
 
-.main-navigation ul li a {
-  color: var(--pimonjoki-navbar-text, var(--pimonjoki-text-dark));
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+/* Gaya Formulir (sebagian besar sama seperti sebelumnya, hanya memastikan konsistensi) */
+.form-group {
+    margin-bottom: 25px;
 }
 
-.main-navigation ul li a:hover,
-.main-navigation ul li a.active { /* Untuk menandai halaman aktif */
-  color: var(--pimonjoki-blue-primary);
-  background-color: rgba(0, 123, 255, 0.05); /* Warna hover lembut */
-  text-decoration: none;
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--feedback-text-medium);
+    font-size: 0.95em;
 }
 
-/* Tombol di Navigasi (misal: Login) */
-.btn-nav {
-  padding: 8px 18px;
-  background-color: var(--pimonjoki-button-nav-bg);
-  color: var(--pimonjoki-button-nav-text);
-  border: 1px solid var(--pimonjoki-button-nav-border);
-  border-radius: 5px;
-  font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--feedback-border-input);
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: var(--font-body);
+    color: var(--feedback-text-dark);
+    background-color: #fdfdfd;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-nav:hover {
-  background-color: #f8f9fa; /* Sedikit lebih gelap saat hover */
-  border-color: darken(var(--pimonjoki-button-nav-border), 10%);
-  text-decoration: none;
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--feedback-primary-accent);
+    outline: none;
+    box-shadow: 0 0 0 0.2rem var(--feedback-input-focus-shadow);
 }
 
-
-/* 4. Gaya Hero Banner (Selamat Datang) */
-.hero-banner {
-  background-color: var(--pimonjoki-bg-banner);
-  color: var(--pimonjoki-text-light);
-  padding: 60px 0; /* Padding atas-bawah yang cukup besar */
-  text-align: center;
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 12px auto;
+    padding-right: 45px;
 }
 
-.hero-banner h1 {
-  font-size: 2.8rem; /* Ukuran font judul besar */
-  font-weight: bold;
-  margin-bottom: 15px;
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
 }
 
-.hero-banner p {
-  font-size: 1.2rem; /* Ukuran font subjudul */
-  margin-bottom: 30px;
-  opacity: 0.9; /* Sedikit transparan untuk subjudul */
+.required {
+    color: var(--feedback-error-color);
+    margin-left: 4px;
 }
 
-/* Tombol di Hero Banner (Joki Sekarang) */
-.btn-hero {
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  background-color: var(--pimonjoki-button-secondary-bg);
-  color: var(--pimonjoki-button-secondary-text);
-  border: 2px solid var(--pimonjoki-button-secondary-border); /* Border yang lebih tebal agar terlihat */
-  border-radius: 50px; /* Bentuk pil */
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  text-transform: uppercase; /* Sesuai screenshot */
-  letter-spacing: 0.5px;
+.rating-stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 5px;
 }
 
-.btn-hero:hover {
-  background-color: var(--pimonjoki-blue-primary); /* Warna bertukar saat hover */
-  color: var(--pimonjoki-white);
-  transform: translateY(-2px); /* Efek hover sedikit naik */
-  text-decoration: none;
+.rating-stars .star {
+    font-size: 30px;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.1s ease;
 }
 
-
-/* 5. Gaya Konten Umum & Card (Placeholder) */
-.content-section {
-  padding: 50px 0;
+.rating-stars .star:hover,
+.rating-stars .star.selected {
+    color: var(--feedback-star-color);
+}
+.rating-stars .star:hover {
+    transform: scale(1.15);
 }
 
-.section-title {
-  text-align: center;
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: var(--pimonjoki-text-dark);
-  margin-bottom: 40px;
+button[type="submit"] {
+    background: linear-gradient(90deg, var(--feedback-primary-accent) 0%, var(--feedback-primary-darker) 100%);
+    color: var(--feedback-text-light);
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+    width: 100%;
+    box-shadow: 0 4px 15px var(--feedback-input-focus-shadow);
+    margin-top: 10px;
 }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid responsif */
-  gap: 30px; /* Jarak antar card */
+button[type="submit"]:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--feedback-input-focus-shadow);
 }
 
-.product-card {
-  background-color: var(--pimonjoki-bg-card);
-  border: 1px solid var(--pimonjoki-border-card);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
-  overflow: hidden; /* Untuk memastikan gambar tidak keluar dari border-radius */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+button[type="submit"]:disabled {
+    background: #bdc3c7;
+    color: #7f8c8d;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+#statusMessage {
+    margin-top: 25px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.95em;
+    animation: fadeIn 0.5s ease-out;
 }
 
-.product-card img { /* Gambar di dalam card */
-  width: 100%;
-  height: 200px; /* Atur tinggi gambar card atau gunakan aspect-ratio */
-  object-fit: cover; /* Agar gambar mengisi area tanpa distorsi */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.product-card-content {
-  padding: 20px;
+#statusMessage.success {
+    background-color: #e8f5e9;
+    color: var(--feedback-success-color);
+    border: 1px solid var(--feedback-success-color);
 }
 
-.product-card-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: var(--pimonjoki-text-dark);
+#statusMessage.error {
+    background-color: #ffebee;
+    color: var(--feedback-error-color);
+    border: 1px solid var(--feedback-error-color);
 }
 
-.product-card-description {
-  font-size: 0.95rem;
-  color: var(--pimonjoki-text-muted);
-  margin-bottom: 15px;
-}
-
-.btn-card { /* Tombol di dalam card */
-  display: inline-block;
-  padding: 8px 18px;
-  background-color: var(--pimonjoki-button-primary-bg);
-  color: var(--pimonjoki-button-primary-text);
-  border-radius: 5px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.btn-card:hover {
-  background-color: darken(var(--pimonjoki-button-primary-bg), 10%);
-  text-decoration: none;
-}
-
-/* 6. Gaya Footer (Placeholder Sederhana) */
-.site-footer {
-  background-color: #343a40; /* Warna footer yang sedikit gelap */
-  color: var(--pimonjoki-text-light);
-  padding: 40px 0;
-  text-align: center;
-  margin-top: 50px; /* Jarak dari konten terakhir */
-}
-
-.site-footer p {
-  margin: 0;
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-
-.site-footer a {
-  color: var(--pimonjoki-blue-primary);
-}
-
-/* 7. Utilitas Responsif Sederhana */
+/* Penyesuaian untuk layar kecil */
 @media (max-width: 768px) {
-  .site-header .container {
-    flex-direction: column; /* Logo dan nav menjadi tumpuk */
-    gap: 15px;
-  }
-  .main-navigation ul {
-    flex-direction: column; /* Item nav menjadi tumpuk */
-    align-items: center;
-    gap: 10px;
-  }
-  .hero-banner h1 {
-    font-size: 2.2rem;
-  }
-  .hero-banner p {
-    font-size: 1rem;
-  }
-  .btn-hero {
-    padding: 10px 25px;
-    font-size: 1rem;
-  }
-  .section-title {
-    font-size: 1.8rem;
-  }
+    header.site-branding h1 {
+        font-size: 2em;
+    }
+    header.site-branding p {
+        font-size: 0.9em;
+    }
+    nav.main-navigation a {
+        margin: 0 10px;
+        font-size: 1em;
+    }
+    .container.feedback-form-container {
+        padding: 25px 20px;
+        margin: 30px auto;
+        width: 95%;
+    }
+    .container.feedback-form-container h1 {
+        font-size: 1.8em;
+    }
+    .container.feedback-form-container p.subtitle {
+        font-size: 0.95em;
+        margin-bottom: 25px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 15px;
+    }
+    button[type="submit"] {
+        padding: 14px 20px;
+        font-size: 1em;
+    }
+    .rating-stars .star {
+        font-size: 26px;
+    }
 }
 
 @media (max-width: 480px) {
-    .site-logo a {
-        font-size: 1.5rem;
+    nav.main-navigation {
+        padding: 10px 0;
     }
-    .hero-banner h1 {
-        font-size: 1.8rem;
+    nav.main-navigation a {
+        display: block; /* Link navigasi menjadi blok di layar sangat kecil */
+        margin: 5px auto;
+        padding: 10px;
+        width: 80%;
+        border-radius: 4px; /* Tambahkan border radius untuk tampilan blok */
     }
-    .hero-banner p {
-        font-size: 0.9rem;
+    nav.main-navigation a:hover {
+        background-color: var(--pimonjoki-nav-link-hover); /* Warna hover tetap */
+        color: var(--pimonjoki-brand-white);
+    }
+    .container.feedback-form-container h1 {
+        font-size: 1.6em;
+    }
+    .container.feedback-form-container p.subtitle {
+        font-size: 0.9em;
     }
 }

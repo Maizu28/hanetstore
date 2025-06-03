@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessage.textContent = '';
         statusMessage.className = ''; // Reset class
 
-        if (DISCORD_WEBHOOK_URL === "YOUR_DISCORD_WEBHOOK_URL_HERE") {
+        if (DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/1379482846934073374/s_M8tKLA0wWoBhQ0_qSsxeYZV0-xe-eicVgxQjyOhkjgIsEC9GBt9u2HUbA6IP4DEeYy") {
             showStatus("Error: URL Webhook Discord belum diatur di feedback.js.", true);
             submitButton.disabled = false;
             submitButton.textContent = 'Kirim Feedback';
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = {
             username: "Feedback Bot Pelanggan", // Nama bot yang muncul di Discord
-            avatar_url: "https://i.imgur.com/R66g1Pe.png", // URL Avatar Bot (opsional)
+            avatar_url: "https://raw.githubusercontent.com/Maizu28/pimonjokiid/refs/heads/main/Foto%20Profile%20apk.png", // URL Avatar Bot (opsional)
             embeds: [
                 {
                     title: "📝 Feedback Baru Diterima!",
