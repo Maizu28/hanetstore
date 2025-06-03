@@ -1,4 +1,4 @@
-// feedback.js (Validasi Nama & Email)
+// feedback.js (Timestamp WIB & Validasi)
 
 // Definisikan warna bintang sebagai konstanta JavaScript
 const FEEDBACK_STAR_SELECTED_COLOR = '#ffc107'; // Warna kuning/oranye untuk bintang terpilih
@@ -96,18 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const formData = new FormData(feedbackForm);
-        const name = formData.get('name').trim(); // Ambil dan trim nilai nama
-        const email = formData.get('email').trim(); // Ambil dan trim nilai email
+        const name = formData.get('name').trim();
+        const email = formData.get('email').trim();
         const feedbackType = formData.get('feedbackType');
         const rating = parseInt(ratingInput.value) || 0;
-        const message = formData.get('message').trim(); // Ambil dan trim nilai pesan
+        const message = formData.get('message').trim();
 
         // Validasi Nama
         if (!name) {
             showStatus("Nama tidak boleh kosong.", true);
             submitButton.disabled = false;
             submitButton.textContent = 'Kirim Feedback';
-            document.getElementById('name').focus(); // Fokus ke input nama
+            document.getElementById('name').focus();
             return;
         }
 
@@ -116,33 +116,43 @@ document.addEventListener('DOMContentLoaded', () => {
             showStatus("Email tidak boleh kosong.", true);
             submitButton.disabled = false;
             submitButton.textContent = 'Kirim Feedback';
-            document.getElementById('email').focus(); // Fokus ke input email
+            document.getElementById('email').focus();
             return;
         }
         if (!isValidEmail(email)) {
             showStatus("Format email tidak valid. Harap masukkan email yang benar.", true);
             submitButton.disabled = false;
             submitButton.textContent = 'Kirim Feedback';
-            document.getElementById('email').focus(); // Fokus ke input email
+            document.getElementById('email').focus();
             return;
         }
 
-        // Validasi Pesan (sudah ada, hanya memastikan menggunakan nilai yang sudah di-trim)
+        // Validasi Pesan
         if (!message) {
             showStatus("Pesan feedback tidak boleh kosong.", true);
             submitButton.disabled = false;
             submitButton.textContent = 'Kirim Feedback';
-            document.getElementById('message').focus(); // Fokus ke input pesan
+            document.getElementById('message').focus();
             return;
         }
 
+        // Membuat timestamp WIB untuk Google Sheets
+        const now = new Date();
+        const optionsWIB = {
+            timeZone: 'Asia/Jakarta', // Zona waktu WIB
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', second: '2-digit',
+            hour12: false // Format 24 jam
+        };
+        const wibTimestamp = now.toLocaleString('id-ID', optionsWIB); // Format untuk Indonesia
+
         const dataForAppsScript = {
-            timestamp: new Date().toISOString(),
-            name: name, // Gunakan nilai nama yang sudah di-trim
-            email: email, // Gunakan nilai email yang sudah di-trim
+            timestamp: wibTimestamp, // Menggunakan timestamp WIB
+            name: name,
+            email: email,
             feedbackType: feedbackType,
             rating: rating,
-            message: message // Gunakan nilai pesan yang sudah di-trim
+            message: message
         };
 
         let ratingStarsText = "Belum dirating";
@@ -150,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ratingStarsText = '⭐'.repeat(rating) + '☆'.repeat(5 - rating) + ` (${rating}/5)`;
         }
         const payloadDiscord = {
-            username: "Feedback Bot Pelanggan",
+            username: "Pimonjoki Feedback",
             avatar_url: "https://i.imgur.com/R66g1Pe.png",
             embeds: [{
                 title: "📝 Feedback Baru Diterima!",
@@ -158,11 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 fields: [
                     { name: "Jenis Feedback", value: feedbackType, inline: true },
                     { name: "Rating", value: ratingStarsText, inline: true },
-                    { name: "Nama", value: name, inline: false }, // Gunakan nilai nama yang sudah di-trim
-                    { name: "Email", value: email, inline: false }, // Gunakan nilai email yang sudah di-trim
-                    { name: "Pesan", value: "```\n" + message + "\n```", inline: false } // Gunakan nilai pesan yang sudah di-trim
+                    { name: "Nama", value: name, inline: false },
+                    { name: "Email", value: email, inline: false },
+                    { name: "Pesan", value: "```\n" + message + "\n```", inline: false }
                 ],
-                timestamp: new Date().toISOString(),
+                timestamp: new Date().toISOString(), // Timestamp untuk Discord tetap ISO UTC
                 footer: { text: "Dikirim melalui Formulir Feedback Web" }
             }]
         };
