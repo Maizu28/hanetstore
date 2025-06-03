@@ -38,53 +38,37 @@
   padding: 0;
 }
 
-/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+  font-family: var(--pimonjoki-font-family-sans-serif);
+  line-height: 1.6;
+  background-color: var(--pimonjoki-bg-light);
+  color: var(--pimonjoki-text-dark);
+  font-size: 16px; /* Ukuran font dasar */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
+  color: var(--pimonjoki-blue-primary);
 }
 
-/* Header */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+a:hover {
+  text-decoration: underline;
+  color: darken(var(--pimonjoki-blue-primary), 10%);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-}
-
-header p {
-    margin: 10px 0 0;
-    font-size: 1.2em;
-}
-
-nav {
-    background-color: #444;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    transition: color 0.3s;
-    font-size: 1.1em;
-}
-
-nav a:hover {
-    color: #00a3ff;
+.container {
+  width: 90%;
+  max-width: 1140px; /* Lebar maksimum umum untuk container */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* 3. Gaya Header & Navigasi */
