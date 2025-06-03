@@ -312,7 +312,7 @@ const characterQuestsData = {
         { id: "cq_nat_Varesa1", name: "Varesa - Act 1: Mushroom Realm's Mystery", price: 10000 },
         { id: "cq_nat_Skirk1", name: "Skirik - Comingsoon", price: 10000 },
     ],
-    // ... region lainnya
+    
 };
 
 function populateCharacterQuests() {
