@@ -223,41 +223,6 @@ function populateQuestsList(dataObject, idPrefix, listElementClass = 'selectable
     }
 }
 
-// Di dalam fungsi populateArchonQuests atau populateQuestsList saat loop archonQuestsData
-function populateArchonQuests() { // atau populateQuestsList(archonQuestsData, 'archon-quest')
-    for (const chapterKey in archonQuestsData) {
-        const targetElementId = `archon-quest-${chapterKey.toLowerCase().replace(/\s+/g, '-')}`;
-        console.log(`Mencari elemen dengan ID: ${targetElementId} untuk chapter: ${chapterKey}`); // DEBUG
-        const questListElement = document.getElementById(targetElementId);
-
-        if (questListElement) {
-            console.log(`Elemen ${targetElementId} DITEMUKAN.`); // DEBUG
-            questListElement.innerHTML = ''; 
-            archonQuestsData[chapterKey].forEach(quest => {
-                const listItem = document.createElement('li');
-                const label = document.createElement('label');
-                const checkbox = document.createElement('input');
-
-                checkbox.type = 'checkbox';
-                checkbox.className = listElementClass;
-                checkbox.value = quest.name; 
-                checkbox.dataset.price = quest.price; 
-                checkbox.dataset.questId = quest.id; 
-
-                label.appendChild(checkbox);
-                let labelText = ` ${quest.name}`;
-                if (displayPriceInLabel) {
-                    labelText += ` (Rp ${quest.price.toLocaleString('id-ID')})`;
-                }
-                label.appendChild(document.createTextNode(labelText));
-                listItem.appendChild(label);
-                questListULElement.appendChild(listItem);
-            });
-        } else {
-            console.warn(`Elemen dengan ID '${targetElementId}' TIDAK DITEMUKAN untuk chapter '${chapterKey}'.`); // DEBUG
-        }
-    }
-}
 
 // --- EVENT LISTENER DOM UTAMA ---
 document.addEventListener("DOMContentLoaded", function () {
@@ -266,13 +231,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Cek keberadaan salah satu elemen target untuk masing-masing jenis quest
     if (document.querySelector('[id^="character-quest-"]')) {
          populateQuestsList(characterQuestsData, 'character-quest');
-    }
+    };
     if (document.querySelector('[id^="archon-quest-"]')) {
          populateQuestsList(archonQuestsData, 'archon-quest');
-    }
+    };
     if (document.querySelector('[id^="world-quest-"]')) {
          populateQuestsList(worldQuestsData, 'world-quest');
-    }
+    };
     // Tambahkan pemanggilan untuk jenis quest lain jika ada (World Quest, dll.)
 
     // ... (Sisa kode DOMContentLoaded Anda dari file list.js sebelumnya:
