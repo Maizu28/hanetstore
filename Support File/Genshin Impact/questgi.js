@@ -85,8 +85,8 @@ const archonQuestsData = {
         { id: "aq_mon_pro_cha_act1", name: "Prologue Chapter - Act 1 Subquests", price: 15000 },
         { id: "aq_mon_pro_cha_act2", name: "Prologue Chapter - Act 2 Subquests", price: 15000 },
         { id: "aq_mon_pro_cha_act3", name: "Prologue Chapter - Act 3 Subquests", price: 15000 },
-        
     ],
+
     Liyue: [
         { id: "aq_liy_cha1_act1", name: "Chapter 1 - Act 1 Subquests", price: 15000 },
         { id: "aq_liy_cha1_act2", name: "Chapter 1 - Act 2 Subquests", price: 15000 },
@@ -133,6 +133,60 @@ const archonQuestsData = {
         { id: "aq_int_cha1_act2", name: "Interlude Chapter (The Chasm) - Act 2 Subquests", price: 15000 },
         { id: "aq_int_cha1_act3", name: "Interlude Chapter (Sumeru) - Act 3 Subquests", price: 15000 },
         { id: "aq_int_cha1_act4", name: "Interlude Chapter (Mondstads) - Act 4 Subquests ", price: 15000 },
+    ],
+}
+
+//Data World Quests
+const worldQuestsData = {
+    Mondstadt: [
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Guest from Liyue", name: "A Guest from Liyue", price: 15000 },
+        { id: "wq_mon_world_A Land Entombed", name: "A Land Entombed", price: 15000 },
+        { id: "wq_mon_world_After the Storm", name: "After the Storm", price: 15000 },
+        { id: "wq_mon_world_Ah, Fresh Meat!", name: "Ah, Fresh Meat!", price: 15000 },
+        { id: "wq_mon_world_An Ode to Yonder City", name: "An Ode to Yonder City", price: 15000 },
+        { id: "wq_mon_world_Battlefield of Dice, Cats, and Cards", name: "Battlefield of Dice, Cats, and Cards", price: 15000 },
+        { id: "wq_mon_world_Bough Keeper: Dainsleif", name: "Bough Keeper: Dainsleif", price: 15000 },
+        { id: "wq_mon_world_Break the Sword Cemetery Seal", name: "Break the Sword Cemetery Seal", price: 15000 },
+        { id: "wq_mon_world_Busy Adventurers' Guild", name: "Busy Adventurers' Guild", price: 15000 },
+        { id: "wq_mon_world_Cleanup at Dawn", name: "Cleanup at Dawn", price: 15000 },
+        { id: "wq_mon_world_Collector of Anemo Sigils", name: "Collector of Anemo Sigils", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+        { id: "wq_mon_world_A Fine Opportunity?", name: "A Fine Opportunity?", price: 15000 },
+
+        
+        
     ],
 }
 
