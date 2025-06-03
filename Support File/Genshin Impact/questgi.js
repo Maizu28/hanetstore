@@ -235,6 +235,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelector('[id^="archon-quest-"]')) {
          populateQuestsList(archonQuestsData, 'archon-quest');
     }
+    if (document.querySelector('[id^="world-quest-"]')) {
+         populateQuestsList(worldQuestsData, 'world-quest');
+    }
     // Tambahkan pemanggilan untuk jenis quest lain jika ada (World Quest, dll.)
 
     // ... (Sisa kode DOMContentLoaded Anda dari file list.js sebelumnya:
