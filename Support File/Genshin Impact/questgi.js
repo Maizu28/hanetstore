@@ -234,7 +234,24 @@ function populateArchonQuests() { // atau populateQuestsList(archonQuestsData, '
             console.log(`Elemen ${targetElementId} DITEMUKAN.`); // DEBUG
             questListElement.innerHTML = ''; 
             archonQuestsData[chapterKey].forEach(quest => {
-                // ... (kode pembuatan checkbox Anda) ...
+                const listItem = document.createElement('li');
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+
+                checkbox.type = 'checkbox';
+                checkbox.className = listElementClass;
+                checkbox.value = quest.name; 
+                checkbox.dataset.price = quest.price; 
+                checkbox.dataset.questId = quest.id; 
+
+                label.appendChild(checkbox);
+                let labelText = ` ${quest.name}`;
+                if (displayPriceInLabel) {
+                    labelText += ` (Rp ${quest.price.toLocaleString('id-ID')})`;
+                }
+                label.appendChild(document.createTextNode(labelText));
+                listItem.appendChild(label);
+                questListULElement.appendChild(listItem);
             });
         } else {
             console.warn(`Elemen dengan ID '${targetElementId}' TIDAK DITEMUKAN untuk chapter '${chapterKey}'.`); // DEBUG
