@@ -119,7 +119,7 @@ function handleSearch() {
     if (!inputElement) return;
     const input = inputElement.value.trim();
     if (input) {
-        window.location.href = `https://thanets28.site/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html?query=${encodeURIComponent(input)}`;
+        window.location.href = `https://thanets28.site/Support%20File/Support%20File/Cart/search-menu.html?query=${encodeURIComponent(input)}`;
     } else {
         alert("Masukkan kata kunci pencarian.");
     }
