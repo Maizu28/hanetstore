@@ -226,17 +226,92 @@ const worldQuestsData = {
     ],
     Fontaine: [
         { id: "wq_fon_ancient_colors", name: "Ancient Colors Series", price: 10000 },
+        { id: "wq_fon_Annofthenarzissenkreuz", name: "Ann of the Narzissenkreuz Series", price: 10000 },
+        { id: "wq_fon_CanticlesofHarmony", name: "Canticles of Harmony Series", price: 10000 },
+        { id: "wq_fon_FontaineResearchInstituteChronicles", name: "Ann of the NarzissenkreuzFontaine Research Institute Chronicles Series", price: 10000 },
+        { id: "wq_fon_IntheWakeofNarcissus", name: "In the Wake of Narcissus Series", price: 10000 },
+        { id: "wq_fon_QuestioningMelusineandAnsweringMachine", name: "Questioning Melusine and Answering Machine Series", price: 10000 },
+        { id: "wq_fon_ScenesfromLifeinMeropide", name: "Scenes from Life in Meropide Series", price: 10000 },
+        { id: "wq_fon_TheWildFairyofErinnyes", name: "The Wild Fairy of Erinnyes", price: 10000 },
+        { id: "wq_fon_HeyThisIsntPumpkinSoup...", name: "Hey, This Isn't Pumpkin Soup...", price: 10000 },
+        { id: "wq_fon_ACertainNotice", name: "A Certain Notice", price: 10000 },
+        { id: "wq_fon_ACertainStamp", name: "A Certain Stamp", price: 10000 },
+        { id: "wq_fon_ACertainTrifle", name: "A Certain Trifle", price: 10000 },
+        { id: "wq_fon_AFontainianMessage", name: "A Fontainian Message", price: 10000 },
+        { id: "wq_fon_ALetter", name: "A Letter", price: 10000 },
+        { id: "wq_fon_AnExpectedLie", name: "An Expected Lie", price: 10000 },
+        { id: "wq_fon_AnExpectedPlan", name: "An Expected Plan", price: 10000 },
+        { id: "wq_fon_AnotherHorizonofAdventure", name: "Another Horizon of Adventure", price: 10000 },
+        { id: "wq_fon_AqueousTidemarks", name: "Aqueous Tidemarks", price: 10000 },
+        { id: "wq_fon_BookofEsotericRevelations", name: "Book of Esoteric Revelations", price: 10000 },
+        { id: "wq_fon_BothBrainsandBrawn", name: "Both Brains and Brawn", price: 10000 },
+        { id: "wq_fon_DangerLurksEverywhereinFontaine", name: "Danger Lurks Everywhere in Fontaine", price: 10000 },
+        { id: "wq_fon_DaydreamsBeyondSpaceandTime", name: "Daydreams Beyond Space and Time", price: 10000 },
+        { id: "wq_fon_EchoesoftheAncientWorld", name: "Echoes of the Ancient World", price: 10000 },
+        { id: "wq_fon_FishingGame", name: "Fishing Game", price: 10000 },
+        { id: "wq_fon_ForYesterdayandTomorrow", name: "For Yesterday and Tomorrow", price: 10000 },
+        { id: "wq_fon_FreeVerse", name: "Free Verse", price: 10000 },
+        { id: "wq_fon_GoodStuffbutTerribleTaste(BelleauRegion)", name: "Good Stuff, but Terrible Taste (Belleau Region)", price: 10000 },
+        { id: "wq_fon_GoodStuffbutTerribleTaste(CentralBerylRegion)", name: "Good Stuff, but Terrible Taste (Central Beryl Region)", price: 10000 },
+        { id: "wq_fon_GoodStuffbutTerribleTaste(CourtofFontaineRegion)", name: "Good Stuff, but Terrible Taste (Court of Fontaine Region)", price: 10000 },
+        { id: "wq_fon_GoodStuffbutTerribleTaste(SoutheastBerylRegion)", name: "Good Stuff, but Terrible Taste (Southeast Beryl Region)", price: 10000 },
+        { id: "wq_fon_GoodStuffbutTerribleTaste(WestBerylRegion)", name: "Good Stuff, but Terrible Taste (West Beryl Region)", price: 10000 },
+        { id: "wq_fon_GoodStuffbutTerribleTaste—Continued", name: "Good Stuff, but Terrible Taste — Continued", price: 10000 },
+        { id: "wq_fon_HappyBirthday", name: "Happy Birthday", price: 10000 },
+        { id: "wq_fon_ImpromptuPoemoftheCrimsonDawn", name: "Impromptu Poem of the Crimson Dawn", price: 10000 },
+        { id: "wq_fon_InExpertCompany?(I)", name: "In Expert Company? (I)", price: 10000 },
+        { id: "wq_fon_InExpertCompany?(II)", name: "In Expert Company? (II)", price: 10000 },
+        { id: "wq_fon_InSearchofLostTime", name: "In Search of Lost Time", price: 10000 },
+        { id: "wq_fon_InSearchofLostTime:North", name: "In Search of Lost Time: North", price: 10000 },
+        { id: "wq_fon_InSearchofLostTime:South", name: "In Search of Lost Time: South", price: 10000 },
+        { id: "wq_fon_InSearchofLostTime:West", name: "In Search of Lost Time: West", price: 10000 },
+        { id: "wq_fon_InitialFacts", name: "Initial Facts", price: 10000 },
+        { id: "wq_fon_LatecomingHomecoming", name: "Latecoming Homecoming", price: 10000 },
+        { id: "wq_fon_Leroy:BeautifulFriends", name: "Leroy: Beautiful Friends", price: 10000 },
+        { id: "wq_fon_Leroy:DyingFlash", name: "Leroy: Dying Flash", price: 10000 },
+        { id: "wq_fon_Leroy:FiringSquad", name: "Leroy: Firing Squad", price: 10000 },
+        { id: "wq_fon_Leroy:HangmansNoose", name: "Leroy: Hangman's Noose", price: 10000 },
+        { id: "wq_fon_Leroy:HighNoon", name: "Leroy: High Noon", price: 10000 },
+        { id: "wq_fon_Leroy:QueenoftheNightsAria", name: "Leroy: Queen of the Night's Aria", price: 10000 },
+        { id: "wq_fon_Leroy:UnderGuard", name: "Leroy: Under Guard", price: 10000 },
+        { id: "wq_fon_OurPurposeIsinAnotherCanal", name: "Our Purpose Is in Another Canal", price: 10000 },
+        { id: "wq_fon_Pursuit(Part1)", name: "Pursuit (Part 1)", price: 10000 },
+        { id: "wq_fon_Pursuit(Part2)", name: "Pursuit (Part 2)", price: 10000 },
+        { id: "wq_fon_RiddlesAwaitingAnswers", name: "Riddles Awaiting Answers", price: 10000 },
+        { id: "wq_fon_RoadtotheSingularity", name: "Road to the Singularity", price: 10000 },
+        { id: "wq_fon_Semi-AutomaticForging", name: "Semi-Automatic Forging", price: 10000 },
+        { id: "wq_fon_SteambirdInterview", name: "Steambird Interview", price: 10000 },
+        { id: "wq_fon_StillMouthwatering!", name: "Still Mouthwatering!", price: 10000 },
+        { id: "wq_fon_StrangeStoneChronicle(Part1)", name: "Strange Stone Chronicle (Part 1)", price: 10000 },
+        { id: "wq_fon_StrangeStoneChronicle(Part2)", name: "Strange Stone Chronicle (Part 2)", price: 10000 },
+        { id: "wq_fon_StrangeStoneChronicle(Part3)", name: "Strange Stone Chronicle (Part 3)", price: 10000 },
+        { id: "wq_fon_TheFinalQuestion", name: "The Final Question", price: 10000 },
+        { id: "wq_fon_TheFountainFlowsAgain", name: "The Fountain Flows Again", price: 10000 },
+        { id: "wq_fon_TheLonePhantomSail", name: "The Lone Phantom Sail", price: 10000 },
+        { id: "wq_fon_TheLong-FailedGraphAdversarialTechnology", name: "The Long-Failed 'Graph Adversarial Technology'", price: 10000 },
+        { id: "wq_fon_TheThreePrimaryColorsoftheSolarCorona", name: "The Three Primary Colors of the Solar Corona", price: 10000 },
+        { id: "wq_fon_ThroughtheLookingGlass", name: "Through the Looking Glass", price: 10000 },
+        { id: "wq_fon_TreacherousLightoftheDepths", name: "Treacherous Light of the Depths", price: 10000 },
+        { id: "wq_fon_TrulyMouthwatering!", name: "Truly Mouthwatering!", price: 10000 },
+        { id: "wq_fon_UnfinishedStory", name: "Unfinished Story", price: 10000 },
+        { id: "wq_fon_UponaFloweryFieldofGrass", name: "Upon a Flowery Field of Grass", price: 10000 },
+        { id: "wq_fon_Villains", name: "Villains", price: 10000 },
+        { id: "wq_fon_WereItSoEasy", name: "Were It So Easy", price: 10000 },
+        { id: "wq_fon_WhereHisLifeLies", name: "Where His Life Lies", price: 10000 },
+        { id: "wq_fon_Wish-FulfillingTreasureHunt", name: "Wish-Fulfilling Treasure Hunt", price: 10000 },
     ]
 };
 
-// Fungsi generik untuk mempopulasi daftar quest dari objek data
+
+
+// Fungsi untuk mempopulasi daftar quest
 function populateQuestsList(dataObject, idPrefix, listElementClass = 'selectable-sub-item', displayPriceInLabel = true) {
     for (const categoryKey in dataObject) {
         const targetElementId = `${idPrefix}-${categoryKey.toLowerCase().replace(/\s+/g, '-')}`;
         const questListULElement = document.getElementById(targetElementId);
 
         if (questListULElement) {
-            questListULElement.innerHTML = ''; // Kosongkan list sebelum mengisi
+            questListULElement.innerHTML = ''; 
             dataObject[categoryKey].forEach(quest => {
                 const listItem = document.createElement('li');
                 const label = document.createElement('label');
