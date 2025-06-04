@@ -26,7 +26,7 @@ function orderNow(buttonElement) {
       packageDetailsString = packageDetailsString.trimEnd(); 
     }
   }
-  const gameName = packageCard.dataset.game || "Honkai Star Rail";
+  const gameName = packageCard.dataset.game || "Genshin Impact";
   const messageText = `Halo Atmin, saya ingin memesan joki game ${gameName}: \n\n${packageDetailsString}\n\n Apakah masih tersedia? Terima kasih!`;
   const whatsappNumber = "6285150893694";// Nomor WhatsApp Anda
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleSearch() {
     const input = document.getElementById("searchInput").value.trim();
     if (input) {
-      window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/Honkai-Star-Rail/Semua-Pesanan-HSR.html?query=${encodeURIComponent(input)}`;
+      window.location.href = `https://thanets28.site/Support%20File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
     } else {
       alert("Masukan kata kunci pencarian.");
     }
@@ -197,7 +197,7 @@ function addSelectedItemsToCart(buttonElement) {
   const itemId = `${idPrefix}-${selectionIdentifier}`; 
   const itemName = `${basePackageName} (${selectedItemValues.join(", ")})`; 
   const formattedTotalPrice = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-  const gameName = packageCard.dataset.game || "Honkai Star Rail";
+  const gameName = packageCard.dataset.game || "Genshin Impact";
 
   const newItemForCart = {
     id: itemId,
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
           id: btn.dataset.id,
           name: btn.dataset.name,
           price: btn.dataset.price,
-          game: btn.dataset.game || "Honkai Star Rail",
+          game: btn.dataset.game || "Genshin Impact",
         };
         if (item.id && item.name && item.price) {
           addToCart(item); 
@@ -229,3 +229,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
