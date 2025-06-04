@@ -205,20 +205,107 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelector('[id^="world-quest-"]')) { // Pastikan HTML Anda memiliki ID seperti world-quest-mondstadt, dll.
          populateQuestsList(worldQuestsData, 'world-quest');
     }
-
-    // (Sisa kode DOMContentLoaded Anda dari file list.js sebelumnya jika ini file yang sama:
-    //  - Badge Promo
-    //  - Listener tombol .add-to-cart generik
-    //  - Listener Search Input (Enter & isi dari URL)
-    //  - Setup UI Auth Header (jika diaktifkan dan auth diimpor)
-    //  - Listener Navigasi Slide-in (jika ada)
-    // )
 });
 
-// === Jadikan Fungsi yang Dipanggil dari HTML Global (jika script ini type="module") ===
-// Jika fungsi addSelectedItemsToCart, orderNow, handleSearch ada di file ini
-// dan file ini dimuat sebagai module, Anda perlu menempelkannya ke window.
-// Contoh:
-// if (typeof addSelectedItemsToCart === 'function') window.addSelectedItemsToCart = addSelectedItemsToCart;
-// if (typeof orderNow === 'function') window.orderNow = orderNow;
-// if (typeof handleSearch === 'function') window.handleSearch = handleSearch;
+
+// JavaScript untuk Dropdown Kategori Quest Utama
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Dropdown untuk Kategori Quest Utama (misalnya, ARCHON QUEST, WORLD QUEST)
+    const mainCategoryToggles = document.querySelectorAll('.package-card > h2.quest-category-main-toggle');
+
+    mainCategoryToggles.forEach(toggle => {
+        toggle.addEventListener('click', function () {
+            const packageCard = this.closest('.package-card'); // Parent .package-card
+            const content = packageCard.querySelector('.quest-category-main-content');
+
+            if (!content) {
+                console.warn("Konten dropdown utama tidak ditemukan untuk toggle:", this);
+                return;
+            }
+
+            packageCard.classList.toggle('open'); // Untuk styling ikon pada h2
+
+            // Animasi slide
+            if (content.style.display === "none" || content.classList.contains('collapsing')) {
+                // Buka
+                content.classList.remove('collapsing');
+                content.style.display = 'block'; // Harus block dulu sebelum hitung height
+                const height = content.scrollHeight;
+                content.style.height = height + 'px';
+                content.classList.add('show');
+
+                // Hapus height style setelah animasi agar dinamis
+                setTimeout(() => {
+                    if (content.classList.contains('show')) {
+                       // content.style.height = ''; // Opsional: hapus untuk tinggi dinamis
+                    }
+                }, 350); // Sesuaikan durasi transisi CSS
+            } else {
+                // Tutup
+                content.style.height = content.scrollHeight + 'px';
+                requestAnimationFrame(() => {
+                    content.classList.add('collapsing');
+                    content.classList.remove('show');
+                    content.style.height = '0px';
+                });
+
+                setTimeout(() => {
+                    if (content.classList.contains('collapsing')) {
+                        content.style.display = 'none';
+                        content.classList.remove('collapsing');
+                        content.style.height = '';
+                    }
+                }, 350);
+            }
+        });
+    });
+
+    // JavaScript untuk Sub-Dropdown (Region Quest) - JIKA BELUM ADA ATAU PERLU DISATUKAN
+    // Jika Anda sudah memiliki JS untuk sub-dropdown, pastikan selectornya benar
+    // dan tidak konflik. Kode di bawah adalah contoh jika Anda ingin menyatukannya.
+    // Pastikan kelas 'quest-region-toggle' ada pada h3/h4 di dalam '.quest-category-main-content'
+    const subRegionToggles = document.querySelectorAll('.quest-category-main-content .quest-region-toggle');
+
+    subRegionToggles.forEach(subToggle => {
+        subToggle.addEventListener('click', function () {
+            const parentGroup = this.closest('.quest-region-group');
+            const questList = parentGroup.querySelector('.quest-list');
+
+            if (!questList) {
+                console.warn("Sub-list quest tidak ditemukan untuk sub-toggle:", this);
+                return;
+            }
+
+            parentGroup.classList.toggle('active'); // Untuk styling ikon pada h3/h4
+
+            // Animasi untuk sub-list
+            if (questList.style.display === "none" || questList.classList.contains('collapsing')) {
+                questList.classList.remove('collapsing');
+                questList.style.display = 'block';
+                const height = questList.scrollHeight;
+                questList.style.height = height + 'px';
+                questList.classList.add('show');
+                setTimeout(() => {
+                    if (questList.classList.contains('show')) {
+                       // questList.style.height = '';
+                    }
+                }, 350);
+            } else {
+                questList.style.height = questList.scrollHeight + 'px';
+                requestAnimationFrame(() => {
+                    questList.classList.add('collapsing');
+                    questList.classList.remove('show');
+                    questList.style.height = '0px';
+                });
+                setTimeout(() => {
+                    if (questList.classList.contains('collapsing')) {
+                        questList.style.display = 'none';
+                        questList.classList.remove('collapsing');
+                        questList.style.height = '';
+                    }
+                }, 350);
+            }
+        });
+    });
+});
