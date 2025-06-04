@@ -245,7 +245,7 @@ button[type="submit"]:disabled {
 /* Penyesuaian untuk layar kecil */
 @media (max-width: 768px) {
     .container.feedback-form-container {
-        padding: 30px 25px; margin: 30px auto; width: 92%; /* Disesuaikan agar tidak terlalu mepet header/nav */
+        padding: 30px 25px; margin: 30px auto; width: 80%; /* Disesuaikan agar tidak terlalu mepet header/nav */
         border-top-width: 4px;
     }
     .container.feedback-form-container h1 { font-size: 1.7em; }
