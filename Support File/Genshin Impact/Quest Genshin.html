@@ -50,8 +50,9 @@
     <!-- Archon Quest -->
     <div class="package-card" data-game="Genshin Impact" data-title="Archon Quest; Prologue Chapter: Mondstadt; Archon Quest Chapter 1: Liyue; Archon Quest Chapter 2: Inazuma; Archon Quest Chapter 3: Sumeru; Archon Quest Chapter 4: Fontaine; Archon Quest Chapter 5: Natlan; Interlude Chapter">
       <h2 class="quest-category-main-toggle">ARCHON QUEST <span class="main-toggle-icon">+</span></h2>
-      <div class="quest-category-main-content" style="display: none;"> <h3>Quest Prologue Chapter (Mondstads)</h3>
+      <div class="quest-category-main-content" style="display: none;">
 
+          <h3>Quest Prologue Chapter (Mondstads)</h3>
           <ul class="quest-list selectable-item-list" id="archon-quest-mondstadt">
             </ul>
           
@@ -88,11 +89,11 @@
     </div>
 
     <!-- World Quest -->
-    <div class="package-card" data-game="Genshin Impact" data-title="World Quest; Mondstadt World Quest">
+    <div class="package-card" data-game="Genshin Impact" data-title="World Quest; Mondstadt World Quest; Liyue World Quest; Inazuma World Quest; Sumeru World Quest; Fontaine World Quest; Natlan World Quest">
       <h2 class="quest-category-main-toggle">WORLD QUEST <span class="main-toggle-icon">+</span></h2>
-      <div class="quest-category-main-content" style="display: none;"> <h3>Mondstadt World Quests</h3>
+      <div class="quest-category-main-content" style="display: none;">
 
-    
+        <h3>Mondstadt World Quests</h3>
         <ul class="quest-list selectable-item-list" id="world-quest-mondstadt">
           </ul>
 
@@ -125,18 +126,37 @@
     </div>
 
     
+    <div class="package-card" data-game="Genshin Impact" data-title="Hangout Quest; Mondstadt Hangout Quest">
+      <h2 class="quest-category-main-toggle">HANGOUT QUEST <span class="main-toggle-icon">+</span></h2>
+      <div class="quest-category-main-content" style="display: none;"> 
+        
+        <h3>Mondstadt Character</h3>
+        <ul class="quest-list selectable-item-list" id="hangout-quest-mondstadt">
+            </ul>
+        
+        <h3>Liyue Character</h3>
+        <ul class="quest-list selectable-item-list" id="hangout-quest-liyue">
+            </ul>
 
-    <div class="package-card">
-      <h2>HANGOUT QUEST</h2>
-      <li>Mondstadt Character</li>
-      <li>Liyue Character</li>
-      <li>Inazuma Character</li>
-      <li>Sumeru Character</li>
-      <li>Fontaine Character</li>
-      <li>Natlan Character</li>
-      <br>
-      <div class="price">Rp 20.000/Character</div>
-      <button onclick="orderNow('Hangout Quest')">Pesan Sekarang</button>
+        <h3>Inazuma Character</h3>
+        <ul class="quest-list selectable-item-list" id="hangout-quest-inazuma">
+            </ul>
+
+        <h3>Sumeru Character</h3>
+        <ul class="quest-list selectable-item-list" id="hangout-quest-sumeru">
+            </ul>
+
+        <h3>Fontaine Character</h3>
+        <ul class="quest-list selectable-item-list" id="hangout-quest-fontaine">
+            </ul>
+
+      
+          <div class="price" data-price-per-act="20000">Rp 20.000/Character</div>
+          <div class="card-actions">
+            <button onclick="orderNow(this)">Pesan Sekarang</button>
+            <button class="btn" onclick="addSelectedItemsToCart(this)">+ Keranjang</button>
+          </div>
+      </div>
     </div>
 
     <!-- Character Quest -->

@@ -299,9 +299,125 @@ const worldQuestsData = {
         { id: "wq_fon_WereItSoEasy", name: "Were It So Easy", price: 10000 },
         { id: "wq_fon_WhereHisLifeLies", name: "Where His Life Lies", price: 10000 },
         { id: "wq_fon_Wish-FulfillingTreasureHunt", name: "Wish-Fulfilling Treasure Hunt", price: 10000 },
+    ],
+    Natlan: [
+        { id: "wq_nat_TreasuresandCollectors", name: "Treasures and Collectors", price: 10000 },
+        { id: "wq_nat_TaleofDreamsPluckedFromFire", name: "Tale of Dreams Plucked From Fire", price: 10000 },
+        { id: "wq_nat_TracerNoTracing", name: "Tracer No Tracing", price: 10000 },
+        { id: "wq_nat_SeekerNoFinding", name: "Seeker No Finding", price: 10000 },
+        { id: "wq_nat_ShadowsoftheMountains", name: "Shadows of the Mountains", price: 10000 },
+        { id: "wq_nat_BeneaththeCrystalRock", name: "Beneath the Crystal Rock", price: 10000 },
+        { id: "wq_nat_IntheFootstepsoftheChosenofDragons", name: "In the Footsteps of the Chosen of Dragons", price: 10000 },
+        { id: "wq_nat_FeelinglikeFishToday!", name: "Feeling like Fish Today!", price: 10000 },
+        { id: "wq_nat_SpecialFriends", name: "Special Friends", price: 10000 },
+        { id: "wq_nat_PeacetotheSlumbering", name: "Peace to the Slumbering", price: 10000 },
+        { id: "wq_nat_LiesandPromises", name: "Lies and Promises", price: 10000 },
+        { id: "wq_nat_LightsKameraAction!", name: "Lights, Kamera, Action!", price: 10000 },
+        { id: "wq_nat_LostintheWoods", name: "Lost in the Woods", price: 10000 },
+        { id: "wq_nat_ASaurianLoversOrdinaryDays", name: "A Saurian Lover's Ordinary Days", price: 10000 },
+        { id: "wq_nat_RiteoftheBold", name: "Rite of the Bold", price: 10000 },
+        { id: "wq_nat_RevelationsFromthePast", name: "Revelations From the Past", price: 10000 },
+        { id: "wq_nat_BetweenPledgeandForgettance", name: "Between Pledge and Forgettance", price: 10000 },
+        { id: "wq_nat_TepetlisaurusHide-and-Seek", name: "Tepetlisaurus Hide-and-Seek", price: 10000 },
+        { id: "wq_nat_WeightyWings", name: "Weighty Wings", price: 10000 },
+        { id: "wq_nat_GiftsandGiftsinReturn", name: "Gifts and Gifts in Return", price: 10000 },
+        { id: "wq_nat_WaitingForSeedstoSprout", name: "Waiting For Seeds to Sprout", price: 10000 },
+        { id: "wq_nat_StrideonRainbowsSplittheWaves", name: "Stride on Rainbows, Split the Waves", price: 10000 },
+        { id: "wq_nat_RipeforTrouble", name: "Ripe for Trouble", price: 10000 },
+        { id: "wq_nat_TotheNightWhatisthenights", name: "To the Night, What is the Night's", price: 10000 },
+        { id: "wq_nat_TowardRed-HotAdventure!", name: "Toward Red-Hot Adventure!", price: 10000 },
+        { id: "wq_nat_TheCaseoftheCraftingBench", name: "The Case of the Crafting Bench", price: 10000 },
+        { id: "wq_nat_ToWishUponaStar", name: "To Wish Upon a Star", price: 10000 },
+        { id: "wq_nat_TheRoadAhead", name: "The Road Ahead", price: 10000 },
+        { id: "wq_nat_ASaurianReturnstotheNest", name: "A Saurian Returns to the Nest", price: 10000 },
+        { id: "wq_nat_IncidentsAreEverSudden", name: "Incidents Are Ever Sudden", price: 10000 },
+        { id: "wq_nat_LostTravelerintheAshenRealm", name: "Lost Traveler in the Ashen Realm", price: 10000 },
+        { id: "wq_nat_VaultingtheWallofMorningMist", name: "Vaulting the Wall of Morning Mist", price: 10000 },
+        { id: "wq_nat_FromOneCasetoAnother", name: "From One Case to Another", price: 10000 },
+        { id: "wq_nat_TheMysteryofTecoloapanBeach", name: "The Mystery of Tecoloapan Beach", price: 10000 },
+        { id: "wq_nat_Sauro-VetsDilemma", name: "Sauro-Vet's Dilemma", price: 10000 },
+        { id: "wq_nat_BeattheClock24Hours", name: "Beat the Clock: 24 Hours", price: 10000 },
+        { id: "wq_nat_TheChosenOnesPromise", name: "The Chosen One's Promise", price: 10000 },
+        { id: "wq_nat_MomentofAwakening", name: "Moment of Awakening", price: 10000 },
+        { id: "wq_nat_TheOtherSideoftheSky", name: "The Other Side of the Sky", price: 10000 },
+        { id: "wq_nat_PalaceoftheVisionSerpent", name: "Palace of the Vision Serpent", price: 10000 },
+        { id: "wq_nat_AdventureintheLandofMists", name: "Adventure in the Land of Mists", price: 10000 },
+        { id: "wq_nat_TotheSky-Road", name: "To the Sky-Road", price: 10000 },
+        { id: "wq_nat_DancinintheMoonlight!", name: "Dancin’ in the Moonlight!", price: 10000 },
+        { id: "wq_nat_TheLoneIsleNamedNight", name: "The Lone Isle Named Night", price: 10000 },
+        { id: "wq_nat_AnAirRaceandanAlibi", name: "An Air Race and an Alibi", price: 10000 },
+        { id: "wq_nat_OpenYourHearttoMe", name: "Open Your Heart to Me", price: 10000 },
+        { id: "wq_nat_StonesCoconutsandDragonTraffickers", name: "Stones, Coconuts, and Dragon Traffickers", price: 10000 },
+        { id: "wq_nat_ComeFlyWithMe", name: "Come Fly With Me", price: 10000 },
+        { id: "wq_nat_ChargeForwardGogogo!", name: "Charge Forward! Go, go, go!", price: 10000 },
+        { id: "wq_nat_FarewellFinalSaurusCracker", name: "Farewell, Final Saurus Cracker", price: 10000 },
+        { id: "wq_nat_StandbyMe", name: "Stand by Me", price: 10000 },
+        { id: "wq_nat_FriendsofFireandWater", name: "Friends of Fire and Water", price: 10000 },
+        { id: "wq_nat_MoltingSeason", name: "Molting Season", price: 10000 },
+        { id: "wq_nat_TwistedExtension", name: "Twisted Extension", price: 10000 },
+        { id: "wq_nat_EveryAspectofaWarrior", name: "Every Aspect of a Warrior", price: 10000 },
+        { id: "wq_nat_Night-WindLetter", name: "Night-Wind Letter", price: 10000 },
+        { id: "wq_nat_VisionofAshenDesolation", name: "Vision of Ashen Desolation", price: 10000 },
+        { id: "wq_nat_TheSpiritofAhKulbatil", name: "The Spirit of Ah K'ulbatil", price: 10000 },
+        { id: "wq_nat_TheWayIntotheMountain", name: "The Way Into the Mountain", price: 10000 },
+        { id: "wq_nat_TheAttackofthePurpleTepetlisaurus?", name: "The Attack of the... Purple Tepetlisaurus?", price: 10000 },
+        { id: "wq_nat_PathtotheFlamingPeaks", name: "Path to the Flaming Peaks", price: 10000 },
+        { id: "wq_nat_NahuatzinsLeap", name: "Nahuatzin's Leap", price: 10000 },
+        { id: "wq_nat_ChronicaleroftheCrumblingCity", name: "Chronicler of the Crumbling City", price: 10000 },
+        { id: "wq_nat_TheFrozenRekindlingLand", name: "The Frozen, Rekindling Land", price: 10000 },
+        { id: "wq_nat_InvestigatorofAncientRuins", name: "Investigator of Ancient Ruins", price: 10000 },
+        { id: "wq_nat_ABriefHistoryofRocks", name: "A Brief History of Rocks", price: 10000 },
+        { id: "wq_nat_TheSealedSiteofSacrifice", name: "The Sealed Site of Sacrifice", price: 10000 },
+        { id: "wq_nat_TheForsakenSeaofWisdom", name: "The Forsaken Sea of Wisdom", price: 10000 },
+        { id: "wq_nat_IsIntensityReallytheKey?", name: "Is 'Intensity' Really the Key?", price: 10000 },
+        { id: "wq_nat_TheEndoftheRoad", name: "The End of the Road", price: 10000 },
+        { id: "wq_nat_AstheBurningSunSearsShadows", name: "As the Burning Sun Sears Shadows", price: 10000 },
+        { id: "wq_nat_AnOmenofAnnihilationandtheFinalEntreaty", name: "An Omen of Annihilation and the Final Entreaty", price: 10000 },
+        { id: "wq_nat_OnceTheSacredSeatofJudgement", name: "Once, the Sacred Seat of Judgement", price: 10000 },
+        { id: "wq_nat_WhereOnceThereWasaCalculationArray", name: "Where Once There Was a Calculation Array", price: 10000 },
+        { id: "wq_nat_InSearchofaHiddenHeart", name: "In Search of a Hidden Heart", price: 10000 },
+        { id: "wq_nat_WhereOnceThereWereArmsAplenty", name: "Where Once There Were Arms Aplenty", price: 10000 },
+        { id: "wq_nat_WhereOnceForceWasReversed", name: "Where Once Force Was Reversed", price: 10000 },
+        { id: "wq_nat_SingHoFortheGreatnessofFat!", name: "Sing, Ho, For the Greatness of Fat!", price: 10000 },
+        { id: "wq_nat_SomedayWeAllMustWalkAlone", name: "Someday, We All Must Walk Alone", price: 10000 },
     ]
 };
 
+// Data untuk hangout quests
+const hangoutQuestsData = {
+    Mondstadt: [
+        { id: "cq_ina_Barbara1", name: "Barbara - Act 1: Wellspring of Healing", price: 10000 },
+        { id: "cq_ina_Bennett1", name: "Bennett - Act 1: Fantastic Voyage", price: 10000 },
+        { id: "cq_ina_Diona1", name: "Diona - Act 1: The Cat and the Cocktail", price: 10000 },
+        { id: "cq_ina_Kaeya1", name: "Kaeya - Act 1: Shenanigans and Sweet Wine", price: 10000 },
+        { id: "cq_ina_Noelle1", name: "Noelle - Act 1: Chivalric Training", price: 10000 },
+        { id: "cq_ina_Noelle2", name: "Noelle - Act 2: Knightly Exam Prep", price: 10000 },
+    ],
+    Liyue: [
+        { id: "cq_ina_Beidou1", name: "Beidou - Act 1: When the Crux Shines Bright", price: 10000 },
+        { id: "cq_ina_Chongyun1", name: "Chongyun - Act 1: Signs of Evil", price: 10000 },
+        { id: "cq_ina_Ningguang1", name: "Ningguang - Act 1: The Jade Chamber's Returning Guest", price: 10000 },
+        { id: "cq_ina_Yun Jin1", name: "Yun Jin - Act 1: A Song That Knows Grace", price: 10000 },
+        
+    ],
+    Inazuma: [
+        { id: "cq_ina_Heizou1", name: "Heizou - Act 1: Trap 'Em by Storm", price: 10000 },
+        { id: "cq_ina_Sayu1", name: "Sayu - Act 1: Yoohoo Art: Seichou no Jutsu", price: 10000 },
+        { id: "cq_ina_Shinobu1", name: "Shinobu - Act 1: The Gang's Daily Deeds", price: 10000 },
+        { id: "cq_ina_Thoma1", name: "Thoma - Act 1: A Housekeeper's Daily Chores", price: 10000 },
+        { id: "cq_ina_Gorou1", name: "Gorou - Act 1: The Canine General's Special Operations", price: 10000 },
+    ],
+
+    Sumeru: [
+        { id: "cq_ina_Kaveh1", name: "Kaveh - Act 1: The Pendulum of Weal and Woe", price: 10000 },
+        { id: "cq_ina_Layla1", name: "Layla - Act 1: Ever Silent Stars", price: 10000 },
+        { id: "cq_ina_Faruzan1", name: "Faruzan - Act 1: A Confounding Conundrum", price: 10000 },
+    ],
+    Fontaine: [
+        { id: "cq_ina_Lynette1", name: "Lynette - Act 1: Checks and Cats", price: 10000 },
+    ],
+    
+}
 
 
 // Fungsi untuk mempopulasi daftar quest
@@ -349,14 +465,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelector('[id^="archon-quest-"]')) {
          populateQuestsList(archonQuestsData, 'archon-quest');
     }
-    if (document.querySelector('[id^="world-quest-"]')) { // Pastikan HTML Anda memiliki ID seperti world-quest-mondstadt, dll.
+    if (document.querySelector('[id^="world-quest-"]')) { 
          populateQuestsList(worldQuestsData, 'world-quest');
+    }
+    if (document.querySelector('[id^="world-quest-"]')) { 
+         populateQuestsList(hangoutQuestsData, 'hangout-quest');
     }
 });
 
 
 // JavaScript untuk Dropdown Kategori Quest Utama
-
 document.addEventListener('DOMContentLoaded', function () {
     // Dropdown untuk Kategori Quest Utama (misalnya, ARCHON QUEST, WORLD QUEST)
     const mainCategoryToggles = document.querySelectorAll('.package-card > h2.quest-category-main-toggle');
