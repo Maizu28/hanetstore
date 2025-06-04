@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 // Arahkan ke halaman utama atau dashboard setelah login
-                window.location.href = 'https://maizu28.github.io/pimonjokiid/Support%20File/PimonJoki.html'; // GANTI dengan halaman tujuan Anda
+                window.location.href = 'https://thanets28.site/Support%20File/PimonJoki.html'; // GANTI dengan halaman tujuan Anda
 
             } catch (error) {
                 console.error('Kesalahan login Firebase:', error);
