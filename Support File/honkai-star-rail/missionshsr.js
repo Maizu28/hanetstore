@@ -158,55 +158,63 @@ const trailblazeMissionsData = {
     ]
 };
 
-// Data untuk Archon Quest
-const archonQuestsData = {
-    Mondstadt: [
-        { id: "aq_mon_pro_act1", name: "Prologue - Act 1: The Outlander Who Caught the Wind", price: 15000 },
-        { id: "aq_mon_pro_act2", name: "Prologue - Act 2: For a Tomorrow Without Tears", price: 15000 },
-        { id: "aq_mon_pro_act3", name: "Prologue - Act 3: Song of the Dragon and Freedom", price: 15000 },
+// Data untuk Trailblaze Continuance
+const trailblazeContinuanceData = {
+    JariloVI: [
+        { id: "tc_jar1_FutureMarketPrologue", name: "Future Market (Prologue)", price: 5000 },
+        { id: "tc_jar1_FutureMarketI", name: "Future Market (I)", price: 5000 },
+        { id: "tc_jar1_FutureMarketII", name: "Future Market (II)", price: 5000 },
     ],
-    Liyue: [
-        { id: "aq_liy_cha1_act1", name: "Chapter I - Act 1: Of the Land Amidst Monoliths", price: 15000 },
-        { id: "aq_liy_cha1_act2", name: "Chapter I - Act 2: Farewell, Archaic Lord", price: 15000 },
-        { id: "aq_liy_cha1_act3", name: "Chapter I - Act 3: A New Star Approaches", price: 15000 },
-        { id: "aq_liy_cha1_act4", name: "Chapter 1 - Act 4: We Will be Reunited", price: 15000 }, 
+    Xianzhou1: [
+        { id: "tc_xia1_SojournersGhastlyReverie", name: "Sojourners' Ghastly Reverie", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringI", name: "Fyxestroll Gathering I", price: 5000 },
+        { id: "tc_xia1_Twins", name: "Twins", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringII", name: "Fyxestroll Gathering II", price: 5000 },
+        { id: "tc_xia1_Percipient", name: "Percipient", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringIII", name: "Fyxestroll Gathering III", price: 5000 },
+        { id: "tc_xia1_SwordEssence", name: "Sword Essence", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringIV", name: "Fyxestroll Gathering IV", price: 5000 },
+        { id: "tc_xia1_FoxianDream", name: "Foxian Dream", price: 5000 },
     ],
-    Inazuma: [
-        { id: "aq_ina_cha2_act0", name: "Chapter II - Prologue: Autumn Winds, Scarlet Leaves", price: 15000 },
-        { id: "aq_ina_cha2_act1", name: "Chapter II - Act 1: The Immovable God and the Eternal Euthymia", price: 15000 },
-        { id: "aq_ina_cha2_act2", name: "Chapter II - Act 2: Stillness, the Sublimation of Shadow", price: 15000 },
-        { id: "aq_ina_cha2_act3", name: "Chapter II - Act 3: Omnipresence Over Mortals", price: 15000 },
-        { id: "aq_ina_cha2_act4", name: "Chapter II - Act 4: Requiem of the Echoing Depths", price: 15000 }, 
+    HertaSpaceStation: [
+        { id: "tc_hss1_WhentheStarsofIngenuityShine", name: "When the Stars of Ingenuity Shine", price: 5000 },
+        { id: "tc_hss1_MundaneTroubles", name: "Mundane Troubles", price: 5000 },
     ],
-    Sumeru: [
-        { id: "aq_sum_cha3_act1", name: "Chapter III - Act 1: Through Mists of Smoke and Forests Dark", price: 15000 },
-        { id: "aq_sum_cha3_act2", name: "Chapter III - Act 2: The Morn a Thousand Roses Brings", price: 15000 },
-        { id: "aq_sum_cha3_act3", name: "Chapter III - Act 3: Dreams, Emptiness, Deception", price: 15000 },
-        { id: "aq_sum_cha3_act4", name: "Chapter III - Act 4: King Deshret and the Three Magi", price: 15000 },
-        { id: "aq_sum_cha3_act5", name: "Chapter III - Act 5: Akasha Pulses, the Kalpa Flame Rises", price: 15000 },
-        { id: "aq_sum_cha3_act6", name: "Chapter III - Act 6: Caribert", price: 15000 }, 
+    Xianzhou2: [
+        { id: "tc_xia2_HomecomingWardance", name: "Homecoming Wardance", price: 5000 },
+        { id: "tc_xia2_EmissaryMystique", name: "Emissary Mystique", price: 5000 },
+        { id: "tc_xia2_FromGrowlstoGrace", name: "From Growls to Grace", price: 5000 },
+        { id: "tc_xia2_TheQuietingofQuillons", name: "The Quieting of Quillons", price: 5000 },
+        { id: "tc_xia2_ByWordsofMany", name: "By Words of Many", price: 5000 },
+        { id: "tc_xia2_MarchtoMasteryAStarisBorn", name: "March to Mastery: A Star is Born", price: 5000 },
+        { id: "tc_xia2_AStartlementofFurandFeathers", name: "A Startlement of Fur and Feathers", price: 5000 },
+        { id: "tc_xia2_InquisitiontoRectitude", name: "Inquisition to Rectitude", price: 5000 },
+        { id: "tc_xia2_RoguesontheRun1", name: "Rogues on the Run", price: 5000 },
     ],
-    Fontaine: [
-        { id: "aq_fon_cha4_act1", name: "Chapter IV - Act 1: Prelude of Blancheur and Noirceur", price: 15000 },
-        { id: "aq_fon_cha4_act2", name: "Chapter IV - Act 2: As Light Rain Falls Without Reason", price: 15000 },
-        { id: "aq_fon_cha4_act3", name: "Chapter IV - Act 3: To the Stars Shining in the Depths", price: 15000 },
-        { id: "aq_fon_cha4_act4", name: "Chapter IV - Act 4: Cataclysm's Quickening", price: 15000 },
-        { id: "aq_fon_cha4_act5", name: "Chapter IV - Act 5: Masquerade of the Guilty", price: 15000 },
-        { id: "aq_fon_cha4_act6", name: "Chapter IV - Act 6: Bedtime", price: 15000 },
+    Xianzhou3: [
+        { id: "tc_xia3_AtDawnToWar", name: "At Dawn, To War", price: 5000 },
+        { id: "tc_xia3_AWebofPastsRewoven", name: "A Web of Pasts Rewoven", price: 5000 },
+        { id: "tc_xia3_AloneinPeril", name: "Alone in Peril", price: 5000 },
+        { id: "tc_xia3_TheRedWarcry", name: "The Red Warcry", price: 5000 },
+        { id: "tc_xia3_NoviceinZenithalDuel", name: "Novice in Zenithal Duel", price: 5000 },
+        { id: "tc_xia3_ASwarmofCarnage", name: "A Swarm of Carnage", price: 5000 },
+        { id: "tc_xia3_SweepbyMerlinsClaw", name: "Sweep by Merlin's Claw", price: 5000 },
+        { id: "tc_xia3_LastStandofaLoneWolf", name: "Last Stand of a Lone Wolf", price: 5000 },
+        { id: "tc_xia3_IShallTurntheTide", name: "I Shall Turn the Tide", price: 5000 },
+        { id: "tc_xia3_ComradeinArms", name: "Comrade in Arms", price: 5000 },
+        { id: "tc_xia3_UndertheSpell", name: "Under the Spell", price: 5000 },
+        { id: "tc_xia3_EbbofPastSins", name: "Ebb of Past Sins", price: 5000 },
+        { id: "tc_xia3_AFugueFromBeyond", name: "A Fugue From Beyond", price: 5000 },
     ],
-    Natlan: [ 
-        { id: "aq_nat_cha5_act1", name: "Chapter V - Act 1: Flowers Resplendent on the Sun-Scorched Sojourn", price: 15000 },
-        { id: "aq_nat_cha5_act2", name: "Chapter V - Act 2: Black Stone Under a White Stone", price: 15000 },
-        { id: "aq_nat_cha5_act3", name: "Chapter V - Act 3: Beyond the Smoke and Mirrors", price: 15000 },
-        { id: "aq_nat_cha5_act4", name: "Chapter V - Act 4: The Rainbow Destined to Burn", price: 15000 }, // Tidak ada resmi
-        { id: "aq_nat_cha5_int1", name: "Chapter V - Interlude: All Fires Fuel the Flame", price: 15000 },
-        { id: "aq_nat_cha5_act5", name: "Chapter V - Act 5: Incandescent Ode of Resurrection", price: 15000 },
-     ],
-    InterludeChapter: [ // Key diubah agar lebih mudah di-parse
-        { id: "aq_int_liyue_crane", name: "Interlude Chapter - Act 1: The Crane Returns on the Wind (Liyue)", price: 15000 },
-        { id: "aq_int_chasm_perilous", name: "Interlude Chapter - Act 2: Perilous Trail (The Chasm)", price: 15000 },
-        { id: "aq_int_sumeru_inversion", name: "Interlude Chapter - Act 3: Inversion of Genesis (Sumeru)", price: 15000 },
-        { id: "aq_int_mondstadt_windblume", name: "Interlude Chapter - Act 4 Paralogism (Mondstadt)", price: 15000 }, 
+    Penacony: [
+        { id: "tc_pen1_AnAndalusianMonkey", name: "An Andalusian Monkey", price: 5000 },
+        { id: "tc_pen1_The400Bananas", name: "The 400 Bananas", price: 5000 },
+        { id: "tc_pen1_ReservoirMonkeys", name: "Reservoir Monkeys", price: 5000 },
+        { id: "tc_pen1_AClockworkBanana", name: "A Clockwork Banana", price: 5000 },
+        { id: "tc_pen1_DeadBananaSociety", name: "Dead Banana Society", price: 5000 },
+        { id: "tc_pen1_TheMenWhoTreadontheMonkeysTail", name: "The Men Who Tread on the Monkey's Tail", price: 5000 },
+        { id: "tc_pen1_AsdanianRhapsody", name: "Asdanian Rhapsody", price: 5000 },
+        { id: "tc_pen1_BattlesWithoutNinjaandHumanity", name: "Battles Without Ninja and Humanity", price: 5000 },
     ],
 };
 
