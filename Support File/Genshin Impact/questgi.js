@@ -88,7 +88,7 @@ const archonQuestsData = {
         { id: "aq_liy_cha1_act1", name: "Chapter I - Act 1: Of the Land Amidst Monoliths", price: 15000 },
         { id: "aq_liy_cha1_act2", name: "Chapter I - Act 2: Farewell, Archaic Lord", price: 15000 },
         { id: "aq_liy_cha1_act3", name: "Chapter I - Act 3: A New Star Approaches", price: 15000 },
-        { id: "aq_liy_cha1_act4", name: "Chapter 1 - Act 4: We Will be Reunited", price: 15000 }, 
+        { id: "aq_liy_cha1_act4", name: "Chapter I - Act 4: We Will be Reunited", price: 15000 }, 
     ],
     Inazuma: [
         { id: "aq_ina_cha2_act0", name: "Chapter II - Prologue: Autumn Winds, Scarlet Leaves", price: 15000 },

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === URL Konfigurasi ===
     // PENTING: PASTIKAN URL DI BAWAH INI DIISI DENGAN URL ANDA YANG SEBENARNYA DAN VALID.
-    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1379482846934073374/s_M8tKLA0wWoBhQ0_qSsxeYZV0-xe-eicVgxQjyOhkjgIsEC9GBt9u2HUbA6IP4DEeYy";
+    const DISCORD_WEBHOOK_URL = "URL DISCORD";
     const APPS_SCRIPT_FEEDBACK_URL = "https://script.google.com/macros/s/AKfycbzG5V-88uMIvveOT39f171bV9V_5xXWZKx7w7dOHfEhPxKo9qshDvJdVXM5zFYJpQ7iNg/exec";
 
     // Logika Rating Bintang

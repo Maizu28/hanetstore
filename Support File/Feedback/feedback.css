@@ -185,7 +185,7 @@ nav a:hover {
 
 button[type="submit"] {
     background: linear-gradient(95deg, var(--feedback-accent-color) 0%, var(--feedback-accent-darker) 100%);
-    color: var(--feedback-text-light); /* Menggunakan variabel dari feedback */
+    color: #e6ffed; /* Menggunakan variabel dari feedback */
     padding: 16px 28px;
     border: none;
     border-radius: 10px;
