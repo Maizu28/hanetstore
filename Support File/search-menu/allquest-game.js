@@ -1,5 +1,6 @@
 // file: questgi.js
 
+//Genshin Impact
 // Data untuk Character Quest
 const characterQuestsData = {
     Mondstadt: [
@@ -419,6 +420,225 @@ const hangoutQuestsData = {
     
 }
 
+//Honkai Star Rail
+// Data untuk Trailblaze Missions
+const trailblazeMissionsData = {
+    Prologue: [
+        { id: "tm_pro_ChaosIntheDeep", name: "Chaos In the Deep", price: 5000 },
+        { id: "tm_pro_EyeoftheStorm", name: "Eye of the Storm", price: 5000 },
+        { id: "tm_pro_AMomentofPeace", name: "A Moment of Peace", price: 5000 },
+        { id: "tm_pro_LingeringShadows", name: "Lingering Shadows", price: 5000 },
+        { id: "tm_pro_TheVoyageContinues", name: "The Voyage Continues", price: 500 },
+    ],
+    JariloVI1: [
+        { id: "tm_jv1_AGrandCoolAdventure", name: "A Grand Cool Adventure", price: 5000 },
+        { id: "tm_jv1_TravelersonaWinterNight", name: "Travelers on a Winter Night", price: 5000 },
+        { id: "tm_jv1_EverwinterNight", name: "Everwinter Night", price: 5000 },
+        { id: "tm_jv1_YouCanRunButYouCantHide", name: "You Can Run, But You Can't Hide", price: 5000 },
+        { id: "tm_jv1_Hide-and-Seek", name: "Hide-and-Seek", price: 5000 },
+        { id: "tm_jv1_TheEighthandFinalRule", name: "The Eighth and Final Rule", price: 5000 },
+        { id: "tm_jv1_LongWaitfortheBladesEdge", name: "Long Wait for the Blade's Edge", price: 5000 },
+        { id: "tm_jv1_OnesFallenIntotheAbyss", name: "Ones Fallen Into the Abyss", price: 5000 },
+        { id: "tm_jv1_ASunsetRendezvous", name: "A Sunset Rendezvous", price: 5000 },
+        { id: "tm_jv1_ThePastWillReturnasanAvalanche", name: "The Past Will Return as an Avalanche", price: 5000 },
+        { id: "tm_jv1_LyinginRust", name: "Lying in Rust", price: 5000 },
+        { id: "tm_jv1_ToRotorToBurn", name: "To Rot or to Burn", price: 5000 },
+        { id: "tm_jv1_NotGoodWithFarewells", name: "Not Good With Farewells", price: 5000 },
+    ],
+    JariloVI2: [
+        { id: "tm_jv2_CleansetheDarknessOutside", name: "Cleanse the Darkness Outside", price: 5000 },
+        { id: "tm_jv2_UnattainableIdol", name: "Unattainable Idol", price: 5000 },
+        { id: "tm_jv2_YoungGuard", name: "Young Guard", price: 5000 },
+        { id: "tm_jv2_SoldiersStaySilent", name: "Soldiers Stay Silent", price: 5000 },
+        { id: "tm_jv2_TheStarsAreColdToys", name: "The Stars Are Cold Toys", price: 5000 },
+        { id: "tm_jv2_RoadstothePastHaveLongBeenClosed", name: "Roads to the Past Have Long Been Closed", price: 5000 },
+        { id: "tm_jv2_IntheDangerousMuddySwamp", name: "In the Dangerous Muddy Swamp", price: 5000 },
+        { id: "tm_jv2_NoTimeforMeMyFriend", name: "No Time for Me, My Friend", price: 5000 },
+        { id: "tm_jv2_SilentGalaxy", name: "Silent Galaxy", price: 5000 },
+    ],
+    XianzhouLoufu1: [
+        { id: "tm_xl1_AnInvitationWithoutProffer", name: "An Invitation Without Proffer", price: 5000 },
+        { id: "tm_xl1_AmidsttheMara-Struck", name: "Amidst the Mara-Struck", price: 5000 },
+        { id: "tm_xl1_DevisingStratagems", name: "Devising Stratagems", price: 5000 },
+        { id: "tm_xl1_TheHoundChasestheFox", name: "The Hound Chases the Fox", price: 5000 },
+        { id: "tm_xl1_StarsSpunPrescienceSprung", name: "Stars Spun, Prescience Sprung", price: 5000 },
+        { id: "tm_xl1_VenomBrewsImmortalityLooms", name: "Venom Brews, Immortality Looms", price: 5000 },
+        { id: "tm_xl1_NewFriendsBringNewJoy", name: "New Friends Bring New Joy", price: 5000 },
+        { id: "tm_xl1_OmniscientInquiryofArcana", name: "Omniscient Inquiry of Arcana", price: 5000 },
+        { id: "tm_xl1_WoodSproutsAnewFateTiltsAskew", name: "Wood Sprouts Anew, Fate Tilts Askew", price: 5000 },
+        { id: "tm_xl1_HummingAntlersEntwinedHorns", name: "Humming Antlers, Entwined Horns", price: 5000 },
+        { id: "tm_xl1_SinnersMisledCredenceFalsified", name: "Sinners Misled, Credence Falsified", price: 5000 },
+    ],
+    XianzhouLoufu2: [
+        { id: "tm_xl2_DesolateDepthsofDespair", name: "Desolate Depths of Despair", price: 5000 },
+        { id: "tm_xl2_ADragonGallantItsOceanDistant", name: "A Dragon Gallant, Its Ocean Distant", price: 5000 },
+    ],
+    XianzhouLoufu3: [
+        { id: "tm_xl3_ObsequiesPerformedALongRoadAhead", name: "Obsequies Performed, A Long Road Ahead", price: 5000 },
+    ],
+    Penacony1: [
+        { id: "tm_pen1_LongDaysJourneyIntoNight", name: "Long Day's Journey Into Night", price: 5000 },
+        { id: "tm_pen1_TheYouthsWhoChaseDream", name: "The Youths Who Chase Dream", price: 5000 },
+        { id: "tm_pen1_SleeplessNight", name: "Sleepless Night", price: 5000 },
+        { id: "tm_pen1_TalesfromtheGoldenAge", name: "Tales from the Golden Age", price: 5000 },
+        { id: "tm_pen1_GoodOmenMyFriend", name: "Good Omen, My Friend", price: 5000 },
+        { id: "tm_pen1_LullabyoftheNorthWind", name: "Lullaby of the North Wind", price: 5000 },
+        { id: "tm_pen1_GentlenesstheNameofNocturne", name: "Gentleness, the Name of Nocturne", price: 5000 },
+        { id: "tm_pen1_ThroughAGlassDarkly", name: "Through A Glass Darkly", price: 5000 },
+        { id: "tm_pen1_ShouldOneAwakenatMidnight", name: "Should One Awaken at Midnight", price: 5000 },
+        { id: "tm_pen1_Whodunit", name: "Whodunit", price: 5000 },
+    ],
+    Penacony2: [
+        { id: "tm_pen2_TheDevilinVelvet", name: "The Devil in Velvet", price: 5000 },
+        { id: "tm_pen2_LostGeneration", name: "Lost Generation", price: 5000 },
+        { id: "tm_pen2_DoubleIndemnity", name: "Double Indemnity", price: 5000 },
+        { id: "tm_pen2_WhentheSacredGinmillCloses", name: "When the Sacred Ginmill Closes", price: 5000 },
+        { id: "tm_pen2_HeavenisaPlaceonEarth", name: "Heaven is a Place on Earth", price: 5000 },
+        { id: "tm_pen2_WhyDotheHeathenRage", name: "Why Do the Heathen Rage", price: 5000 },
+        { id: "tm_pen2_TheTell-TaleHeart", name: "The Tell-Tale Heart", price: 5000 },
+        { id: "tm_pen2_AlltheSadTales", name: "All the Sad Tales", price: 5000 },
+        { id: "tm_pen2_AWalkAmongtheTombstones", name: "A Walk Among the Tombstones", price: 5000 },
+    ],
+    Penacony3: [
+        { id: "tm_pen3_TheGreatTrainRobbery", name: "The Great Train Robbery", price: 5000 },
+        { id: "tm_pen3_TheFoolAlwaysRingsTwice", name: "The Fool Always Rings Twice", price: 5000 },
+        { id: "tm_pen3_SmallTownGrotesque", name: "Small Town Grotesque", price: 5000 },
+        { id: "tm_pen3_ThePublicEnemy", name: "The Public Enemy", price: 5000 },
+        { id: "tm_pen3_Bullet&Brain", name: "Bullet & Brain", price: 5000 },
+        { id: "tm_pen3_TheOnlyPathtoTomorrow", name: "The Only Path to Tomorrow", price: 5000 },
+        { id: "tm_pen3_Seabiscuit", name: "Seabiscuit", price: 5000 },
+        { id: "tm_pen3_BeautyandDestruction", name: "Beauty and Destruction", price: 5000 },
+        { id: "tm_pen3_ThenWaketoWeep", name: "Then Wake to Weep", price: 5000 },
+        { id: "tm_pen3_EverythingthatRisesMustConverge", name: "Everything that Rises Must Converge", price: 5000 },
+        { id: "tm_pen3_TheSunAlsoRises", name: "The Sun Also Rises", price: 5000 },
+        { id: "tm_pen3_AndoftheEightDay", name: "And of the Eight Day", price: 5000 },
+    ],
+    Penacony4: [
+        { id: "tm_pen4_Unconquered", name: "Unconquered", price: 5000 },
+        { id: "tm_pen4_AllAboutEve", name: "All About Eve", price: 5000 },
+        { id: "tm_pen4_RiversRunWithoutReturn", name: "Rivers Run Without Return", price: 5000 },
+        { id: "tm_pen4_LifeisButaDriftingDream", name: "Life is But a Drifting Dream", price: 5000 },
+        { id: "tm_pen4_SoldiersPay", name: "Soldier’s Pay", price: 5000 },
+        { id: "tm_pen4_AThousandBellsatDawn", name: "A Thousand Bells at Dawn", price: 5000 },
+        { id: "tm_pen4_StrangerinaStrangeLand", name: "Stranger in a Strange Land", price: 5000 },
+    ],
+    Penacony5: [
+        { id: "tm_pen5_AllWhoWakes", name: "All Who Wakes", price: 5000 },
+        { id: "tm_pen5_TheDepartedWillReturnFirst", name: "The Departed Will Return First", price: 5000 },
+        { id: "tm_pen5_AMisfortuneofSurvivors", name: "A Misfortune of Survivors", price: 5000 },
+        { id: "tm_pen5_RealityisButDreamsEcho", name: "Reality is But Dream's Echo", price: 5000 },
+        { id: "tm_pen5_SoundofFarewellHumsReunion", name: "Sound of Farewell Hums Reunion", price: 5000 },
+        { id: "tm_pen5_BowOutAtMomentofDebut", name: "Bow Out At Moment of Debut", price: 5000 },
+    ],
+    Amphoreus1: [
+        { id: "tm_amp1_SilverChariotAwaytothatBlackenedLand", name: "Silver Chariot, Away to that Blackened Land", price: 5000 },
+        { id: "tm_amp1_DistantTravelersListentothisWorldsPrayer", name: "Distant Travelers, Listen to this World's Prayer", price: 5000 },
+        { id: "tm_amp1_StarsAccompanyMySlumber", name: "Night Stars, Accompany My Slumber", price: 5000 },
+        { id: "tm_amp1_WastelandHarkBackGloryofOld", name: "Wasteland, Hark Back Glory of Old", price: 5000 },
+        { id: "tm_amp1_NightVeilShroudtheSilentPast", name: "Night Veil, Shroud the Silent Past", price: 5000 },
+        { id: "tm_amp1_KremnosCleanseThyRustedBloodPartI", name: "Kremnos, Cleanse Thy Rusted Blood Part I", price: 5000 },
+        { id: "tm_amp1_ACleansingofGold", name: "A Cleansing of Gold", price: 5000 },
+        { id: "tm_amp1_KremnosCleanseThyRustedBloodPartII", name: "Kremnos, Cleanse Thy Rusted Blood Part II", price: 5000 },
+        { id: "tm_amp1_AWitchsScientificRepose", name: "A Witch's Scientific Repose", price: 5000 },
+        { id: "tm_amp1_HeroBearThyCoreflame", name: "Hero, Bear Thy Coreflame", price: 5000 },
+    ],
+    Amphoreus2: [
+        { id: "tm_amp2_StrifeDispeltheAccompanyingFears", name: "Strife, Dispel the Accompanying Fears", price: 5000 },
+        { id: "tm_amp2_GloryTurnFromImbibedPrison", name: "Glory, Turn From Imbibed Prison", price: 5000 },
+        { id: "tm_amp2_GroveWhereforeAretheWiseSilent", name: "Grove, Wherefore Are the Wise Silent", price: 5000 },
+        { id: "tm_amp2_LamentationsBringNotEmptyTears", name: "Lamentations, Bring Not Empty Tears", price: 5000 },
+        { id: "tm_amp2_MemoriesVeiledinBlazingMist", name: "Memories, Veiled in Blazing Mist", price: 5000 },
+        { id: "tm_amp2_PassagesKnockingEchoesinDreams", name: "Passages, Knocking Echoes in Dreams", price: 5000 },
+        { id: "tm_amp2_NemesisScorchedbyGoldenBlood", name: "Nemesis Scorched by Golden Blood", price: 5000 },
+        { id: "tm_amp2_ThroneEndThoseLongYearsForlorn", name: "Throne, End Those Long Years Forlorn", price: 5000 },
+        { id: "tm_amp2_PassageRevealthePastOnceMore", name: "Passage, Reveal the Past Once More", price: 5000 },
+    ],
+    Amphoreus3: [
+        { id: "tm_amp3_SpindleLaboringtoweavetheTapestryofTime", name: "Spindle, Laboring to Weave the Tapestry of Time", price: 5000 },
+        { id: "tm_amp3_OliveCasttotheConferenceChair", name: "Olive, Cast to the Conference Chair", price: 5000 },
+        { id: "tm_amp3_PapyrusReadtheBlasphemersWill", name: "Papyrus, Read the Blasphemer's Will", price: 5000 },
+        { id: "tm_amp3_DebateDiscourseWithoutSpears", name: "Debate, Discourse Without Spears", price: 5000 },
+        { id: "tm_amp3_BrokenDreamEnlightenFromtheBeyond", name: "Broken Dream, Enlighten From the Beyond", price: 5000 },
+        { id: "tm_amp3_PathstriderSetSailUpontheRiverofSouls", name: "Pathstrider, Set Sail Upon the River of Souls", price: 5000 },
+        { id: "tm_amp3_FerrymanFerryMeAcrosstheStreamofSouls", name: "Ferryman, Ferry Me Across the Stream of Souls", price: 5000 },
+        { id: "tm_amp3_CitizenListentoThoseRoaringTides", name: "Citizen, Listen to Those Roaring Tides", price: 5000 },
+        { id: "tm_amp3_HomewardJourneyNeverLookBackUponthePathWhenceYouCame", name: "Homeward Journey, Never Look Back Upon the Path Whence You Came", price: 5000 },
+        { id: "tm_amp3_ScholarLetUsMeetAgainBeforetheGatesofTruth", name: "Scholar, Let Us Meet Again Before the Gates of Truth", price: 5000 },
+        { id: "tm_amp3_WitchsMirroredReversal", name: "Witch's Mirrored Reversal", price: 5000 },
+    ],
+    Amphoreus4: [
+        { id: "tm_amp4_StarsCleansetheTroubledThoughts", name: "Stars, Cleanse the Troubled Thoughts", price: 5000 },
+        { id: "tm_amp4_ScrollsTurntheBladesGaze", name: "Scrolls, Turn the Blade's Gaze", price: 5000 },
+        { id: "tm_amp4_ChestBeartheBygoneDust", name: "Chest, Bear the Bygone Dust", price: 5000 },
+        { id: "tm_amp4_GoldenThreadRelaytheSaviorsFate", name: "Golden Thread, Relay the Savior's Fate", price: 5000 },
+        { id: "tm_amp4_GroveJudgethePastandPresent", name: "Grove, Judge the Past and Present", price: 5000 },
+        { id: "tm_amp4_PoetSpeakoftheSkyThroughMePartI", name: "Poet, Speak of the Sky Through Me Part I", price: 5000 },
+        { id: "tm_amp4_PoetSpeakoftheSkyThroughMePartII", name: "Poet, Speak of the Sky Through Me Part II", price: 5000 },
+        { id: "tm_amp4_SlateWhyNeglectThatLightsShade", name: "Slate, Why Neglect That Light's Shade", price: 5000 },
+        { id: "tm_amp4_DawnShineattheWorldsEnd", name: "Dawn, Shine at the World's End", price: 5000 },
+    ]
+};
+
+// Data untuk Trailblaze Continuance
+const trailblazeContinuanceData = {
+    JariloVI1: [
+        { id: "tc_jar1_FutureMarketPrologue", name: "Future Market (Prologue)", price: 5000 },
+        { id: "tc_jar1_FutureMarketI", name: "Future Market (I)", price: 5000 },
+        { id: "tc_jar1_FutureMarketII", name: "Future Market (II)", price: 5000 },
+    ],
+    Xianzhou1: [
+        { id: "tc_xia1_SojournersGhastlyReverie", name: "Sojourners' Ghastly Reverie", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringI", name: "Fyxestroll Gathering I", price: 5000 },
+        { id: "tc_xia1_Twins", name: "Twins", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringII", name: "Fyxestroll Gathering II", price: 5000 },
+        { id: "tc_xia1_Percipient", name: "Percipient", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringIII", name: "Fyxestroll Gathering III", price: 5000 },
+        { id: "tc_xia1_SwordEssence", name: "Sword Essence", price: 5000 },
+        { id: "tc_xia1_FyxestrollGatheringIV", name: "Fyxestroll Gathering IV", price: 5000 },
+        { id: "tc_xia1_FoxianDream", name: "Foxian Dream", price: 5000 },
+    ],
+    HertaSpace1: [
+        { id: "tc_her1_WhentheStarsofIngenuityShine", name: "When the Stars of Ingenuity Shine", price: 5000 },
+        { id: "tc_her1_MundaneTroubles", name: "Mundane Troubles", price: 5000 },
+    ],
+    Xianzhou2: [
+        { id: "tc_xia2_HomecomingWardance", name: "Homecoming Wardance", price: 5000 },
+        { id: "tc_xia2_EmissaryMystique", name: "Emissary Mystique", price: 5000 },
+        { id: "tc_xia2_FromGrowlstoGrace", name: "From Growls to Grace", price: 5000 },
+        { id: "tc_xia2_TheQuietingofQuillons", name: "The Quieting of Quillons", price: 5000 },
+        { id: "tc_xia2_ByWordsofMany", name: "By Words of Many", price: 5000 },
+        { id: "tc_xia2_MarchtoMasteryAStarisBorn", name: "March to Mastery: A Star is Born", price: 5000 },
+        { id: "tc_xia2_AStartlementofFurandFeathers", name: "A Startlement of Fur and Feathers", price: 5000 },
+        { id: "tc_xia2_InquisitiontoRectitude", name: "Inquisition to Rectitude", price: 5000 },
+        { id: "tc_xia2_RoguesontheRun", name: "Rogues on the Run", price: 5000 },
+    ],
+    Xianzhou3: [
+        { id: "tc_xia3_AtDawnToWar", name: "At Dawn, To War", price: 5000 },
+        { id: "tc_xia3_AWebofPastsRewoven", name: "A Web of Pasts Rewoven", price: 5000 },
+        { id: "tc_xia3_AloneinPeril", name: "Alone in Peril", price: 5000 },
+        { id: "tc_xia3_TheRedWarcry", name: "The Red Warcry", price: 5000 },
+        { id: "tc_xia3_NoviceinZenithalDuel", name: "Novice in Zenithal Duel", price: 5000 },
+        { id: "tc_xia3_ASwarmofCarnage", name: "A Swarm of Carnage", price: 5000 },
+        { id: "tc_xia3_SweepbyMerlinsClaw", name: "Sweep by Merlin's Claw", price: 5000 },
+        { id: "tc_xia3_LastStandofaLoneWolf", name: "Last Stand of a Lone Wolf", price: 5000 },
+        { id: "tc_xia3_IShallTurntheTide", name: "I Shall Turn the Tide", price: 5000 },
+        { id: "tc_xia3_ComradeinArms", name: "Comrade in Arms", price: 5000 },
+        { id: "tc_xia3_UndertheSpell", name: "Under the Spell", price: 5000 },
+        { id: "tc_xia3_EbbofPastSins", name: "Ebb of Past Sins", price: 5000 },
+        { id: "tc_xia3_AFugueFromBeyond", name: "A Fugue From Beyond", price: 5000 },
+    ],
+    Penacony1: [
+        { id: "tc_pen1_AnAndalusianMonkey", name: "An Andalusian Monkey", price: 5000 },
+        { id: "tc_pen1_The400Bananas", name: "The 400 Bananas", price: 5000 },
+        { id: "tc_pen1_ReservoirMonkeys", name: "Reservoir Monkeys", price: 5000 },
+        { id: "tc_pen1_AClockworkBanana", name: "A Clockwork Banana", price: 5000 },
+        { id: "tc_pen1_DeadBananaSociety", name: "Dead Banana Society", price: 5000 },
+        { id: "tc_pen1_TheMenWhoTreadontheMonkeysTail", name: "The Men Who Tread on the Monkey's Tail", price: 5000 },
+        { id: "tc_pen1_AsdanianRhapsody", name: "Asdanian Rhapsody", price: 5000 },
+        { id: "tc_pen1_BattlesWithoutNinjaandHumanity", name: "Battles Without Ninja and Humanity", price: 5000 },
+    ],
+};
+
 
 // Fungsi untuk mempopulasi daftar quest
 function populateQuestsList(dataObject, idPrefix, listElementClass = 'selectable-sub-item', displayPriceInLabel = true) {
@@ -459,6 +679,8 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM siap, menjalankan setup dari questgi.js...");
 
     // Panggil fungsi untuk mempopulasi quest jika elemen targetnya ada di halaman ini
+
+    //Genshin Impact
     if (document.querySelector('[id^="character-quest-"]')) {
          populateQuestsList(characterQuestsData, 'character-quest');
     }
@@ -471,6 +693,15 @@ document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelector('[id^="world-quest-"]')) { 
          populateQuestsList(hangoutQuestsData, 'hangout-quest');
     }
+
+    //Honkai: Star Rail
+    if (document.querySelector('[id^="trailblaze-missions-"]')) {
+         populateQuestsList(trailblazeMissionsData, 'trailblaze-missions');
+    }
+    if (document.querySelector('[id^="trailblaze-continuance-"]')) {
+         populateQuestsList(trailblazeContinuanceData, 'trailblaze-continuance');
+    }
+    
 });
 
 
