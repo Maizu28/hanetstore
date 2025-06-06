@@ -330,6 +330,116 @@ background-color: #0056b3;
     width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1);
 }
 
+/* CSS untuk Dropdown Kategori Quest Utama */
+.package-card {
+    margin-bottom: 20px; /* Jarak antar package-card */
+    /* Gaya .package-card yang sudah ada bisa tetap di sini */
+}
+
+.package-card > h2.quest-category-main-toggle {
+    cursor: pointer;
+    padding: 15px 20px;
+    background-color: #007bff; /* Warna primer (sesuaikan dengan tema Anda) */
+    color: white;
+    margin: -20px -20px 0 -20px; /* Menyesuaikan dengan padding .package-card jika h2 adalah anak langsung */
+    border-radius: 10px 10px 0 0; /* Radius hanya di atas jika konten di bawahnya */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    font-size: 1.6em; /* Sesuaikan ukuran font jika perlu */
+}
+
+.package-card.open > h2.quest-category-main-toggle { /* Saat dropdown terbuka */
+    border-radius: 10px 10px 0 0; /* Pastikan radius atas tetap */
+}
+
+
+.package-card > h2.quest-category-main-toggle:hover {
+    background-color: #0056b3; /* Warna hover lebih gelap */
+}
+
+.quest-category-main-toggle .main-toggle-icon {
+    font-weight: bold;
+    font-size: 1.2em; /* Ukuran ikon */
+    transition: transform 0.3s ease;
+}
+
+.package-card.open > h2.quest-category-main-toggle .main-toggle-icon {
+    transform: rotate(45deg); /* Ubah ikon menjadi 'x' atau '-' saat terbuka */
+}
+
+.quest-category-main-content {
+    padding: 20px; /* Padding untuk konten di dalam dropdown */
+    /* display: none; diatur oleh JS atau inline HTML */
+    border: 1px solid #ddd; /* Border untuk konten */
+    border-top: none; /* Hapus border atas karena sudah ada di toggle */
+    border-radius: 0 0 10px 10px; /* Radius di bawah */
+    background-color: #fdfdfd; /* Background konten sedikit berbeda */
+}
+
+/* Untuk animasi (opsional) */
+.quest-category-main-content.collapsing {
+    overflow: hidden;
+    transition: height 0.35s ease, opacity 0.35s ease, padding-top 0.35s ease, padding-bottom 0.35s ease;
+    opacity: 0;
+    height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.quest-category-main-content.show {
+    opacity: 1;
+}
+
+/* Gaya untuk sub-dropdown (yang sudah Anda buat sebelumnya) */
+/* Pastikan gaya ini tidak bertabrakan dan tetap berfungsi di dalam .quest-category-main-content */
+.quest-category-main-content .quest-region-group {
+    margin-top: 15px;
+}
+
+.quest-category-main-content h3.quest-region-toggle,
+.quest-category-main-content h4.quest-region-toggle { /* Jika Anda menggunakan h4 untuk sub-toggle */
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em; /* Ukuran font sub-toggle */
+    transition: background-color 0.2s ease;
+}
+
+.quest-category-main-content h3.quest-region-toggle:hover,
+.quest-category-main-content h4.quest-region-toggle:hover {
+    background-color: #ced4da;
+}
+
+.quest-category-main-content .quest-region-toggle .toggle-icon,
+.quest-category-main-content .quest-region-toggle .sub-toggle-icon {
+    font-weight: bold;
+    font-size: 1em; /* Ukuran ikon sub-toggle */
+    transition: transform 0.3s ease;
+}
+
+.quest-category-main-content .quest-region-group.active .quest-region-toggle .toggle-icon,
+.quest-category-main-content .quest-region-group.active .quest-region-toggle .sub-toggle-icon {
+    transform: rotate(45deg);
+}
+
+.quest-category-main-content ul.quest-list {
+    padding-left: 20px;
+    margin-top: 0;
+    border-left: 2px solid #007bff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 0 0 5px 5px;
+}
+
 /* Responsive untuk mobile */
 @media screen and (max-width: 480px) {
   .search-bar {
