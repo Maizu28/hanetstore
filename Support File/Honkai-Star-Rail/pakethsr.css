@@ -331,7 +331,7 @@ background-color: #0056b3;
 }
 
 /* CSS untuk Dropdown Kategori Quest Utama */
-.package-card-drop {
+.package-card {
     margin-bottom: 20px; /* Jarak antar package-card */
     /* Gaya .package-card yang sudah ada bisa tetap di sini */
 }
