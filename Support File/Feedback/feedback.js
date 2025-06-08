@@ -27,11 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === URL Konfigurasi ===
-    // PENTING: PASTIKAN URL DI BAWAH INI DIISI DENGAN URL ANDA YANG SEBENARNYA DAN VALID.
-    const DISCORD_WEBHOOK_URL = "URL DISCORD";
+    const DISCORD_WEBHOOK_URL = "MASUKAN_URL_WEBHOOK_DISCORD";
     const APPS_SCRIPT_FEEDBACK_URL = "https://script.google.com/macros/s/AKfycbzG5V-88uMIvveOT39f171bV9V_5xXWZKx7w7dOHfEhPxKo9qshDvJdVXM5zFYJpQ7iNg/exec";
 
-    // Logika Rating Bintang
     function updateStarVisuals(currentRatingValue) {
         stars.forEach(s => {
             const starValue = parseInt(s.dataset.value);
