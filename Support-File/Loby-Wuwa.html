@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wuthering Wave</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Maizu28/hanetstore/refs/heads/main/foto-profile-app.gif">
+    <link rel="stylesheet" href="list.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <h1>HANETSTORE</h1>
+        <p>Solusi Terbaik untuk Kebutuhan Anda</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="Tentang-Kami.html">Tentang Kami</a>
+        <a href="hanetstore.html">Produk</a>
+        <a href="Kontak.html">Kontak</a>
+        <a href="Login/login.html">Login</a>
+    </nav>
+
+    <div class="container">
+        <div class="pagination">
+            <a href="Loby-Genshin.html"><img src="Img\Genshin-Impact-Logo.png" alt="Genshin-Impact-Logo" border="0" alt="Page 1"></a>
+            <a href="Loby-HSR.html"><img src="Img/Logo HSR.png" alt="Logo-HSR" border="0"alt="Page 3"></a>
+            <a href="Loby-Wuwa.html"><img src="Img\Wuthering_Waves_logo.svg.png" alt="Wuthering-Waves-logo-svg" border="0" class="active"  alt="Page 4"></a>
+            <a href="Loby-ZZZ.html"><img src="Img\Logo ZZZ.webp" alt="Logo-ZZZ" border="0" alt="Page 2"></a>
+        </div>
+
+        <!-- Pencarian -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Cari kategori pesanan" />
+            <button onclick="handleSearch()" class="icon-button">
+                <img src="Img/Search.png" alt="search" />
+            </button>
+            <a href="Cart/keranjang.html" class="icon-button">
+                <img src="Img/png cart.png" alt="cart" />
+            </a>
+        </div>
+
+        <!-- Tambahkan lebih banyak tombol sesuai kebutuhan -->
+        <h2>Promo Paket Joki Wuthering Waves</h2>
+        <div class="package-list">
+            <div class="package-card">
+                <h3>RAWAT AKUN</h3>
+                <p>30 Days</p>
+                <div class="price-discount"><s>Rp 150.000</s> 43%</div>
+                <div class="price">Rp 85.500</div>
+                <a href="Wuthering-Waves/Rawat-Wuwa.html"><button
+                        class="btn">Lihat Paket</button></a>
+                <button class="btn add-to-cart" data-id="rawat-akun-wuthering-waves" data-game="Wuthering Waves"
+                data-name="RAWAT AKUN - 30 Days" data-price="Rp 85.500">+ Keranjang</button>
+            </div>
+
+            <div class="package-card">
+                <h3>LIMITED EVENT</h3>
+                <p>Aniversary</p>
+                <div class="price-discount"><s>Rp 70.000</s> 30%</div>
+                <div class="price">Rp 49.000</div>
+                <a href="Wuthering-Waves/Event-Wuwa.html"><button
+                        class="btn">Lihat Paket</button></a>
+                <button class="btn add-to-cart" data-id="limited-event-wuthering-waves" data-game="Wuthering Waves"
+                data-name="LIMITED EVENT - Aniversary" data-price="Rp 49.000">+ Keranjang</button>
+            </div>
+
+            <div class="package-card">
+                <h3>ALL QUEST</h3>
+                <p>Complete All Quests on the White List</p>
+                <div class="price-discount">.<s></s></div>
+                <div class="price">Rp 220.000</div>
+                <a href="Wuthering-Waves/Quest-Wuwa.html"><button
+                        class="btn">Lihat Paket</button></a>
+                <button class="btn add-to-cart" data-id="all-quest-wuthering-waves" data-game="Wuthering Waves"
+                data-name="ALL QUEST" data-price="Rp 220.000">+ Keranjang</button>
+            </div>
+        </div>
+
+        <h2 style="margin-top: 50px;">Layanan Kami</h2>
+        <div class="package-list">
+            <div class="package-card">
+                <div class="Elm"> <img src="Img\Quest Wuwa.webp" alt="Quest-Wuwa" border="0"
+                        class="elm-img"></a>>QUEST</div>
+            <ul class="fitur-deskriptif">
+                <Li>Main Quest</Li>
+                <Li>Companion Quest</Li>
+                <LI>Exploration Quest Quest</LI>
+                <Li>Side Quest</Li>
+            </ul>
+            </div>
+
+            <div class="package-card">
+                <div class="Elm"> <img src="Img\Icon_Data_Bank.webp" alt="Icon-Data-Bank"
+                        border="0" class="elm-img"></a>EXPLORE</div>
+            <ul class="fitur-deskriptif">
+                <Li>Gergos of Spirit</LI>
+                <Li>Tiger's Maw</Li>
+                <LI>Jinzhou</LI>
+                <Li>Norfall Barrens</Li>
+                <Li>Wuming Bay</Li>
+                <Li>Dim Forest</Li>
+                <Li>Chenyu Vale</Li>
+                <Li>Port City Guixu</Li>
+                <Li>Desorock Highland</Li>
+                <Li>Whining Aix Mire</Li>
+                <Li>Central Plains</Li>
+            </ul>
+            </div>
+
+            <div class="package-card">
+                <div class="Elm"> <img src="Img\Icon_Weekly_Challenge.webp"
+                        alt="Icon-Weekly-Challenge" border="0" class="elm-img"></a>RAWAT AKUN</div>
+            <ul class="fitur-deskriptif">
+                <Li>Daily</LI>
+                <Li>Weekly</Li>
+                <LI>Monthly</LI>
+            </ul>
+            </div>
+
+            <div class="package-card">
+                <div class="Elm"> <img src="Img\Icon_Community.webp" alt="Icon-Community"
+                        border="0" class="elm-img"></a>Other</div>
+            <ul class="fitur-deskriptif"> 
+                <LI>Event</LI>
+                <Li>Data Bank</LI>
+                <Li>Resource</Li>
+                <LI>Build Character</LI>
+                <Li>Custom Order by Request</Li>
+            </ul>
+            </div>
+        </div>
+    </div>
+
+<script>
+  function handleSearch() {
+    const input = document.getElementById("searchInput").value.trim();
+    if (input) {
+      window.location.href = `https://maizu28.github.io/hanetstore/Support%20File/Genshin%20Impact/Semua%20Pesanan%20gi.html?query=${encodeURIComponent(input)}`;
+    } else {
+      alert("Masukan kata kunci pencarian.");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("searchInput").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+    if (query) {
+      document.getElementById("searchInput").value = query;
+    }
+  });
+</script>
+
+    <script src="list.js"></script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 HANETSTORE. Tempat Joki Teraman dan Terpercaya.</p>
+    </footer>
+</body>
+
+</html>

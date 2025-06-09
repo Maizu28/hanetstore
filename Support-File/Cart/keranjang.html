@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keranjang Belanja</title>
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Maizu28/hanetstore/refs/heads/main/foto-profile-app.gif">
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* Header */
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    header p {
+      margin: 5px 0 0;
+      font-size: 1em;
+    }
+    /* Navigation */
+    nav {
+      background-color: #444;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 1em;
+      transition: color 0.3s;
+      padding: 5px 0;
+    }
+    nav a:hover {
+      color: #00a3ff;
+    }
+
+    /* Container Utama Keranjang */
+    .cart-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .cart-container h1 { /* Judul "Keranjang Belanja" */
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+      color: #333;
+    }
+    /* Kartu Item di Keranjang */
+    .cart-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .cart-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #333;
+    }
+    .cart-info {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.9em;
+      margin-bottom: 8px;
+    }
+    .cart-card .price { /* Harga per item di kartu */
+      font-weight: 500;
+      color: #555;
+    }
+    .cart-card .subtotal { /* Subtotal per item */
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: right;
+        color: #333;
+        font-size: 1em;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+    }
+    .qty-controls button {
+      width: 30px;
+      height: 30px;
+      font-size: 1em;
+      font-weight: bold;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      line-height: 1; /* Untuk alignment teks tombol vertikal */
+      transition: background-color 0.2s ease;
+    }
+    .qty-controls button:hover {
+        background-color: #e0e0e0;
+    }
+    .qty-controls span {
+      margin: 0 12px;
+      font-size: 1em;
+      min-width: 20px; /* Agar angka tidak geser-geser */
+      text-align: center;
+    }
+    .remove-btn {
+      margin-top: 12px;
+      background: #dc3545; /* Warna merah untuk hapus */
+      color: #fff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.2s ease;
+    }
+    .remove-btn:hover {
+        background-color: #c82333;
+    }
+    /* Bagian Kode Promo */
+    .promo-section {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+    .promo-section h4 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        color: #333;
+        font-weight: 600;
+    }
+    .promo-input-group { /* Wrapper untuk input dan tombol promo */
+      display: flex;
+      gap: 8px;
+      align-items: stretch; /* Membuat input dan tombol sama tinggi */
+    }
+    .promo-section input[type="text"]#promo-code-input {
+      flex-grow: 1; /* Input mengambil ruang yang tersedia */
+      padding: 10px 12px; /* Sesuaikan padding agar tinggi serasi dengan tombol */
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.95em;
+      /* height: 46px; Dihapus, biarkan padding menentukan tinggi */
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box; /* Pastikan padding dan border termasuk dalam width/height */
+    }
+    .promo-section input[type="text"]#promo-code-input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+    .promo-section button#apply-promo-btn {
+      padding: 10px 15px; /* Sesuaikan padding agar tinggi serasi dengan input */
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95em;
+      white-space: nowrap;
+      /* height: 38px; Dihapus, biarkan padding menentukan tinggi */
+      transition: background-color 0.2s ease;
+      /* align-self: center; Dihapus, align-items: stretch pada parent akan bekerja */
+    }
+    .promo-section button#apply-promo-btn:hover {
+      background-color: #218838;
+    }
+    #promo-status {
+      font-size: 0.9em;
+      margin-top: 10px;
+      min-height: 1.2em; /* Mencegah layout shift */
+    }
+    /* Bagian Total Keseluruhan */
+    .total-section {
+      text-align: right;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+    }
+    .total-section div {
+      margin-bottom: 6px;
+      font-size: 1rem;
+      color: #555;
+    }
+    .total-section div.final-total-amount { /* Kelas khusus untuk Total Akhir */
+      font-size: 1.25em !important; 
+      font-weight: bold !important;
+      color: #28a745 !important; 
+      margin-top: 10px !important;
+      padding-top: 10px !important;
+      border-top: 1px dashed #ccc !important;
+    }
+     .total-section div.discount-display { /* Kelas khusus untuk tampilan diskon */
+      color: green;
+      text-align: right;
+      margin-top: 5px;
+      font-size: 0.95rem;
+     }
+    /* Tombol Checkout */
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px;
+      margin-top: 25px;
+      font-weight: bold;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .checkout-btn:hover {
+      background-color: #0056b3;
+    }
+    /* Pesan Keranjang Kosong */
+    .empty-cart {
+      text-align: center;
+      font-size: 1.1rem;
+      margin: 40px 0; 
+      padding: 20px;
+      color: #777;
+      background-color: #f9f9f9;
+      border: 1px dashed #ddd;
+      border-radius: 8px;
+    }
+
+    @media screen and (max-width: 480px) {
+      .cart-container { margin: 10px; padding: 15px; }
+      .promo-input-group { flex-direction: column; gap: 10px; align-items: stretch; }
+      .promo-section input[type="text"]#promo-code-input { width: 100%; margin-right: 0; margin-bottom: 10px; /* height: 46px; Dihapus */ }
+      .promo-section button#apply-promo-btn { width: 40%; height: 38px; }
+      .cart-info { font-size: 0.85em; }
+      .cart-card h3 { font-size: 1em; }
+      .total-section div { font-size: 0.95rem; }
+      .total-section div.final-total-amount { font-size: 1.15em !important; }
+      .checkout-btn { font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>HANETSTORE</h1>
+    <p>Solusi Terbaik untuk Kebutuhan Anda</p>
+  </header>
+
+  <nav>
+    <a href="https://maizu28.github.io/hanetstore/Support-file/tentang-kami.htmml">Tentang Kami</a>
+    <a href="https://maizu28.github.io/hanetstore/Support-File/hanetstore.htmml">Produk</a>
+    <a href="https://maizu28.github.io/hanetstore/Support-File/Kontak.htmml">Kontak</a>
+    <a href="https://maizu28.github.io/hanetstore/Support-File/Login/login.htmml">Login</a>
+  </nav>
+
+  <div class="cart-container">
+    <h1>Tempat Belanja</h1> 
+    <P>Note: Jika terjadi bug pesanan tidak muncul/pesanan tidak bisa dihapus lakukan Delete browsing data
+      pada pengaturan browser yang anda gunakan</P>
+    <div id="cart-content">
+    </div>
+  </div>
+
+  <script type="module" src="keranjang.js"></script>
+  
+</body>
+</html>

@@ -16,7 +16,7 @@ function updateProgress() {
 }
 
 completedButton.addEventListener('click', () => {
-    window.location.href = 'Support File/hanetstore.html';
+    window.location.href = 'Support-File/hanetstore.html';
 });
 
 updateProgress();
