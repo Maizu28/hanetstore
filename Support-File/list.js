@@ -119,7 +119,7 @@ function handleSearch() {
     if (!inputElement) return;
     const input = inputElement.value.trim();
     if (input) {
-        window.location.href = `https://maizu28.github.io/hanetstore/Support%20File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
+        window.location.href = `https://maizu28.github.io/hanetstore/Support-File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
     } else {
         alert("Masukkan kata kunci pencarian.");
     }
