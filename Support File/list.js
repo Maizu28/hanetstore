@@ -5,7 +5,7 @@
 function getCart() {
     let cartData = [];
     try {
-        const cartString = localStorage.getItem("pimonjoki_cart");
+        const cartString = localStorage.getItem("hanetstore_cart");
         if (cartString) {
             cartData = JSON.parse(cartString);
             if (!Array.isArray(cartData)) {
@@ -22,7 +22,7 @@ function getCart() {
 
 function saveCart(cart) {
     try {
-        localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+        localStorage.setItem("hanetstore_cart", JSON.stringify(cart));
     } catch (error) {
         console.error("Error menyimpan keranjang ke localStorage:", error);
     }
@@ -119,7 +119,7 @@ function handleSearch() {
     if (!inputElement) return;
     const input = inputElement.value.trim();
     if (input) {
-        window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
+        window.location.href = `https://maizu28.github.io/hanetstore/Support%20File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
     } else {
         alert("Masukkan kata kunci pencarian.");
     }
@@ -157,7 +157,7 @@ function orderNow(buttonElement) {
     }
     const gameName = packageCard.dataset.game || "Genshin Impact";
     const messageText = `Halo Atmin, saya ingin memesan joki game ${gameName}:\n\n${packageDetailsString}\n\nApakah masih tersedia? Terima kasih!`;
-    const whatsappNumber = "6285150893694";
+    const whatsappNumber = "6285850131912";
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(messageText)}`;
     window.open(whatsappLink, '_blank');
 }
@@ -165,7 +165,7 @@ function orderNow(buttonElement) {
 
 // === SEMUA LOGIKA YANG BERJALAN SETELAH DOM SIAP ===
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM siap, menjalankan setup Pimonjoki.js...");
+    console.log("DOM siap, menjalankan setup hanetstore.js...");
 
     // --- 1. Setup Badge Promo Dinamis ---
     document.querySelectorAll(".package-card").forEach(card => {

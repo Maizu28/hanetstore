@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleSearch() {
     const input = document.getElementById("searchInput").value.trim();
     if (input) {
-      window.location.href = `https://maizu28.github.io/pimonjokiid/Support%20File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
+      window.location.href = `https://maizu28.github.io/hanetstore/Support%20File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
     } else {
       alert("Masukan kata kunci pencarian.");
     }
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function getCart() {
   let cartData = [];
   try {
-    const cartString = localStorage.getItem("pimonjoki_cart");
+    const cartString = localStorage.getItem("hanetstore_cart");
     if (cartString) {
       cartData = JSON.parse(cartString);
       if (!Array.isArray(cartData)) {
@@ -107,7 +107,7 @@ function getCart() {
 
 function saveCart(cart) {
   try {
-    localStorage.setItem("pimonjoki_cart", JSON.stringify(cart));
+    localStorage.setItem("hanetstore_cart", JSON.stringify(cart));
   } catch (error) {
     console.error("Error menyimpan keranjang ke localStorage:", error);
   }

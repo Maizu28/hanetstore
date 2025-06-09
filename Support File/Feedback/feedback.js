@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ratingStarsText = '⭐'.repeat(rating) + '☆'.repeat(5 - rating) + ` (${rating}/5)`;
         }
         const payloadDiscord = {
-            username: "Pimonjoki Feedback",
+            username: "Hanetstore Feedback",
             avatar_url: "https://i.imgur.com/R66g1Pe.png",
             embeds: [{
                 title: "📝 Feedback Baru Diterima!",

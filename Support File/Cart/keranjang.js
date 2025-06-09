@@ -7,7 +7,7 @@ let currentAppliedPromo = null; // Menyimpan detail promo yang SEDANG diterapkan
 // === KONFIGURASI PROMO & ENDPOINT ===
 const PROMO_CODES = {
     "HEMAT10": { type: "percentage", value: 10, description: "Diskon 10%", minPurchase: 50000 },
-    "PIMONJOKIYES": { type: "percentage", value: 15, description: "Diskon Spesial 15%", minPurchase: 100000 },
+    "HANETSTOREYES": { type: "percentage", value: 15, description: "Diskon Spesial 15%", minPurchase: 100000 },
     "DISKON5K": { type: "fixed", value: 5000, description: "Potongan Rp 5.000", minPurchase: 25000 },
     "WELCOMENEW": {type: "fixed", value: 20000, description: "Potongan Rp 20.000", minPurchase: 75000 },
     "10TERCEPAT": { type: "fixed", value: 10000, description: "Potongan Rp 10.000 (10 tercepat)", minPurchase: 50000, usageLimit: 10 },
@@ -62,7 +62,7 @@ function isPromoPerUserAvailable(code, userName) {
 function getCart() {
     let cartData = [];
     try {
-        const cartString = localStorage.getItem("pimonjoki_cart");
+        const cartString = localStorage.getItem("hanetstore_cart");
         if (cartString) {
             cartData = JSON.parse(cartString);
             if (!Array.isArray(cartData)) { // Pastikan hasilnya array
@@ -79,7 +79,7 @@ function getCart() {
 
 function saveCart(_cart) {
     try {
-        localStorage.setItem("pimonjoki_cart", JSON.stringify(_cart));
+        localStorage.setItem("hanetstore_cart", JSON.stringify(_cart));
     } catch (error) {
         console.error("Error menyimpan keranjang ke localStorage:", error);
         // Pertimbangkan untuk memberi tahu pengguna jika penyimpanan gagal, tergantung kebutuhan
@@ -89,7 +89,7 @@ function saveCart(_cart) {
 function loadCartAndPromo() {
     cart = getCart(); // Menggunakan getCart yang sudah menghandle error parsing
     // Opsi: Memuat currentAppliedPromo dari localStorage jika ingin persisten antar sesi/refresh
-    // const savedPromoString = localStorage.getItem("appliedPimonjokiPromo");
+    // const savedPromoString = localStorage.getItem("appliedHanetstorePromo");
     // if (savedPromoString) {
     //     try {
     //         const savedPromo = JSON.parse(savedPromoString);
@@ -97,11 +97,11 @@ function loadCartAndPromo() {
     //         if (savedPromo && PROMO_CODES[savedPromo.code]) {
     //            currentAppliedPromo = savedPromo;
     //         } else {
-    //            localStorage.removeItem("appliedPimonjokiPromo"); // Hapus jika tidak valid
+    //            localStorage.removeItem("appliedHanetstorePromo"); // Hapus jika tidak valid
     //         }
     //     } catch (e) {
     //         console.error("Gagal parse promo tersimpan:", e);
-    //         localStorage.removeItem("appliedPimonjokiPromo");
+    //         localStorage.removeItem("appliedHanetstorePromo");
     //     }
     // }
 }
@@ -246,7 +246,7 @@ function removeItem(id) {
         if (currentAppliedPromo && currentCart.length === 0) {
             // Jika keranjang jadi kosong, pertimbangkan untuk mereset promo atau memvalidasi ulang
             // currentAppliedPromo = null; // Opsi: hapus promo jika keranjang kosong
-            // localStorage.removeItem("appliedPimonjokiPromo"); // Jika promo disimpan di localStorage
+            // localStorage.removeItem("appliedHanetstorePromo"); // Jika promo disimpan di localStorage
         }
         if (typeof renderCart === "function") renderCart();
     }
@@ -269,7 +269,7 @@ async function applyPromoCode() {
     });
 
     currentAppliedPromo = null; // Reset promo saat ini sebelum validasi baru
-    // localStorage.removeItem("appliedPimonjokiPromo"); // Jika promo disimpan di localStorage
+    // localStorage.removeItem("appliedHanetstorePromo"); // Jika promo disimpan di localStorage
 
     promoStatusDiv.textContent = ""; // Bersihkan status sebelumnya
 
@@ -310,7 +310,7 @@ async function applyPromoCode() {
                 const normalizedName = customerName.trim().toLowerCase();
                 if (isPromoPerUserAvailable(promoCodeEntered, normalizedName)) {
                     currentAppliedPromo = { ...promoDetails, code: promoCodeEntered, customerNameForValidation: normalizedName };
-                    // localStorage.setItem("appliedPimonjokiPromo", JSON.stringify(currentAppliedPromo)); // Jika ingin persisten
+                    // localStorage.setItem("appliedHanetstorePromo", JSON.stringify(currentAppliedPromo)); // Jika ingin persisten
                     promoStatusDiv.textContent = `Kode promo "${promoCodeEntered}" siap diterapkan.`;
                     promoStatusDiv.style.color = "green";
                 } else {
@@ -322,12 +322,12 @@ async function applyPromoCode() {
                 promoStatusDiv.style.color = "orange";
                 // Reset promo jika nama tidak dimasukkan
                 currentAppliedPromo = null;
-                // localStorage.removeItem("appliedPimonjokiPromo");
+                // localStorage.removeItem("appliedHanetstorePromo");
             }
         } else {
             // Promo valid dan tidak memerlukan validasi nama pengguna khusus di tahap ini
             currentAppliedPromo = { ...promoDetails, code: promoCodeEntered };
-            // localStorage.setItem("appliedPimonjokiPromo", JSON.stringify(currentAppliedPromo)); // Jika ingin persisten
+            // localStorage.setItem("appliedHanetstorePromo", JSON.stringify(currentAppliedPromo)); // Jika ingin persisten
             promoStatusDiv.textContent = `Kode promo "${promoCodeEntered}" siap diterapkan.`;
             promoStatusDiv.style.color = "green";
         }
@@ -484,7 +484,7 @@ function renderCart() {
                 // Jika promo menjadi tidak valid sama sekali (bukan hanya minPurchase), pertimbangkan untuk meresetnya
                 if (!isValidDate || !isAvailableGlobal || (!isAvailablePerUser && currentAppliedPromo.customerNameForValidation)) {
                     // currentAppliedPromo = null; // Reset promo
-                    // localStorage.removeItem("appliedPimonjokiPromo");
+                    // localStorage.removeItem("appliedHanetstorePromo");
                     // Jika direset, input promo code juga harus dikosongkan
                     // document.getElementById('promo-code-input').value = '';
                 }
@@ -562,7 +562,7 @@ async function sendOrderToDiscordWebhook(orderDetails) {
             { name: "Detail Item Dipesan", value: "```\n" + orderDetails.jenis + "\n```" } // ``` untuk blok kode
         ],
         timestamp: new Date().toISOString(),
-        footer: { text: "Pimonjoki.id Order System" }
+        footer: { text: "hanetstore Order System" }
     };
     try {
         const response = await fetch(DISCORD_WEBHOOK_URL, {
@@ -671,7 +671,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
         } else {
             alert(`${alertMessagePromoInvalid} Diskon dibatalkan. Pesanan akan diproses tanpa diskon.`);
             currentAppliedPromo = null; // Hapus promo yang tidak valid
-            // localStorage.removeItem("appliedPimonjokiPromo");
+            // localStorage.removeItem("appliedHanetstorePromo");
             // Update nilai yang akan dikirim dan ditampilkan
             discountValue = 0;
             finalAmount = originalSubtotal;
@@ -684,7 +684,7 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
     } else if (promoCodeUsed) { // Jika promoCodeUsed ada tapi tidak lagi valid atau tidak cocok dengan currentAppliedPromo
         alert(`Kode promo "${promoCodeUsed}" tidak lagi valid atau ada perubahan. Pesanan akan diproses tanpa diskon.`);
         currentAppliedPromo = null;
-        // localStorage.removeItem("appliedPimonjokiPromo");
+        // localStorage.removeItem("appliedHanetstorePromo");
         discountValue = 0;
         finalAmount = originalSubtotal;
         promoCodeUsed = null;
@@ -805,11 +805,11 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
         // Asumsi sukses jika tidak ada error network dengan "no-cors" atau jika parsing di atas berhasil
         // (dataAppsScript.status === "sukses" akan selalu true jika pakai default di atas)
         // if (dataAppsScript.status === "sukses") { //
-            const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan ke admin (085150893694)\nKode Pesanan: ${dataAppsScript.kodePesanan || kodePesananCustom}`;
+            const alertMessage = `Pesanan berhasil!\nSimpan dan berikan Kode Pesanan ke admin (085850131912)\nKode Pesanan: ${dataAppsScript.kodePesanan || kodePesananCustom}`;
             alert(alertMessage);
 
-            const whatsappNumber = "6285150893694"; // Nomor WA Admin
-            let whatsappMessage = `Halo Admin Pimonjoki,\n\nSaya telah melakukan pemesanan dengan detail berikut:\n`;
+            const whatsappNumber = "6285850131912"; // Nomor WA Admin
+            let whatsappMessage = `Halo Admin hanetstore,\n\nSaya telah melakukan pemesanan dengan detail berikut:\n`;
             whatsappMessage += `Nama Pemesan: ${nama}\n`;
             whatsappMessage += `Kode Pesanan: ${dataAppsScript.kodePesanan || kodePesananCustom}\n`;
             whatsappMessage += `Game: ${game}\n\n`;
@@ -837,9 +837,9 @@ async function checkout(finalAmount, originalSubtotal, discountValue, promoCodeU
                     localStorage.setItem(userPromoKey, usedByUser + 1);
                 }
             }
-            localStorage.removeItem("pimonjoki_cart");
+            localStorage.removeItem("hanetstore_cart");
             currentAppliedPromo = null;
-            // localStorage.removeItem("appliedPimonjokiPromo");
+            // localStorage.removeItem("appliedHanetstorePromo");
             cart = []; // Kosongkan variabel global cart
             if (typeof renderCart === "function") renderCart(); // Render ulang keranjang (akan jadi kosong)
         // } else { // Untuk kasus jika BUKAN no-cors dan Apps Script mengembalikan status != "sukses"
