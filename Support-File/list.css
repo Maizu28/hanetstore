@@ -67,8 +67,6 @@ nav a:hover {
     gap: 20px;
     justify-content: flex-start;
     margin-top: 20px;
-    align-items: stretch; /* Memastikan semua kartu memiliki tinggi yang sama */
-    flex-direction: column; /* Mengubah arah flex menjadi kolom */
 }
 .package-card {
     position: relative;
