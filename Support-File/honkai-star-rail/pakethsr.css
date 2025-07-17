@@ -463,6 +463,19 @@ background-color: #0056b3;
   }
 }
 
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    .pagination {
+    display: flex; /* Menjadikan kontainer ini sebagai flex container */
+    justify-content: center; /* Menengahkan item secara horizontal */
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .pagination {
+    display: flex; /* Menjadikan kontainer ini sebagai flex container */
+    justify-content: center; /* Menengahkan item secara horizontal */
+    }
+}
 
 
 /*Badge promo*/
