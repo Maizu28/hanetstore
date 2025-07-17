@@ -10,8 +10,6 @@ body {
 
 a {
     text-decoration: none;
-    align-items: stretch;
-    display: flex;
 }
 
 .container { /* Kontainer utama untuk membatasi lebar konten */
@@ -122,6 +120,11 @@ nav a:hover {
     color: #888;
     margin-right: 6px;
     text-decoration: line-through;
+}
+
+.acard {
+    align-items: stretch;
+    display: flex;
 }
 
 /* Tombol Umum .btn */
