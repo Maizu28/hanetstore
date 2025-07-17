@@ -63,7 +63,7 @@ nav a:hover {
 /* ====== PACKAGE LIST & CARD ====== */
 .package-list {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: flex-start;
     margin-top: 20px;
