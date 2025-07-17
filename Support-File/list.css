@@ -63,10 +63,12 @@ nav a:hover {
 /* ====== PACKAGE LIST & CARD ====== */
 .package-list {
     display: flex;
-    
+    flex-wrap: wrap;
     gap: 20px;
     justify-content: flex-start;
     margin-top: 20px;
+    align-items: stretch; /* Memastikan semua kartu memiliki tinggi yang sama */
+    flex-direction: column; /* Mengubah arah flex menjadi kolom */
 }
 .package-card {
     position: relative;
@@ -76,7 +78,6 @@ nav a:hover {
     width: 300px;
     transition: transform 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    align-items: stretch; /* Memastikan semua kartu memiliki tinggi yang sama */
 }
 
 .package-card:hover {
