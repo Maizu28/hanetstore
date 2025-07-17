@@ -249,7 +249,8 @@ background-color: #0056b3;
 
 /* Page List */
 .pagination {
-    justify-content: center; /* Menengahkan item secara horizontal */
+    display: flex; /* Menjadikan kontainer ini sebagai flex container */
+    
     overflow-x: auto;
     white-space: nowrap;
     gap: 10px;
