@@ -43,7 +43,7 @@ nav a {
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #00a3ff;
 }
 
 /* Main Content */
