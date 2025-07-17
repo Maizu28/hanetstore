@@ -65,8 +65,9 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: flex-start;
+    justify-content: flex-start; 
     margin-top: 20px;
+    align-items: center;
 }
 .package-card {
     position: relative;
