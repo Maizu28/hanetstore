@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleSearch() {
     const input = document.getElementById("searchInput").value.trim();
     if (input) {
-      window.location.href = `https://thanets28.site/hanetstore/Support-File/search-menu/search-menu?query=${encodeURIComponent(input)}`;
+      window.location.href = `https://maizu28.github.io/hanetstore/Support-File/search-menu/search-menu.html?query=${encodeURIComponent(input)}`;
     } else {
       alert("Masukan kata kunci pencarian.");
     }
